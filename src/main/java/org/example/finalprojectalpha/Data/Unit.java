@@ -19,4 +19,8 @@ public class Unit {
     public int getUnitId() {
         return unitId;
     }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
 }

@@ -11,7 +11,7 @@ public class Output {
 
     public static void saveToFile(List<Unit> units){
         try {
-            FileWriter fileWriter = new FileWriter("units.txt", true);
+            FileWriter fileWriter = new FileWriter("units.txt", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (Unit unit : units) {
                 printWriter.println(unit.getUnitId() + ". " + unit.getUnitName());
