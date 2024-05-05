@@ -14,7 +14,7 @@ public class Output {
             FileWriter fileWriter = new FileWriter("units.txt", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (Unit unit : units) {
-                printWriter.println(unit.getUnitId() + ". " + unit.getUnitName());
+                printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|" + unit.getInsigniaPath());
             }
             printWriter.close();
         } catch (IOException e) {

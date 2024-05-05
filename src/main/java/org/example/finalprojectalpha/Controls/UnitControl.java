@@ -12,9 +12,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Unit;
+
+import java.io.File;
+import java.util.Objects;
 
 public class UnitControl extends HBox {
 
@@ -32,11 +37,17 @@ public class UnitControl extends HBox {
         unitNameLabel.setAlignment(Pos.CENTER_LEFT);
         unitNameLabel.setPrefWidth(myGetPrefWidth());
 
-        Image insigniaNotFoundImage = new Image(App.class.getResource("NoImageFound.jpg").toExternalForm());
-        ImageView insigniaNotFoundView = new ImageView(insigniaNotFoundImage);
-        insigniaNotFoundView.setFitHeight(150);
-        insigniaNotFoundView.setFitWidth(150);
-        hBoxToReturn.getChildren().add(insigniaNotFoundView);
+        ImageView insigniaView;
+        if (unit.getInsigniaPath() != null && !unit.getInsigniaPath().equals("null")) {
+            Image insigniaImage = new Image(unit.getInsigniaPath());
+            insigniaView = new ImageView(insigniaImage);
+        } else {
+            Image insigniaNotFoundImage = new Image(App.class.getResource("NoImageFound.jpg").toExternalForm());
+            insigniaView = new ImageView(insigniaNotFoundImage);
+        }
+        insigniaView.setFitHeight(150);
+        insigniaView.setFitWidth(150);
+        hBoxToReturn.getChildren().add(insigniaView);
 
         hBoxToReturn.getChildren().add(unitNameLabel);
         hBoxToReturn.setBorder(
@@ -59,18 +70,28 @@ public class UnitControl extends HBox {
         editNameField.setAlignment(Pos.CENTER_LEFT);
         editNameField.setPrefWidth(myGetPrefWidth());
         editButton.setOnAction(event -> {
+            hBoxToReturn.getChildren().remove(insigniaView);
             hBoxToReturn.getChildren().remove(unitNameLabel);
             hBoxToReturn.getChildren().remove(editButton);
+
+            Button chooseInsigniaButton = getButton(insigniaView, unit);
+            hBoxToReturn.getChildren().add(chooseInsigniaButton);
+
             hBoxToReturn.getChildren().add(editNameField);
             Button saveButton = new Button("Save");
             hBoxToReturn.getChildren().add(saveButton);
             saveButton.setFont(new Font(36));
             saveButton.setOnAction(event1 -> {
-                unit.setUnitName(editNameField.getText());
+                hBoxToReturn.getChildren().remove(chooseInsigniaButton);
                 hBoxToReturn.getChildren().remove(editNameField);
+                hBoxToReturn.getChildren().remove(saveButton);
+
+                hBoxToReturn.getChildren().add(insigniaView);
                 hBoxToReturn.getChildren().add(unitNameLabel);
                 hBoxToReturn.getChildren().add(editButton);
-                hBoxToReturn.getChildren().remove(saveButton);
+
+                unit.setUnitName(editNameField.getText());
+
                 unitNameLabel.setText(unit.getUnitName());
             });
         });
@@ -79,6 +100,29 @@ public class UnitControl extends HBox {
         hBoxToReturn.setAlignment(Pos.CENTER_LEFT);
         hBoxToReturn.setSpacing(10);
         return hBoxToReturn;
+    }
+
+    private static Button getButton(ImageView insigniaView, Unit unit) {
+        Button chooseInsigniaButton = new Button("Choose\nInsignia");
+        chooseInsigniaButton.setFont(new Font(31));
+        chooseInsigniaButton.setTextAlignment(TextAlignment.CENTER);
+        chooseInsigniaButton.setPrefHeight(150);
+        chooseInsigniaButton.setPrefWidth(150);
+        chooseInsigniaButton.setOnAction(event2 -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Insignia File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+            );
+            File selectedFile = fileChooser.showOpenDialog(null);
+            if (selectedFile != null) {
+                Image insignia = new Image(selectedFile.toURI().toString());
+                unit.setInsigniaPath(selectedFile.toURI().toString());
+                insigniaView.setImage(insignia);
+            }
+            chooseInsigniaButton.setText("Change\nInsignia");
+        });
+        return chooseInsigniaButton;
     }
 
 }
