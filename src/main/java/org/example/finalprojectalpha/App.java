@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 import org.example.finalprojectalpha.Controls.AddNewUnitControl;
 import org.example.finalprojectalpha.Controls.UnitControl;
 import org.example.finalprojectalpha.Data.Unit;
-import org.example.finalprojectalpha.files.Input;
-import org.example.finalprojectalpha.files.Output;
+import org.example.finalprojectalpha.Files.Input;
+import org.example.finalprojectalpha.Files.Output;
 
 import java.util.ArrayList;
 import java.util.List;
