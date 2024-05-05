@@ -45,8 +45,8 @@ public class UnitControl extends HBox {
             Image insigniaNotFoundImage = new Image(App.class.getResource("NoImageFound.jpg").toExternalForm());
             insigniaView = new ImageView(insigniaNotFoundImage);
         }
-        insigniaView.setFitHeight(150);
         insigniaView.setFitWidth(150);
+        insigniaView.setPreserveRatio(true);
         hBoxToReturn.getChildren().add(insigniaView);
 
         hBoxToReturn.getChildren().add(unitNameLabel);
