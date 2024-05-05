@@ -14,7 +14,13 @@ public class Output {
             FileWriter fileWriter = new FileWriter("units.txt", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (Unit unit : units) {
-                printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|" + unit.getInsigniaPath());
+                String insigniaPath = unit.getInsigniaPath();
+                if (insigniaPath != null && !insigniaPath.equals("null")) {
+                    ImageHandler.copyImageToResources(insigniaPath);
+                    printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|" + insigniaPath);
+                } else {
+                    printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|null");
+                }
             }
             printWriter.close();
         } catch (IOException e) {
