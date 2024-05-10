@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.example.finalprojectalpha.Controls.AddNewUnitControl;
 import org.example.finalprojectalpha.Controls.UnitControl;
+import org.example.finalprojectalpha.Controls.UnitLabelControl;
 import org.example.finalprojectalpha.Data.Unit;
 import org.example.finalprojectalpha.Files.Input;
 import org.example.finalprojectalpha.Files.Output;
@@ -32,9 +33,9 @@ public class App extends Application {
     private static final GridPane gridPane = new GridPane();
     private static final Node addNewUnitControlNode = new AddNewUnitControl().render();
 
-    public static void addNewUnit(String newUnitName) {
+    public static void addNewUnit(String newUnitName, Stage primaryStage) {
         units.add(new Unit(newUnitName));
-        Node unitNode = new UnitControl().render(units.getLast());
+        Node unitNode = new UnitControl().render(units.getLast(), primaryStage);
         gridPane.add(unitNode, 0, units.size());
         unitNodes.add(unitNode);
 
@@ -74,11 +75,11 @@ public class App extends Application {
                         getClass().getResource("CoatOfArms.png").toExternalForm()
                 )
         );
-        coatOfArmsView.setFitHeight(150);
-        coatOfArmsView.setFitWidth(150);
+        coatOfArmsView.setFitHeight(75);
+        coatOfArmsView.setFitWidth(75);
         topBox.getChildren().add(coatOfArmsView);
         Label defenseForcesOfUkraineLabel = new Label("Defense Forces of Ukraine");
-        defenseForcesOfUkraineLabel.setFont(new Font(36));
+        defenseForcesOfUkraineLabel.setFont(new Font(18));
         defenseForcesOfUkraineLabel.setAlignment(Pos.CENTER);
         topBox.setBackground(
                 new Background(
@@ -90,21 +91,18 @@ public class App extends Application {
 
         vBox.getChildren().add(topBox);
 
-        HBox unitsLabel = new UnitControl().render(new Unit("Unit Insignia | Unit name"));
-        unitsLabel.getChildren().remove(0);
-        unitsLabel.getChildren().remove(1);
-        gridPane.add(unitsLabel, 0, 0);
+        gridPane.add(new UnitLabelControl().render(), 0, 0);
         gridPane.add(addNewUnitControlNode, 0, 1);
 
         Button loadFromFileButton = new Button("Load");
-        loadFromFileButton.setFont(new Font(36));
-        loadFromFileButton.setPrefHeight(50);
-        loadFromFileButton.setPrefWidth(140);
+        loadFromFileButton.setFont(new Font(18));
+        loadFromFileButton.setPrefHeight(25);
+        loadFromFileButton.setPrefWidth(70);
 
         Button saveToFileButton = new Button("Save");
-        saveToFileButton.setFont(new Font(36));
-        saveToFileButton.setPrefHeight(50);
-        saveToFileButton.setPrefWidth(140);
+        saveToFileButton.setFont(new Font(18));
+        saveToFileButton.setPrefHeight(25);
+        saveToFileButton.setPrefWidth(70);
         saveToFileButton.setOnAction(event -> {
             Output.saveToFile(units);
         });
@@ -125,7 +123,7 @@ public class App extends Application {
             units.addAll(Input.loadFromFile());
 
             for (Unit unit : units) {
-                gridPane.add(new UnitControl().render(unit), 0, units.indexOf(unit) + 1);
+                gridPane.add(new UnitControl().render(unit, primaryStage), 0, units.indexOf(unit) + 1);
                 gridPane.getChildren().removeAll(addNewUnitControlNode);
                 gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
             }

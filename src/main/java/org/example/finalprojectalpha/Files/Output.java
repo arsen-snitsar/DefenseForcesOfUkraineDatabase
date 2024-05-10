@@ -16,7 +16,6 @@ public class Output {
             for (Unit unit : units) {
                 String insigniaPath = unit.getInsigniaPath();
                 if (insigniaPath != null && !insigniaPath.equals("null")) {
-                    ImageHandler.copyImageToResources(insigniaPath);
                     printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|" + insigniaPath);
                 } else {
                     printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|null");

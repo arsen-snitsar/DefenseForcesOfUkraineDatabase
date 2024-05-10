@@ -25,18 +25,18 @@ public class AddNewUnitControl extends UnitControl {
         Button addNewUnitButton = new Button();
         Image image = new Image(App.class.getResource("AddButton.png").toExternalForm());
         ImageView buttonView = new ImageView(image);
-        buttonView.setFitHeight(130);
-        buttonView.setFitWidth(130);
+        buttonView.setFitHeight(90);
+        buttonView.setFitWidth(90);
         addNewUnitButton.setGraphic(buttonView);
 
-        addNewUnitButton.setPrefHeight(150);
-        addNewUnitButton.setPrefWidth(150);
+        addNewUnitButton.setPrefHeight(100);
+        addNewUnitButton.setPrefWidth(100);
 
         hBoxToReturn.getChildren().add(addNewUnitButton);
 
         TextField newUnitNameField = new TextField();
         newUnitNameField.setPromptText("Enter new unit name");
-        newUnitNameField.setFont(new Font(36));
+        newUnitNameField.setFont(new Font(18));
         newUnitNameField.setAlignment(Pos.CENTER_LEFT);
         hBoxToReturn.getChildren().add(newUnitNameField);
 
@@ -44,7 +44,7 @@ public class AddNewUnitControl extends UnitControl {
             if (!newUnitNameField.getText().isEmpty()) {
                 String newUnitName = newUnitNameField.getText();
                 newUnitNameField.clear();
-                App.addNewUnit(newUnitName);
+                App.addNewUnit(newUnitName, null);
             }
         });
 
@@ -58,9 +58,9 @@ public class AddNewUnitControl extends UnitControl {
                         )
                 )
         );
-        hBoxToReturn.setPadding(new Insets(20));
+        hBoxToReturn.setPadding(new Insets(10));
         hBoxToReturn.setAlignment(Pos.CENTER_LEFT);
-        hBoxToReturn.setSpacing(10);
+        hBoxToReturn.setSpacing(5);
         return hBoxToReturn;
     }
 

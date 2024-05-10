@@ -3,6 +3,7 @@ package org.example.finalprojectalpha.Controls;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Unit;
 
@@ -24,16 +26,17 @@ import java.util.Objects;
 public class UnitControl extends HBox {
 
     private static final Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-    private static double prefWidth = visualBounds.getWidth() - 700;
+    private static double prefWidth = visualBounds.getWidth() - 400;
 
     public static double myGetPrefWidth() {
         return prefWidth;
     }
 
-    public HBox render(Unit unit) {
+    public HBox render(Unit unit, Stage primaryStage) {
+
         HBox hBoxToReturn = new HBox();
         Label unitNameLabel = new Label(unit.getUnitName());
-        unitNameLabel.setFont(new Font(36));
+        unitNameLabel.setFont(new Font(18));
         unitNameLabel.setAlignment(Pos.CENTER_LEFT);
         unitNameLabel.setPrefWidth(myGetPrefWidth());
 
@@ -45,7 +48,7 @@ public class UnitControl extends HBox {
             Image insigniaNotFoundImage = new Image(App.class.getResource("NoImageFound.jpg").toExternalForm());
             insigniaView = new ImageView(insigniaNotFoundImage);
         }
-        insigniaView.setFitWidth(150);
+        insigniaView.setFitWidth(100);
         insigniaView.setPreserveRatio(true);
         hBoxToReturn.getChildren().add(insigniaView);
 
@@ -60,16 +63,20 @@ public class UnitControl extends HBox {
                         )
                 )
         );
-        hBoxToReturn.setPadding(new Insets(20));
+        hBoxToReturn.setPadding(new Insets(10));
         Button editButton = new Button("Edit");
-        editButton.setFont(new Font(36));
+        editButton.setFont(new Font(18));
         editButton.setAlignment(Pos.CENTER_RIGHT);
 
         TextField editNameField = new TextField(unit.getUnitName());
-        editNameField.setFont(new Font(36));
+        editNameField.setFont(new Font(18));
         editNameField.setAlignment(Pos.CENTER_LEFT);
         editNameField.setPrefWidth(myGetPrefWidth());
         editButton.setOnAction(event -> {
+            UnitEditControl unitEditControl = new UnitEditControl();
+            Scene scene = unitEditControl.render(unit);
+            primaryStage.setScene(scene);
+            /*
             hBoxToReturn.getChildren().remove(insigniaView);
             hBoxToReturn.getChildren().remove(unitNameLabel);
             hBoxToReturn.getChildren().remove(editButton);
@@ -80,7 +87,7 @@ public class UnitControl extends HBox {
             hBoxToReturn.getChildren().add(editNameField);
             Button saveButton = new Button("Save");
             hBoxToReturn.getChildren().add(saveButton);
-            saveButton.setFont(new Font(36));
+            saveButton.setFont(new Font(18));
             saveButton.setOnAction(event1 -> {
                 hBoxToReturn.getChildren().remove(chooseInsigniaButton);
                 hBoxToReturn.getChildren().remove(editNameField);
@@ -94,20 +101,22 @@ public class UnitControl extends HBox {
 
                 unitNameLabel.setText(unit.getUnitName());
             });
+
+             */
         });
 
         hBoxToReturn.getChildren().add(editButton);
         hBoxToReturn.setAlignment(Pos.CENTER_LEFT);
-        hBoxToReturn.setSpacing(10);
+        hBoxToReturn.setSpacing(5);
         return hBoxToReturn;
     }
 
     private static Button getButton(ImageView insigniaView, Unit unit) {
         Button chooseInsigniaButton = new Button("Choose\nInsignia");
-        chooseInsigniaButton.setFont(new Font(31));
+        chooseInsigniaButton.setFont(new Font(18));
         chooseInsigniaButton.setTextAlignment(TextAlignment.CENTER);
-        chooseInsigniaButton.setPrefHeight(150);
-        chooseInsigniaButton.setPrefWidth(150);
+        chooseInsigniaButton.setPrefHeight(100);
+        chooseInsigniaButton.setPrefWidth(100);
         chooseInsigniaButton.setOnAction(event2 -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Insignia File");
