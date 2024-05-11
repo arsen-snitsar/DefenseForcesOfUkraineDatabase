@@ -7,8 +7,7 @@ import org.example.finalprojectalpha.Data.Unit;
 public class UnitLabelControl extends UnitControl {
 
     public HBox render(){
-        Stage stage = new Stage();
-        HBox hBoxToReturn = new UnitControl().render(new Unit("Unit Insignia | Unit name"), stage);
+        HBox hBoxToReturn = new UnitControl().render(new Unit("Unit Insignia | Unit name"), null);
         hBoxToReturn.getChildren().remove(0);
         hBoxToReturn.getChildren().remove(1);
         return hBoxToReturn;

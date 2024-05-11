@@ -1,10 +1,13 @@
 package org.example.finalprojectalpha.Data;
 
+import java.util.ArrayList;
+
 public class Unit {
 
     private String unitName;
     private int unitId;
     private String insigniaPath;
+    private ArrayList<Battle> battlesParticipated = new ArrayList<Battle>();
 
     private static int unitCount = 0;
 
@@ -24,6 +27,7 @@ public class Unit {
     public String getUnitName() {
         return unitName;
     }
+
     public void setUnitName(String unitName) {
         this.unitName = unitName;
     }
@@ -35,6 +39,7 @@ public class Unit {
     public String getInsigniaPath() {
         return insigniaPath;
     }
+
     public void setInsigniaPath(String insigniaPath) {
         this.insigniaPath = insigniaPath;
     }

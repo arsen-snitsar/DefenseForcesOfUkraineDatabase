@@ -1,5 +1,9 @@
 package org.example.finalprojectalpha;
 
+import org.example.finalprojectalpha.Controls.*;
+import org.example.finalprojectalpha.Data.*;
+import org.example.finalprojectalpha.Files.*;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,22 +20,19 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.example.finalprojectalpha.Controls.AddNewUnitControl;
-import org.example.finalprojectalpha.Controls.UnitControl;
-import org.example.finalprojectalpha.Controls.UnitLabelControl;
-import org.example.finalprojectalpha.Data.Unit;
-import org.example.finalprojectalpha.Files.Input;
-import org.example.finalprojectalpha.Files.Output;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class App extends Application {
 
-    private static final List<Unit> units = new ArrayList<Unit>();
+    public static Stage primaryStage;
+    private static final List<Unit> units = new ArrayList<>();
     private static final List<Node> unitNodes = new ArrayList<>();
     private static final GridPane gridPane = new GridPane();
+    private static final Node unitLabelControlNode = new UnitLabelControl().render();
     private static final Node addNewUnitControlNode = new AddNewUnitControl().render();
+    private static final Node addNewBattleControlNode = new AddNewBattleControl();
+    private static final Scene mainScene = setMainScene();
 
     public static void addNewUnit(String newUnitName, Stage primaryStage) {
         units.add(new Unit(newUnitName));
@@ -47,24 +48,82 @@ public class App extends Application {
         launch(args);
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    public static Scene getMainScene() {
+        return mainScene;
+    }
 
+    private static VBox getButtonBox() {
+
+
+        Button saveToFileButton = new Button("Save");
+        saveToFileButton.setFont(new Font(18));
+        saveToFileButton.setPrefHeight(25);
+        saveToFileButton.setPrefWidth(90);
+        saveToFileButton.setOnAction(event -> {
+            Output.saveToFile(units);
+        });
+
+        Button unitsView = new Button("Units");
+        unitsView.setFont(new Font(18));
+        unitsView.setPrefHeight(25);
+        unitsView.setPrefWidth(90);
+        unitsView.setOnAction(event -> {
+            gridPane.getChildren().remove(addNewBattleControlNode);
+            gridPane.getChildren().remove(addNewUnitControlNode);
+            gridPane.add(unitLabelControlNode, 0, 0);
+            for (Unit unit : units) {
+                HBox hBoxToAdd = new UnitControl().render(unit, primaryStage);
+                unitNodes.add(hBoxToAdd);
+                gridPane.add(hBoxToAdd, 0, units.indexOf(unit) + 1);
+                gridPane.getChildren().removeAll(addNewUnitControlNode);
+                if (!gridPane.getChildren().contains(addNewUnitControlNode)) {
+                    gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
+                }
+            }
+        });
+
+        Button battlesView = new Button("Battles");
+        battlesView.setFont(new Font(18));
+        battlesView.setPrefHeight(25);
+        battlesView.setPrefWidth(90);
+        battlesView.setOnAction(event -> {
+            gridPane.getChildren().removeAll(unitNodes);
+            gridPane.getChildren().removeAll(addNewUnitControlNode, unitLabelControlNode);
+            gridPane.add(addNewBattleControlNode, 0, 0);
+        });
+
+        Button loadFromFileButton = getLoadFromFileButton(unitsView);
+        return new VBox(10, loadFromFileButton, saveToFileButton, unitsView, battlesView);
+    }
+
+    private static Button getLoadFromFileButton(Button basicContentView) {
+        Button loadFromFileButton = new Button("Load");
+        loadFromFileButton.setFont(new Font(18));
+        loadFromFileButton.setPrefHeight(25);
+        loadFromFileButton.setPrefWidth(90);
+
+        loadFromFileButton.setOnAction(event -> {
+
+            if (!units.isEmpty()) {
+                for (Node unitNode : unitNodes) {
+                    gridPane.getChildren().remove(unitNode);
+                }
+            }
+            units.clear();
+            units.addAll(Input.loadFromFile());
+
+            basicContentView.fire();
+        });
+        return loadFromFileButton;
+    }
+
+    public static Scene setMainScene() {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
-
-        Scene scene = new Scene(vBox, 1280, 720);
-
+        Scene scene = new Scene(vBox, 1920, 1080);
         gridPane.setPadding(new Insets(10));
         gridPane.setVgap(10);
         gridPane.setHgap(10);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Defense Forces of Ukraine Database");
-        primaryStage.setMaximized(true);
-        primaryStage.show();
-
-
         HBox topBox = new HBox(10);
         topBox.setPadding(new Insets(10));
         HBox lowerBox = new HBox(10);
@@ -72,7 +131,7 @@ public class App extends Application {
 
         ImageView coatOfArmsView = new ImageView(
                 new Image(
-                        getClass().getResource("CoatOfArms.png").toExternalForm()
+                        App.class.getResource("CoatOfArms.png").toExternalForm()
                 )
         );
         coatOfArmsView.setFitHeight(75);
@@ -91,43 +150,9 @@ public class App extends Application {
 
         vBox.getChildren().add(topBox);
 
-        gridPane.add(new UnitLabelControl().render(), 0, 0);
-        gridPane.add(addNewUnitControlNode, 0, 1);
-
-        Button loadFromFileButton = new Button("Load");
-        loadFromFileButton.setFont(new Font(18));
-        loadFromFileButton.setPrefHeight(25);
-        loadFromFileButton.setPrefWidth(70);
-
-        Button saveToFileButton = new Button("Save");
-        saveToFileButton.setFont(new Font(18));
-        saveToFileButton.setPrefHeight(25);
-        saveToFileButton.setPrefWidth(70);
-        saveToFileButton.setOnAction(event -> {
-            Output.saveToFile(units);
-        });
-
-        VBox buttonBox = new VBox(10, loadFromFileButton, saveToFileButton);
-
-        lowerBox.getChildren().addAll(buttonBox, gridPane);
+        lowerBox.getChildren().addAll(getButtonBox(), gridPane);
         vBox.getChildren().add(lowerBox);
 
-        loadFromFileButton.setOnAction(event -> {
-
-            if (!units.isEmpty()) {
-                for (Node unitNode : unitNodes) {
-                    gridPane.getChildren().remove(unitNode);
-                }
-            }
-            units.clear();
-            units.addAll(Input.loadFromFile());
-
-            for (Unit unit : units) {
-                gridPane.add(new UnitControl().render(unit, primaryStage), 0, units.indexOf(unit) + 1);
-                gridPane.getChildren().removeAll(addNewUnitControlNode);
-                gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
-            }
-        });
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(gridPane);
@@ -151,5 +176,18 @@ public class App extends Application {
                 event.consume();
             }
         });
+        return scene;
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        App.primaryStage = primaryStage;
+        primaryStage.setScene(getMainScene());
+        primaryStage.setTitle("Defense Forces of Ukraine Database");
+        primaryStage.setMaximized(true);
+        primaryStage.show();
+
+
     }
 }
