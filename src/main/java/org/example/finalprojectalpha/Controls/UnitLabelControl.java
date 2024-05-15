@@ -44,22 +44,32 @@ public class UnitLabelControl extends UnitControl {
         }
     }
 
-    private TextField getSearchField(GridPane gridPane){
+    private TextField getSearchField(GridPane gridPane) {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
         searchField.setFont(new Font(18));
         searchField.setOnAction(event -> {
             gridPane.getChildren().removeAll(App.getUnitNodes());
-            App.getUnitNodes().clear();
-            gridPane.getChildren().remove(App.getAddNewUnitControlNode());
-
-            HBox newHbox = changeSort(gridPane);
-            removeImageAndButton(newHbox);
-            this.getChildren().setAll(newHbox.getChildren());
-
-            String search = searchField.getText();
-            App.getUnitNodes().add(App.getUnitNodes().get(BinarySearch.search(unitsComparable, new Unit(search))));
-            gridPane.add((Node) App.getUnitNodes().getLast(), 0, App.getUnitNodes().size());
+            sort(gridPane, unitsComparable);
+            for (Comparable comparable : unitsComparable) {
+                HBox hBox = new UnitControl().render((Unit) comparable);
+                App.getUnitNodes().add(hBox);
+                gridPane.add(hBox, 0, App.getUnitNodes().size());
+            }
+            String key = searchField.getText();
+            searchField.clear();
+            ArrayList<Comparable> unitNames = new ArrayList<>();
+            for (Comparable comparable : unitsComparable) {
+                unitNames.add(((Unit) comparable).getUnitName());
+            }
+            int index = BinarySearch.search(unitNames, key);
+            if (index != -1) {
+                gridPane.getChildren().removeAll(App.getUnitNodes());
+                App.getUnitNodes().clear();
+                HBox hBox = new UnitControl().render((Unit) unitsComparable.get(index));
+                App.getUnitNodes().add(hBox);
+                gridPane.add(hBox, 0, App.getUnitNodes().size());
+            }
         });
         return searchField;
     }
