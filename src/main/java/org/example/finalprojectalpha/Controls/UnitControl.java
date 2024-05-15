@@ -30,7 +30,7 @@ public class UnitControl extends HBox {
         return prefWidth;
     }
 
-    private Button getButtonMore(Unit unit, Stage primaryStage) {
+    private Button getButtonMore(Unit unit) {
         Button moreButton = new Button("More");
         moreButton.setFont(new Font(18));
         moreButton.setAlignment(Pos.CENTER_RIGHT);
@@ -41,34 +41,7 @@ public class UnitControl extends HBox {
         moreButton.setOnAction(event -> {
             UnitMoreControl unitMoreControl = new UnitMoreControl();
             Scene scene = unitMoreControl.render(unit);
-            primaryStage.setScene(scene);
-            /*
-            hBoxToReturn.getChildren().remove(insigniaView);
-            hBoxToReturn.getChildren().remove(unitNameLabel);
-            hBoxToReturn.getChildren().remove(editButton);
-
-            Button chooseInsigniaButton = getButton(insigniaView, unit);
-            hBoxToReturn.getChildren().add(chooseInsigniaButton);
-
-            hBoxToReturn.getChildren().add(editNameField);
-            Button saveButton = new Button("Save");
-            hBoxToReturn.getChildren().add(saveButton);
-            saveButton.setFont(new Font(18));
-            saveButton.setOnAction(event1 -> {
-                hBoxToReturn.getChildren().remove(chooseInsigniaButton);
-                hBoxToReturn.getChildren().remove(editNameField);
-                hBoxToReturn.getChildren().remove(saveButton);
-
-                hBoxToReturn.getChildren().add(insigniaView);
-                hBoxToReturn.getChildren().add(unitNameLabel);
-                hBoxToReturn.getChildren().add(editButton);
-
-                unit.setUnitName(editNameField.getText());
-
-                unitNameLabel.setText(unit.getUnitName());
-            });
-
-             */
+            App.primaryStage.setScene(scene);
         });
         return moreButton;
     }
@@ -95,13 +68,13 @@ public class UnitControl extends HBox {
         return unitNameLabel;
     }
 
-    public HBox render(Unit unit, Stage primaryStage) {
+    public HBox render(Unit unit) {
         HBox hBoxToReturn = new HBox();
 
         hBoxToReturn.getChildren().addAll(
                 getInsigniaView(unit),
                 getUnitNameLabel(unit),
-                getButtonMore(unit, primaryStage)
+                getButtonMore(unit)
         );
 
         hBoxToReturn.setBorder(
@@ -120,27 +93,6 @@ public class UnitControl extends HBox {
         return hBoxToReturn;
     }
 
-    private static Button getButton(ImageView insigniaView, Unit unit) {
-        Button chooseInsigniaButton = new Button("Choose\nInsignia");
-        chooseInsigniaButton.setFont(new Font(18));
-        chooseInsigniaButton.setTextAlignment(TextAlignment.CENTER);
-        chooseInsigniaButton.setPrefHeight(100);
-        chooseInsigniaButton.setPrefWidth(100);
-        chooseInsigniaButton.setOnAction(event2 -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Insignia File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
-            );
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
-                Image insignia = new Image(selectedFile.toURI().toString());
-                unit.setInsigniaPath(selectedFile.toURI().toString());
-                insigniaView.setImage(insignia);
-            }
-            chooseInsigniaButton.setText("Change\nInsignia");
-        });
-        return chooseInsigniaButton;
-    }
+
 
 }

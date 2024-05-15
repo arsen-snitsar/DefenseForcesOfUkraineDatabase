@@ -1,8 +1,11 @@
 package org.example.finalprojectalpha.Data;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
-public class Unit {
+public class Unit implements Comparable<Unit> {
 
     private String unitName;
     private int unitId;
@@ -42,5 +45,30 @@ public class Unit {
 
     public void setInsigniaPath(String insigniaPath) {
         this.insigniaPath = insigniaPath;
+    }
+
+    public ObservableList<String> getBattlesObsList() {
+        ObservableList<String> battles = FXCollections.observableArrayList();
+        for (Battle battle : battlesParticipated) {
+            battles.add(battle.getBattleName());
+        }
+        return battles;
+    }
+    public ArrayList<Battle> getBattlesParticipated() {
+        return battlesParticipated;
+    }
+
+    @Override
+    public int compareTo(Unit o) {
+        return this.unitName.compareTo(o.unitName);
+    }
+
+    @Override
+    public String toString() {
+        return this.unitName; // or whatever property you want to print
+    }
+
+    public void addBattleParticipated(Battle battle) {
+        battlesParticipated.add(battle);
     }
 }

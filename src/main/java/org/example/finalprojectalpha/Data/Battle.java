@@ -1,9 +1,12 @@
 package org.example.finalprojectalpha.Data;
 
+import javafx.collections.ObservableList;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Battle {
+public class Battle implements Comparable<Battle> {
 
     private String battleName;
     private int battleId;
@@ -16,9 +19,47 @@ public class Battle {
         return imagePath;
     }
 
-    public Battle(String battleName) {
+    public String getBattleName() {
+        return battleName;
+    }
+
+    public Battle(String battleName, String imagePath) {
         this.battleName = battleName;
         this.battleId = battleCount;
+        this.imagePath = imagePath;
         battleCount++;
+    }
+
+    public int getBattleId() {
+        return battleId;
+    }
+
+    public ObservableList<String> getUnitsObsList() {
+        ObservableList<String> units = javafx.collections.FXCollections.observableArrayList();
+        for (Unit unit : unitsInvolved) {
+            units.add(unit.getUnitName());
+        }
+        return units;
+    }
+
+    public void setImagePath(String string) {
+        this.imagePath = string;
+    }
+
+    public ArrayList<Unit> getUnitsInvolved() {
+        return unitsInvolved;
+    }
+
+    public void setName(String text) {
+        this.battleName = text;
+    }
+
+    @Override
+    public int compareTo(Battle o) {
+        return this.battleName.compareTo(o.battleName);
+    }
+
+    public void addUnitInvolved(Unit newUnit) {
+        unitsInvolved.add(newUnit);
     }
 }

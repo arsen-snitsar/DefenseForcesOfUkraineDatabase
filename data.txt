@@ -1,3 +1,16 @@
+Battles:
+1. 2023 Ukrainian counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2023UkrainianCounteroffensive.jpg
+2. Battle of Avdiivka|null
+3. Battle of Kyiv|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfKyiv.jpg
+4. Snake Island campaign|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SnakeIslandCampaign.jpg
+5. Battle of Sievierodonetsk|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfSieverodonetsk.jpg
+6. 2024 Kharkiv offensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024KharkivOffensive.jpg
+7. Battle of Bakhmut|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfBakhmut.jpg
+8. Siege of Mariupol|null
+9. 2022 Kharkiv counteroffensive|null
+10. 2022 Kherson counteroffensive|null
+11. 2024 western Russia incursion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024WestRussiaIncursion.jpg
+Units:
 1. Third Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/ThirdAssaultBrigadeInsignia.png
 2. Brotherhood Batallion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/BratstvoBatallionInsignia.jpg
 3. 5th Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/5thAssaultBrigadeInsignia.png
@@ -15,3 +28,15 @@
 15. Russian Volunteer Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RussianVolunteerCorpsInsignia.png
 16. 3rd Spartan Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SpartanBrigadeInsignia.jpg
 17. 67th Separate Mechanized Brigade "Ukrainian Volunteer Corps"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UkrainianVolunteerCorpsInsignia.png
+18. Freedom of Russia Legion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/FRLInsignia.png
+20. jljklljjl|null
+Relationships:
+Third Assault Brigade: 2024 Kharkiv offensive,
+Brotherhood Batallion: Battle of Bakhmut,
+Special Group "Alpha": Snake Island campaign, Battle of Kyiv,
+Azov Assault Brigade: Siege of Mariupol, Battle of Kyiv,
+Kraken Regiment: Battle of Bakhmut,
+56th Motorized Mariupol Brigade: Siege of Mariupol, 2022 Kherson counteroffensive,
+Russian Volunteer Corps: Snake Island campaign, 2024 Kharkiv offensive,
+Freedom of Russia Legion: 2024 western Russia incursion,
+jljklljjl: 2024 western Russia incursion, 2022 Kherson counteroffensive, 2022 Kharkiv counteroffensive, Siege of Mariupol, Battle of Bakhmut, 2024 Kharkiv offensive, Battle of Sievierodonetsk, Snake Island campaign, Battle of Kyiv, Battle of Avdiivka, 2023 Ukrainian counteroffensive,
