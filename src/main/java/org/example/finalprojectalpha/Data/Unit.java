@@ -60,7 +60,7 @@ public class Unit implements Comparable<Unit> {
 
     @Override
     public int compareTo(Unit o) {
-        return this.unitName.compareTo(o.unitName);
+        return this.unitName.toLowerCase().compareTo(o.unitName.toLowerCase());
     }
 
     @Override

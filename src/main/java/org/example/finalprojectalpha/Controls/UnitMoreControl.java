@@ -38,7 +38,7 @@ public class UnitMoreControl {
             Image insigniaNotFoundImage = new Image(App.class.getResource("NoImageFound.jpg").toExternalForm());
             insigniaView = new ImageView(insigniaNotFoundImage);
         }
-        insigniaView.setFitWidth(100);
+        insigniaView.setFitHeight(300);
         insigniaView.setPreserveRatio(true);
         return insigniaView;
     }
@@ -87,6 +87,8 @@ public class UnitMoreControl {
         Button editButton = new Button("Edit");
         editButton.setFont(new Font(18));
         editButton.setOnAction(event -> {
+            buttonbox.getChildren().removeLast();
+
             gridPane.getChildren().remove(insigniaView);
 
             gridPane.getChildren().remove(unitNameText);
@@ -122,23 +124,10 @@ public class UnitMoreControl {
                 }
             });
 
-            Button addBattleButton = new Button("Add Battle");
-            addBattleButton.setFont(new Font(18));
-            addBattleButton.setOnAction(e -> {
-                String selectedBattleName = battlesListView.getSelectionModel().getSelectedItem();
-                if (selectedBattleName != null) {
-                    Battle selectedBattle = App.getBattlesArrayList().stream()
-                            .filter(battle -> battle.getBattleName().equals(selectedBattleName))
-                            .findFirst()
-                            .orElse(null);
-                    if (selectedBattle != null && !unit.getBattlesParticipated().contains(selectedBattle)) {
-                        unit.getBattlesParticipated().add(selectedBattle);
-                    }
-                }
-            });
+            Button addBattleButton = getAddBattleButton(unit, battlesListView);
             gridPane.add(addBattleButton, 1, 4);
 
-            gridPane.getChildren().remove(editButton);
+            buttonbox.getChildren().remove(1);
             Button saveButton = new Button("Save");
             saveButton.setFont(new Font(18));
             saveButton.setOnAction(e -> {
@@ -174,12 +163,31 @@ public class UnitMoreControl {
                 });
                 gridPane.getChildren().remove(addBattleButton);
 
-                gridPane.add(editButton, 1, 0);
-                gridPane.getChildren().remove(saveButton);
+                buttonbox.getChildren().add(editButton);
+                buttonbox.getChildren().remove(saveButton);
+                buttonbox.getChildren().add(getDeleteButton(unit));
             });
-            gridPane.add(saveButton, 1, 0);
+            buttonbox.getChildren().add(saveButton);
         });
         return editButton;
+    }
+
+    private static Button getAddBattleButton(Unit unit, ListView<String> battlesListView) {
+        Button addBattleButton = new Button("Add Battle");
+        addBattleButton.setFont(new Font(18));
+        addBattleButton.setOnAction(e -> {
+            String selectedBattleName = battlesListView.getSelectionModel().getSelectedItem();
+            if (selectedBattleName != null) {
+                Battle selectedBattle = App.getBattlesArrayList().stream()
+                        .filter(battle -> battle.getBattleName().equals(selectedBattleName))
+                        .findFirst()
+                        .orElse(null);
+                if (selectedBattle != null && !unit.getBattlesParticipated().contains(selectedBattle)) {
+                    unit.getBattlesParticipated().add(selectedBattle);
+                }
+            }
+        });
+        return addBattleButton;
     }
 
     private GridPane getGridPane() {
@@ -197,6 +205,8 @@ public class UnitMoreControl {
         return buttonBox;
     }
 
+    private HBox buttonbox;
+
     public Scene render(Unit unit) {
         GridPane gridPane = getGridPane();
         Scene scene = new Scene(gridPane, 1920, 1080);
@@ -213,14 +223,14 @@ public class UnitMoreControl {
 
         gridPane.add(getBackButton(primaryStage), 0, 0);
 
-        gridPane.add(
-                buttonBox(
-                        getBackButton(primaryStage),
-                        getEditButton(gridPane, insigniaView, unit, unitNameText, battlesListView),
-                        getDeleteButton(unit)
-                ),
-                0, 0
+        Button deleteButton = getDeleteButton(unit);
+        Button editButton = getEditButton(gridPane, insigniaView, unit, unitNameText, battlesListView);
+        buttonbox = buttonBox(
+                getBackButton(primaryStage),
+                editButton,
+                deleteButton
         );
+        gridPane.add(buttonbox, 0, 0);
 
         gridPane.add(insigniaView, 3, 1);
 
@@ -235,7 +245,7 @@ public class UnitMoreControl {
         Button deleteButton = new Button("Delete");
         deleteButton.setFont(new Font(18));
         deleteButton.setOnAction(event -> {
-            App.getUnitsArrayList().remove(unit);
+            App.removeUnit(unit);
             App.fireUnitsViewButton();
             primaryStage.setScene(App.getMainScene());
         });

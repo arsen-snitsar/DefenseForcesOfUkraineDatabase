@@ -31,7 +31,7 @@ public class BattleLabelControl extends BattleControl {
         ArrayList<Comparable> battlesComparable = App.getBattlesComparable();
         Quicksort.sort(battlesComparable, sortOrder);
         for (Comparable comparable : battlesComparable) {
-            App.getBattleNodes().add(new BattleLabelControl(gridPane, ((Battle) comparable).getBattleName()));
+            App.getBattleNodes().add(new BattleControl((Battle) comparable));
             gridPane.add((Node) App.getBattleNodes().getLast(), 0, App.getBattleNodes().size());
         }
     }

@@ -55,6 +55,9 @@ public class Input {
                 if (unit != null) {
                     String[] battles = line.substring(line.indexOf(":") + 2).split(", ");
                     for (String battleName : battles) {
+                        if (findBattleIndex(battleName) == -1) {
+                            continue;
+                        }
                         Battle battle = App.getBattlesArrayList().get(findBattleIndex(battleName));
                         if (battle != null
                                 && !unit.getBattlesParticipated().contains(battle))

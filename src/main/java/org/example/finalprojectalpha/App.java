@@ -56,6 +56,7 @@ public class App extends Application {
         }
         return battleNames;
     }
+
     public static ObservableList<String> getUnitsObsList() {
         ObservableList<String> unitNames = FXCollections.observableArrayList();
         for (Unit unit : units) {
@@ -67,6 +68,7 @@ public class App extends Application {
     public static void fireUnitsViewButton() {
         unitsViewButton.fire();
     }
+
     public static void fireBattlesViewButton() {
         battlesViewButton.fire();
     }
@@ -84,6 +86,10 @@ public class App extends Application {
     public static void addNewUnit(Unit newUnit) {
         if (!units.contains(newUnit))
             units.add(newUnit);
+    }
+
+    public static void removeUnit(Unit unit) {
+        units.remove(unit);
     }
 
     public static void addNewBattle(String newBattleName) {
@@ -250,13 +256,15 @@ public class App extends Application {
     public static ArrayList<Battle> getBattlesArrayList() {
         return new ArrayList<>(battles);
     }
+
     public static ArrayList<Unit> getUnitsArrayList() {
         return new ArrayList<>(units);
     }
 
-    public static ArrayList<Comparable> getUnitsComparable(){
+    public static ArrayList<Comparable> getUnitsComparable() {
         return new ArrayList<Comparable>(units);
     }
+
     public static ArrayList<Comparable> getBattlesComparable() {
         return new ArrayList<Comparable>(battles);
     }

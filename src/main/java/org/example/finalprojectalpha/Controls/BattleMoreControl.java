@@ -34,7 +34,7 @@ public class BattleMoreControl {
             Image imageBattleNotFound = new Image(App.class.getResource("noBattleImageFound.jpg").toExternalForm());
             imageView = new ImageView(imageBattleNotFound);
         }
-        imageView.setFitWidth(100);
+        imageView.setFitHeight(300);
         imageView.setPreserveRatio(true);
         return imageView;
     }
