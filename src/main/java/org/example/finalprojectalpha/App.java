@@ -1,5 +1,7 @@
 package org.example.finalprojectalpha;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
 import org.example.finalprojectalpha.Files.*;
@@ -20,28 +22,83 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class App extends Application {
 
     public static Stage primaryStage;
     private static final List<Unit> units = new ArrayList<>();
+    private static final List<Battle> battles = new ArrayList<>();
     private static final List<Node> unitNodes = new ArrayList<>();
     private static final GridPane gridPane = new GridPane();
-    private static final Node unitLabelControlNode = new UnitLabelControl().render();
+    private static Node unitLabelControlNode = new UnitLabelControl().render(gridPane);
     private static final Node addNewUnitControlNode = new AddNewUnitControl().render();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Scene mainScene = setMainScene();
+    private static final List<Node> battleNodes = new ArrayList<>();
+    private static Button unitsViewButton;
+    private static Button battlesViewButton;
+
+    public static int findBattleIndex(String battleName) {
+        for (Battle battle : battles) {
+            if (battle.getBattleName().equals(battleName)) {
+                return battles.indexOf(battle);
+            }
+        }
+        return -1;
+    }
+
+    public static ObservableList<String> getBattlesObsList() {
+        ObservableList<String> battleNames = FXCollections.observableArrayList();
+        for (Battle battle : battles) {
+            battleNames.add(battle.getBattleName());
+        }
+        return battleNames;
+    }
+    public static ObservableList<String> getUnitsObsList() {
+        ObservableList<String> unitNames = FXCollections.observableArrayList();
+        for (Unit unit : units) {
+            unitNames.add(unit.getUnitName());
+        }
+        return unitNames;
+    }
+
+    public static void fireUnitsViewButton() {
+        unitsViewButton.fire();
+    }
+    public static void fireBattlesViewButton() {
+        battlesViewButton.fire();
+    }
 
     public static void addNewUnit(String newUnitName, Stage primaryStage) {
         units.add(new Unit(newUnitName));
-        Node unitNode = new UnitControl().render(units.getLast(), primaryStage);
+        Node unitNode = new UnitControl().render(units.getLast());
         gridPane.add(unitNode, 0, units.size());
         unitNodes.add(unitNode);
 
         gridPane.getChildren().removeAll(addNewUnitControlNode);
         gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
+    }
+
+    public static void addNewUnit(Unit newUnit) {
+        if (!units.contains(newUnit))
+            units.add(newUnit);
+    }
+
+    public static void addNewBattle(String newBattleName) {
+        battles.add(new Battle(newBattleName, "null"));
+        Node battleNode = new BattleControl(battles.getLast());
+        gridPane.add(battleNode, 0, battles.size());
+        battleNodes.add(battleNode);
+
+        gridPane.getChildren().removeAll(addNewBattleControlNode);
+        gridPane.add(addNewBattleControlNode, 0, battles.size() + 1);
+    }
+
+    public static void addNewBattle(Battle newBattle) {
+        if (!battles.contains(newBattle))
+            battles.add(newBattle);
     }
 
     public static void main(String[] args) {
@@ -60,59 +117,62 @@ public class App extends Application {
         saveToFileButton.setPrefHeight(25);
         saveToFileButton.setPrefWidth(90);
         saveToFileButton.setOnAction(event -> {
-            Output.saveToFile(units);
+            Output.saveToFile(units, battles);
         });
 
-        Button unitsView = new Button("Units");
-        unitsView.setFont(new Font(18));
-        unitsView.setPrefHeight(25);
-        unitsView.setPrefWidth(90);
-        unitsView.setOnAction(event -> {
-            gridPane.getChildren().remove(addNewBattleControlNode);
-            gridPane.getChildren().remove(addNewUnitControlNode);
+        final BattleLabelControl[] battleLabelControl = {new BattleLabelControl(gridPane)};
+
+        unitsViewButton = new Button("Units");
+        unitsViewButton.setFont(new Font(18));
+        unitsViewButton.setPrefHeight(25);
+        unitsViewButton.setPrefWidth(90);
+        unitsViewButton.setOnAction(event -> {
+            gridPane.getChildren().removeAll(
+                    battleLabelControl[0], addNewBattleControlNode,
+                    unitLabelControlNode, addNewUnitControlNode);
+            gridPane.getChildren().removeAll(battleNodes);
+            gridPane.getChildren().removeAll(unitNodes);
+            unitLabelControlNode = new UnitLabelControl().render(gridPane);
             gridPane.add(unitLabelControlNode, 0, 0);
             for (Unit unit : units) {
-                HBox hBoxToAdd = new UnitControl().render(unit, primaryStage);
+                HBox hBoxToAdd = new UnitControl().render(unit);
                 unitNodes.add(hBoxToAdd);
                 gridPane.add(hBoxToAdd, 0, units.indexOf(unit) + 1);
-                gridPane.getChildren().removeAll(addNewUnitControlNode);
-                if (!gridPane.getChildren().contains(addNewUnitControlNode)) {
-                    gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
-                }
             }
+            gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
         });
 
-        Button battlesView = new Button("Battles");
-        battlesView.setFont(new Font(18));
-        battlesView.setPrefHeight(25);
-        battlesView.setPrefWidth(90);
-        battlesView.setOnAction(event -> {
+        battlesViewButton = new Button("Battles");
+        battlesViewButton.setFont(new Font(18));
+        battlesViewButton.setPrefHeight(25);
+        battlesViewButton.setPrefWidth(90);
+        battlesViewButton.setOnAction(event -> {
             gridPane.getChildren().removeAll(unitNodes);
-            gridPane.getChildren().removeAll(addNewUnitControlNode, unitLabelControlNode);
-            gridPane.add(addNewBattleControlNode, 0, 0);
+            gridPane.getChildren().removeAll(battleNodes);
+            gridPane.getChildren().removeAll(
+                    unitLabelControlNode, addNewUnitControlNode,
+                    battleLabelControl[0], addNewBattleControlNode);
+            battleLabelControl[0] = new BattleLabelControl(gridPane);
+            gridPane.getChildren().add(battleLabelControl[0]);
+            for (Battle battle : battles) {
+                HBox hBoxToAdd = new BattleControl(battle);
+                battleNodes.add(hBoxToAdd);
+                gridPane.add(hBoxToAdd, 0, battles.indexOf(battle) + 1);
+            }
+            gridPane.add(addNewBattleControlNode, 0, battles.size() + 1);
         });
 
-        Button loadFromFileButton = getLoadFromFileButton(unitsView);
-        return new VBox(10, loadFromFileButton, saveToFileButton, unitsView, battlesView);
+        Button loadFromFileButton = getLoadFromFileButton();
+        return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton);
     }
 
-    private static Button getLoadFromFileButton(Button basicContentView) {
+    private static Button getLoadFromFileButton() {
         Button loadFromFileButton = new Button("Load");
         loadFromFileButton.setFont(new Font(18));
         loadFromFileButton.setPrefHeight(25);
         loadFromFileButton.setPrefWidth(90);
-
         loadFromFileButton.setOnAction(event -> {
-
-            if (!units.isEmpty()) {
-                for (Node unitNode : unitNodes) {
-                    gridPane.getChildren().remove(unitNode);
-                }
-            }
-            units.clear();
-            units.addAll(Input.loadFromFile());
-
-            basicContentView.fire();
+            Input.loadFromFile();
         });
         return loadFromFileButton;
     }
@@ -177,6 +237,53 @@ public class App extends Application {
             }
         });
         return scene;
+    }
+
+    public static Collection<Object> getUnits() {
+        return Collections.singleton(units);
+    }
+
+    public static Collection<Object> getBattles() {
+        return Collections.singleton(battles);
+    }
+
+    public static ArrayList<Battle> getBattlesArrayList() {
+        return new ArrayList<>(battles);
+    }
+    public static ArrayList<Unit> getUnitsArrayList() {
+        return new ArrayList<>(units);
+    }
+
+    public static ArrayList<Comparable> getUnitsComparable(){
+        return new ArrayList<Comparable>(units);
+    }
+    public static ArrayList<Comparable> getBattlesComparable() {
+        return new ArrayList<Comparable>(battles);
+    }
+
+    public static ArrayList getUnitNodes() {
+        return (ArrayList<Node>) unitNodes;
+    }
+
+    public static Node getAddNewUnitControlNode() {
+        return addNewUnitControlNode;
+    }
+
+    public static ArrayList getBattleNodes() {
+        return (ArrayList<Node>) battleNodes;
+    }
+
+    public static Node getAddNewBattleControlNode() {
+        return addNewBattleControlNode;
+    }
+
+    public static int findUnitIndex(String unitName) {
+        for (Unit unit : units) {
+            if (unit.getUnitName().equals(unitName)) {
+                return units.indexOf(unit);
+            }
+        }
+        return -1;
     }
 
     @Override
