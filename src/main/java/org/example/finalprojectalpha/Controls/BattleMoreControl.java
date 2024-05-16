@@ -101,7 +101,7 @@ public class BattleMoreControl {
             gridPane.add(battleImageText, 2, 2);
             gridPane.getChildren().remove(battleFlowBox);
             gridPane.add(battleFlowBox, 2, 3);
-            battleFlowBox.addAddNewBattleEventControl();
+            battleFlowBox.addAddNewBattleEventControl(battle);
 
             unitsListView.setItems(App.getUnitsObsList());
             unitsListView.setCellFactory(lv -> new ListCell<String>() {
@@ -217,7 +217,7 @@ public class BattleMoreControl {
         gridPane.add(unitsInvolvedText, 1, 2);
         gridPane.add(unitsListView, 1, 3);
 
-        BattleFlowControl battleFlowBox = new BattleFlowControl();
+        BattleFlowControl battleFlowBox = new BattleFlowControl(battle);
         gridPane.add(battleFlowBox, 3, 3);
 
         ImageView imageView = getImageView(battle);

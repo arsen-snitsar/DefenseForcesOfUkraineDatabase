@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 public class Battle implements Comparable<Battle> {
@@ -73,5 +74,15 @@ public class Battle implements Comparable<Battle> {
 
     public BattleEvent getLastEvent() {
         return battleFlow.peek();
+    }
+
+    public MyQueue<BattleEvent> getBattleFlow() {
+        return battleFlow;
+    }
+    public BattleEvent dequeueBattleEvent() {
+        return battleFlow.dequeue();
+    }
+    public void enqueueBattleEvent(BattleEvent battleEvent) {
+        battleFlow.enqueue(battleEvent);
     }
 }

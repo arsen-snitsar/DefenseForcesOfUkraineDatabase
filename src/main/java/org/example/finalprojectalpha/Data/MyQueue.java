@@ -14,4 +14,8 @@ public class MyQueue<T> extends MyLinkedList<T> {
     public T peek() {
         return get(0);
     }
+
+    public boolean isEmpty() {
+        return getSize() == 0;
+    }
 }

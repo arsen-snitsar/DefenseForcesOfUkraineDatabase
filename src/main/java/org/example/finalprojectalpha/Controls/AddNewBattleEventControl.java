@@ -11,10 +11,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.example.finalprojectalpha.App;
+import org.example.finalprojectalpha.Data.Battle;
+import org.example.finalprojectalpha.Data.BattleEvent;
 
 public class AddNewBattleEventControl extends HBox {
 
-    private Button getAddNewEventButton(TextField textField, BattleFlowControl battleFlowBox) {
+    private Button getAddNewEventButton(TextField textField, BattleFlowControl battleFlowBox, Battle battle) {
         Button addNewEventButton = new Button();
         Image image = new Image(App.class.getResource("AddButton.png").toExternalForm());
         ImageView buttonView = new ImageView(image);
@@ -28,8 +30,8 @@ public class AddNewBattleEventControl extends HBox {
             if (!textField.getText().isEmpty()) {
                 String newEventText = textField.getText();
                 battleFlowBox.removeAddNewBattleEventControl();
-                battleFlowBox.addBattleEvent(newEventText);
-                battleFlowBox.addAddNewBattleEventControl();
+                battleFlowBox.addBattleEvent(newEventText, battle);
+                battleFlowBox.addAddNewBattleEventControl(battle);
             }
             textField.clear();
         });
@@ -37,12 +39,12 @@ public class AddNewBattleEventControl extends HBox {
         return addNewEventButton;
     }
 
-    public AddNewBattleEventControl(BattleFlowControl battleFlowBox) {
+    public AddNewBattleEventControl(BattleFlowControl battleFlowBox, Battle battle) {
         TextField textField = new TextField();
         textField.setPromptText("Enter new event");
         textField.setFont(new Font(18));
 
-        Button addNewEventButton = getAddNewEventButton(textField, battleFlowBox);
+        Button addNewEventButton = getAddNewEventButton(textField, battleFlowBox, battle);
         this.getChildren().add(addNewEventButton);
         this.getChildren().add(textField);
 

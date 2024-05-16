@@ -49,7 +49,7 @@ public class Input {
                     }
                 }
             }
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null && (!line.equals("Battleflows:"))) {
                 String unitName = line.substring(0, line.indexOf(":"));
                 Unit unit = App.getUnitsArrayList().get(findUnitIndex(unitName));
                 if (unit != null) {
@@ -68,6 +68,8 @@ public class Input {
                     }
                 }
             }
+            while ((line = reader.readLine()) != null)
+                System.out.println("ghsdfg");
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();

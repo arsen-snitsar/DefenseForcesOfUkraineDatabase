@@ -42,6 +42,17 @@ public class Output {
                 }
                 printWriter.println();
             }
+            printWriter.println("Battleflows:");
+            for (Battle battle : battles) {
+                if (battle.getBattleFlow().isEmpty()) {
+                    continue;
+                }
+                printWriter.print(battle.getBattleName() + ": ");
+                while (!battle.getBattleFlow().isEmpty()) {
+                    printWriter.print(battle.dequeueBattleEvent().getEventText());
+                }
+                printWriter.println();
+            }
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
