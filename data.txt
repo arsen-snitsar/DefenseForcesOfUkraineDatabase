@@ -7,7 +7,7 @@ Battles:
 6. 2024 Kharkiv offensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024KharkivOffensive.jpg
 7. Battle of Bakhmut|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfBakhmut.jpg
 8. Siege of Mariupol|null
-9. 2022 Kharkiv counteroffensive|null
+9. 2022 Kharkiv counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KharkivCounterOffensive.jpg
 10. 2022 Kherson counteroffensive|null
 11. 2024 western Russia incursion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024WestRussiaIncursion.jpg
 Units:
@@ -37,6 +37,7 @@ Brotherhood Batallion: Battle of Kyiv,
 Special Group "Alpha": Snake Island campaign, Battle of Kyiv, 
 Azov Assault Brigade: Siege of Mariupol, Battle of Kyiv, 
 Da Vinci Wolves Battalion: Battle of Kyiv, 
+Kraken Regiment: 2022 Kharkiv counteroffensive, 
 56th Motorized Mariupol Brigade: Siege of Mariupol, 
 Russian Volunteer Corps: Snake Island campaign, 
 Freedom of Russia Legion: 2024 western Russia incursion, 

@@ -1,5 +1,7 @@
 package org.example.finalprojectalpha.Data;
 
+import javafx.scene.text.Text;
+
 public class BattleEvent {
     private int battleEventId;
     private String eventText;
@@ -17,4 +19,5 @@ public class BattleEvent {
     public String getEventText() {
         return eventText;
     }
+
 }

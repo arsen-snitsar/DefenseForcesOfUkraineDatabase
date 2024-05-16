@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -27,16 +28,6 @@ import static org.example.finalprojectalpha.App.primaryStage;
 
 public class BattleMoreControl {
 
-    private static ArrayList<Node> battleEventNodes = new ArrayList<>();
-
-    public void addNewBattleEvent(BattleEvent battleEvent, Battle battle, VBox battleFlowControl, Button addNewBattleEventButton) {
-        battleFlowControl.getChildren().remove(addNewBattleEventButton);
-        battle.addBattleEvent(battleEvent);
-        //Node battleEventNode = new BattleEventControl(battleEvent);
-        //battleFlowControl.getChildren().add(battleEventNode);
-        //battleEventNodes.add(battleEventNode);
-        battleFlowControl.getChildren().add(addNewBattleEventButton);
-    }
 
     private ImageView getImageView(Battle battle) {
         ImageView imageView;
@@ -89,9 +80,11 @@ public class BattleMoreControl {
     private Button getEditButton(
             GridPane gridPane,
             ImageView imageView,
+            Text battleImageText,
             Battle battle,
             Text battleNameText,
-            ListView<String> unitsListView
+            ListView<String> unitsListView,
+            BattleFlowControl battleFlowBox
     ) {
         Button editButton = new Button("Edit");
         editButton.setFont(new Font(18));
@@ -104,6 +97,11 @@ public class BattleMoreControl {
             gridPane.add(editNameField, 1, 1);
             Button chooseImageButton = getChooseImageButton(imageView, battle);
             gridPane.add(chooseImageButton, 2, 1);
+            gridPane.getChildren().remove(battleImageText);
+            gridPane.add(battleImageText, 2, 2);
+            gridPane.getChildren().remove(battleFlowBox);
+            gridPane.add(battleFlowBox, 2, 3);
+            battleFlowBox.addAddNewBattleEventControl();
 
             unitsListView.setItems(App.getUnitsObsList());
             unitsListView.setCellFactory(lv -> new ListCell<String>() {
@@ -140,6 +138,8 @@ public class BattleMoreControl {
             saveButton.setOnAction(e -> {
                 gridPane.getChildren().remove(chooseImageButton);
                 gridPane.add(imageView, 2, 1);
+                gridPane.getChildren().remove(battleImageText);
+                gridPane.add(battleImageText, 2, 2);
 
                 battle.setName(editNameField.getText());
                 gridPane.getChildren().remove(editNameField);
@@ -169,6 +169,8 @@ public class BattleMoreControl {
                     }
                 });
                 gridPane.getChildren().remove(addUnitButton);
+
+                battleFlowBox.removeAddNewBattleEventControl();
 
                 gridPane.add(editButton, 1, 0);
                 gridPane.getChildren().remove(saveButton);
@@ -209,30 +211,31 @@ public class BattleMoreControl {
         GridPane gridPane = getGridPane();
         Scene scene = new Scene(gridPane, 1920, 1080);
 
-        ImageView imageView = getImageView(battle);
-        Text battleNameText = new Text(battle.getBattleName());
-        battleNameText.setFont(new Font(18));
-
         Text unitsInvolvedText = new Text("Units involved:");
         unitsInvolvedText.setFont(new Font(18));
         ListView<String> unitsListView = getUnitsListView(battle);
         gridPane.add(unitsInvolvedText, 1, 2);
         gridPane.add(unitsListView, 1, 3);
 
-        gridPane.add(getBackButton(primaryStage), 0, 0);
-        gridPane.add(getEditButton(gridPane, imageView, battle, battleNameText, unitsListView), 1, 0);
-        gridPane.add(battleNameText, 1, 1);
+        BattleFlowControl battleFlowBox = new BattleFlowControl();
+        gridPane.add(battleFlowBox, 3, 3);
 
+        ImageView imageView = getImageView(battle);
+        Text battleNameText = new Text(battle.getBattleName());
+        battleNameText.setFont(new Font(18));
         gridPane.add(imageView, 3, 1);
 
         Text battleImageText = new Text("Battle Image");
         battleNameText.setFont(new Font(18));
         gridPane.add(battleImageText, 3, 2);
 
-        //Text battleFlowText = new Text("Battle Flow");
-        //battleFlowText.setFont(new Font(18));
-        //gridPane.add(battleFlowText, 2, 2);
-        //gridPane.add(new BattleFlowControl(battle, battleMoreControl), 2, 3);
+        gridPane.add(getBackButton(primaryStage), 0, 0);
+        gridPane.add(
+                getEditButton(gridPane, imageView, battleImageText, battle, battleNameText, unitsListView, battleFlowBox),
+                1, 0
+        );
+        gridPane.add(battleNameText, 1, 1);
+
 
         return scene;
     }
