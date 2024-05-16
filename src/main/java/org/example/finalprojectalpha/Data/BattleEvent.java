@@ -7,4 +7,14 @@ public class BattleEvent {
     private int day;
     private int month;
     private int year;
+
+    public BattleEvent(String newBattleEventText) {
+        this.eventText = newBattleEventText;
+        this.battleEventId = battleEventCount;
+        battleEventCount++;
+    }
+
+    public String getEventText() {
+        return eventText;
+    }
 }

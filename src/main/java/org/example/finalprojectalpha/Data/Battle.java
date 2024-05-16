@@ -62,4 +62,16 @@ public class Battle implements Comparable<Battle> {
     public void addUnitInvolved(Unit newUnit) {
         unitsInvolved.add(newUnit);
     }
+
+    public void addBattleEvent(String newBattleEventText) {
+        BattleEvent newBattleEvent = new BattleEvent(newBattleEventText);
+        battleFlow.enqueue(newBattleEvent);
+    }
+    public void addBattleEvent(BattleEvent newBattleEvent) {
+        battleFlow.enqueue(newBattleEvent);
+    }
+
+    public BattleEvent getLastEvent() {
+        return battleFlow.peek();
+    }
 }

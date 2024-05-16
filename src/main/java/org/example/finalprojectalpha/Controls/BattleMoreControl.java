@@ -1,6 +1,7 @@
 package org.example.finalprojectalpha.Controls;
 
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -16,14 +18,25 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
-import org.example.finalprojectalpha.Data.Battle;
-import org.example.finalprojectalpha.Data.Unit;
+import org.example.finalprojectalpha.Data.*;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import static org.example.finalprojectalpha.App.primaryStage;
 
 public class BattleMoreControl {
+
+    private static ArrayList<Node> battleEventNodes = new ArrayList<>();
+
+    public void addNewBattleEvent(BattleEvent battleEvent, Battle battle, VBox battleFlowControl, Button addNewBattleEventButton) {
+        battleFlowControl.getChildren().remove(addNewBattleEventButton);
+        battle.addBattleEvent(battleEvent);
+        //Node battleEventNode = new BattleEventControl(battleEvent);
+        //battleFlowControl.getChildren().add(battleEventNode);
+        //battleEventNodes.add(battleEventNode);
+        battleFlowControl.getChildren().add(addNewBattleEventButton);
+    }
 
     private ImageView getImageView(Battle battle) {
         ImageView imageView;
@@ -118,21 +131,7 @@ public class BattleMoreControl {
                 }
             });
 
-            Button addUnitButton = new Button("Add Unit");
-            addUnitButton.setFont(new Font(18));
-            addUnitButton.setOnAction(e -> {
-                String selectedUnitName = unitsListView.getSelectionModel().getSelectedItem();
-                if (selectedUnitName != null) {
-                    Unit selectedUnit = App.getUnitsArrayList().stream()
-                            .filter(unit -> unit.getUnitName().equals(selectedUnitName))
-                            .findFirst()
-                            .orElse(null);
-                    if (selectedUnit != null && !battle.getUnitsInvolved().contains(selectedUnit)) {
-                        battle.getUnitsInvolved().add(selectedUnit);
-                        selectedUnit.getBattlesParticipated().add(battle);
-                    }
-                }
-            });
+            Button addUnitButton = getAddUnitButton(battle, unitsListView);
             gridPane.add(addUnitButton, 1, 4);
 
             gridPane.getChildren().remove(editButton);
@@ -151,11 +150,13 @@ public class BattleMoreControl {
                 unitsListView.setItems(battle.getUnitsObsList());
                 unitsListView.setCellFactory(lv -> new ListCell<String>() {
                     private Text text;
+
                     {
                         text = new Text();
                         text.setFont(new Font(18)); // Set the font size here
                         setGraphic(text);
                     }
+
                     @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
@@ -177,6 +178,25 @@ public class BattleMoreControl {
         return editButton;
     }
 
+    private static Button getAddUnitButton(Battle battle, ListView<String> unitsListView) {
+        Button addUnitButton = new Button("Add Unit");
+        addUnitButton.setFont(new Font(18));
+        addUnitButton.setOnAction(e -> {
+            String selectedUnitName = unitsListView.getSelectionModel().getSelectedItem();
+            if (selectedUnitName != null) {
+                Unit selectedUnit = App.getUnitsArrayList().stream()
+                        .filter(unit -> unit.getUnitName().equals(selectedUnitName))
+                        .findFirst()
+                        .orElse(null);
+                if (selectedUnit != null && !battle.getUnitsInvolved().contains(selectedUnit)) {
+                    battle.getUnitsInvolved().add(selectedUnit);
+                    selectedUnit.getBattlesParticipated().add(battle);
+                }
+            }
+        });
+        return addUnitButton;
+    }
+
     private GridPane getGridPane() {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
@@ -184,7 +204,6 @@ public class BattleMoreControl {
         gridPane.setHgap(10);
         return gridPane;
     }
-
 
     public Scene render(Battle battle) {
         GridPane gridPane = getGridPane();
@@ -204,18 +223,23 @@ public class BattleMoreControl {
         gridPane.add(getEditButton(gridPane, imageView, battle, battleNameText, unitsListView), 1, 0);
         gridPane.add(battleNameText, 1, 1);
 
-        gridPane.add(imageView, 2, 1);
+        gridPane.add(imageView, 3, 1);
 
         Text battleImageText = new Text("Battle Image");
         battleNameText.setFont(new Font(18));
-        gridPane.add(battleImageText, 2, 2);
+        gridPane.add(battleImageText, 3, 2);
+
+        //Text battleFlowText = new Text("Battle Flow");
+        //battleFlowText.setFont(new Font(18));
+        //gridPane.add(battleFlowText, 2, 2);
+        //gridPane.add(new BattleFlowControl(battle, battleMoreControl), 2, 3);
 
         return scene;
     }
 
     private static ListView<String> getUnitsListView(Battle battle) {
         ListView<String> unitsListView = new ListView<>();
-        unitsListView.setPrefWidth(300);
+        unitsListView.setPrefWidth(450);
         unitsListView.setItems(battle.getUnitsObsList());
         unitsListView.setCellFactory(lv -> new ListCell<String>() {
             @Override

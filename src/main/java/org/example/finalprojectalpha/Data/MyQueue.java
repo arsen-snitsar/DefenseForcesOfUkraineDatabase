@@ -10,4 +10,8 @@ public class MyQueue<T> extends MyLinkedList<T> {
         remove(0);
         return data;
     }
+
+    public T peek() {
+        return get(0);
+    }
 }

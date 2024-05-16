@@ -23,25 +23,32 @@ public class UnitLabelControl extends UnitControl {
 
     private String sortOrder = "asc";
 
-    private HBox changeSort(GridPane gridPane) {
+    private HBox changeSort(GridPane gridPane){
         sort(gridPane, unitsComparable);
 
         if (sortOrder.equals("desc")) {
             sortOrder = "asc";
-            return render(new Unit("Unit Insignia | Unit name | ▼"));
+            HBox labelBox = new UnitControl().render(new Unit("Unit Insignia | Unit name | ▼"));
+            labelBox.getChildren().add(getSearchField(gridPane));
+            return labelBox;
         }
         {
             sortOrder = "desc";
-            return render(new Unit("Unit Insignia | Unit name | ▲"));
+            HBox labelBox = new UnitControl().render(new Unit("Unit Insignia | Unit name | ▲"));
+            labelBox.getChildren().add(getSearchField(gridPane));
+            return labelBox;
         }
     }
 
     private void sort(GridPane gridPane, ArrayList<Comparable> unitsComparable) {
+        gridPane.getChildren().removeAll(App.getUnitNodes());
+        gridPane.getChildren().remove(App.getAddNewUnitControlNode());
         Quicksort.sort(unitsComparable, sortOrder);
         for (Comparable comparable : unitsComparable) {
             App.getUnitNodes().add(new UnitControl().render((Unit) comparable));
             gridPane.add((Node) App.getUnitNodes().getLast(), 0, App.getUnitNodes().size());
         }
+        gridPane.add(App.getAddNewUnitControlNode(), 0, App.getUnitNodes().size() + 1);
     }
 
     private TextField getSearchField(GridPane gridPane) {
@@ -68,7 +75,9 @@ public class UnitLabelControl extends UnitControl {
                 App.getUnitNodes().clear();
                 HBox hBox = new UnitControl().render((Unit) unitsComparable.get(index));
                 App.getUnitNodes().add(hBox);
-                gridPane.add(hBox, 0, App.getUnitNodes().size());
+                gridPane.add(hBox, 0, 1);
+                gridPane.getChildren().remove(App.getAddNewUnitControlNode());
+                gridPane.add(App.getAddNewUnitControlNode(), 0, 2);
             }
         });
         return searchField;
