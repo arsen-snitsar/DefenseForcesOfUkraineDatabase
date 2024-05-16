@@ -49,7 +49,7 @@ public class Output {
                 }
                 printWriter.print(battle.getBattleName() + ": ");
                 while (!battle.getBattleFlow().isEmpty()) {
-                    printWriter.print(battle.dequeueBattleEvent().getEventText());
+                    printWriter.print(battle.dequeueBattleEvent().getEventText() + ", ");
                 }
                 printWriter.println();
             }

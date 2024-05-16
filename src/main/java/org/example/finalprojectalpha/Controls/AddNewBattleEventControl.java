@@ -31,6 +31,7 @@ public class AddNewBattleEventControl extends HBox {
                 String newEventText = textField.getText();
                 battleFlowBox.removeAddNewBattleEventControl();
                 battleFlowBox.addBattleEvent(newEventText, battle);
+                battle.addBattleEvent(new BattleEvent(newEventText));
                 battleFlowBox.addAddNewBattleEventControl(battle);
             }
             textField.clear();

@@ -34,6 +34,7 @@ Units:
 Relationships:
 Third Assault Brigade: Battle of Avdiivka, 2024 Kharkiv offensive, 2023 Ukrainian counteroffensive, 
 Brotherhood Batallion: Battle of Kyiv, 
+5th Separate Assault Brigade: Battle of Sievierodonetsk, 
 Special Group "Alpha": Snake Island campaign, Battle of Kyiv, 
 Azov Assault Brigade: Siege of Mariupol, Battle of Kyiv, 
 Da Vinci Wolves Battalion: Battle of Kyiv, 
@@ -41,5 +42,6 @@ Kraken Regiment: 2022 Kharkiv counteroffensive,
 56th Motorized Mariupol Brigade: Siege of Mariupol, 
 Russian Volunteer Corps: Snake Island campaign, 
 Freedom of Russia Legion: 2024 western Russia incursion, 
-128th Mountain Assault Brigade "Zakarpattia": Battle of Sievierodonetsk, 2022 Kherson counteroffensive, Battle of Bakhmut, 
+128th Mountain Assault Brigade "Zakarpattia": Battle of Sievierodonetsk, 2022 Kherson counteroffensive, 
 Battleflows:
+2023 Ukrainian counteroffensive: yuyuiyi, battle started, battle ended, 
