@@ -60,7 +60,7 @@ public class UnitControl extends HBox {
         return insigniaView;
     }
 
-    public Label getUnitNameLabel (Unit unit){
+    private Label getUnitNameLabel (Unit unit){
         Label unitNameLabel = new Label(unit.getUnitName());
         unitNameLabel.setFont(new Font(18));
         unitNameLabel.setAlignment(Pos.CENTER_LEFT);

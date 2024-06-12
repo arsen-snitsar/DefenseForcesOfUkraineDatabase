@@ -68,8 +68,16 @@ public class Input {
                     }
                 }
             }
-            while ((line = reader.readLine()) != null)
-                System.out.println("ghsdfg");
+            while ((line = reader.readLine()) != null && (!line.equals("End"))) {
+                String battleName = line.substring(0, line.indexOf(":"));
+                Battle battle = App.getBattlesArrayList().get(findBattleIndex(battleName));
+                if (battle != null) {
+                    String[] events = line.substring(line.indexOf(":") + 2).split(", ");
+                    for (String event : events) {
+                        battle.addBattleEvent(event);
+                    }
+                }
+            }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();

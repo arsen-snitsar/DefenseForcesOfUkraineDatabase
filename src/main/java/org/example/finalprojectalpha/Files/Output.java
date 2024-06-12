@@ -48,11 +48,12 @@ public class Output {
                     continue;
                 }
                 printWriter.print(battle.getBattleName() + ": ");
-                while (!battle.getBattleFlow().isEmpty()) {
-                    printWriter.print(battle.dequeueBattleEvent().getEventText() + ", ");
+                for (int i = 0; i < battle.getBattleFlow().getSize(); i++) {
+                    printWriter.print(battle.getBattleFlow().get(i).getEventText() + ", ");
                 }
                 printWriter.println();
             }
+            printWriter.println("End");
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

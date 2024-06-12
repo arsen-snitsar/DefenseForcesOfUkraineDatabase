@@ -43,6 +43,17 @@ public class MyLinkedList<T> {
         return getNode(index).data;
     }
 
+    public T getFirst(){
+        return head.data;
+    }
+    public T getLast(){
+        return tail.data;
+    }
+
+    public boolean isEmpty() {
+        return getSize() == 0;
+    }
+
     public void remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);

@@ -13,7 +13,7 @@ public class Battle implements Comparable<Battle> {
     private int battleId;
     private String imagePath;
     private static int battleCount = 0;
-    private MyQueue<BattleEvent> battleFlow = new MyQueue<>();
+    private MyLinkedList<BattleEvent> battleFlow = new MyLinkedList<>();
     private ArrayList<Unit> unitsInvolved = new ArrayList<>();
 
     public String getImagePath() {
@@ -66,20 +66,20 @@ public class Battle implements Comparable<Battle> {
 
     public void addBattleEvent(String newBattleEventText) {
         BattleEvent newBattleEvent = new BattleEvent(newBattleEventText);
-        battleFlow.enqueue(newBattleEvent);
+        battleFlow.add(newBattleEvent);
     }
 
     public BattleEvent getLastEvent() {
-        return battleFlow.peek();
+        return battleFlow.getLast();
     }
 
-    public MyQueue<BattleEvent> getBattleFlow() {
+    public MyLinkedList<BattleEvent> getBattleFlow() {
         return battleFlow;
     }
-    public BattleEvent dequeueBattleEvent() {
-        return battleFlow.dequeue();
+    public BattleEvent getFirstBattleEvent() {
+        return battleFlow.getFirst();
     }
     public void addBattleEvent(BattleEvent event) {
-        battleFlow.enqueue(event);
+        battleFlow.add(event);
     }
 }

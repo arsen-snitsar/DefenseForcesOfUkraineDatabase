@@ -115,24 +115,46 @@ public class App extends Application {
         return mainScene;
     }
 
+
     private static VBox getButtonBox() {
-
-
-        Button saveToFileButton = new Button("Save");
-        saveToFileButton.setFont(new Font(18));
-        saveToFileButton.setPrefHeight(25);
-        saveToFileButton.setPrefWidth(90);
-        saveToFileButton.setOnAction(event -> {
-            Output.saveToFile(units, battles);
-        });
-
         final BattleLabelControl[] battleLabelControl = {new BattleLabelControl(gridPane)};
 
-        unitsViewButton = new Button("Units");
-        unitsViewButton.setFont(new Font(18));
-        unitsViewButton.setPrefHeight(25);
-        unitsViewButton.setPrefWidth(90);
-        unitsViewButton.setOnAction(event -> {
+        Button loadFromFileButton = getLoadFromFileButton();
+        Button saveToFileButton = getSaveToFileButton();
+        unitsViewButton = getUnitsViewButton(battleLabelControl);
+        battlesViewButton = getBattlesViewButton(battleLabelControl);
+        Button settingsButton = getSettingsButton();
+
+        return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
+    }
+
+
+    private static Button getLoadFromFileButton() {
+        Button loadFromFileButton = new Button("Load");
+        loadFromFileButton.setFont(new Font(18));
+        loadFromFileButton.setPrefHeight(25);
+        loadFromFileButton.setPrefWidth(90);
+        loadFromFileButton.setOnAction(event -> {
+            Input.loadFromFile();
+        });
+        return loadFromFileButton;
+    }
+    private static Button getSaveToFileButton() {
+        Button buttonToReturn = new Button("Save");
+        buttonToReturn.setFont(new Font(18));
+        buttonToReturn.setPrefHeight(25);
+        buttonToReturn.setPrefWidth(90);
+        buttonToReturn.setOnAction(event -> {
+            Output.saveToFile(units, battles);
+        });
+        return buttonToReturn;
+    }
+    private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
+        Button buttonToReturn = new Button("Units");
+        buttonToReturn.setFont(new Font(18));
+        buttonToReturn.setPrefHeight(25);
+        buttonToReturn.setPrefWidth(90);
+        buttonToReturn.setOnAction(event -> {
             gridPane.getChildren().removeAll(
                     battleLabelControl[0], addNewBattleControlNode,
                     unitLabelControlNode, addNewUnitControlNode);
@@ -147,12 +169,14 @@ public class App extends Application {
             }
             gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
         });
-
-        battlesViewButton = new Button("Battles");
-        battlesViewButton.setFont(new Font(18));
-        battlesViewButton.setPrefHeight(25);
-        battlesViewButton.setPrefWidth(90);
-        battlesViewButton.setOnAction(event -> {
+        return buttonToReturn;
+    }
+    private static Button getBattlesViewButton(BattleLabelControl[] battleLabelControl) {
+        Button buttonToReturn = new Button("Battles");
+        buttonToReturn.setFont(new Font(18));
+        buttonToReturn.setPrefHeight(25);
+        buttonToReturn.setPrefWidth(90);
+        buttonToReturn.setOnAction(event -> {
             gridPane.getChildren().removeAll(unitNodes);
             gridPane.getChildren().removeAll(battleNodes);
             gridPane.getChildren().removeAll(
@@ -167,21 +191,16 @@ public class App extends Application {
             }
             gridPane.add(addNewBattleControlNode, 0, battles.size() + 1);
         });
-
-        Button loadFromFileButton = getLoadFromFileButton();
-        return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton);
+        return buttonToReturn;
+    }
+    private static Button getSettingsButton(){
+        Button buttonToReturn = new Button("Settings");
+        buttonToReturn.setFont(new Font(18));
+        buttonToReturn.setPrefHeight(25);
+        buttonToReturn.setPrefWidth(90);
+        return buttonToReturn;
     }
 
-    private static Button getLoadFromFileButton() {
-        Button loadFromFileButton = new Button("Load");
-        loadFromFileButton.setFont(new Font(18));
-        loadFromFileButton.setPrefHeight(25);
-        loadFromFileButton.setPrefWidth(90);
-        loadFromFileButton.setOnAction(event -> {
-            Input.loadFromFile();
-        });
-        return loadFromFileButton;
-    }
 
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);

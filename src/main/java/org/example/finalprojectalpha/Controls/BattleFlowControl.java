@@ -8,10 +8,9 @@ public class BattleFlowControl extends VBox {
 
     public BattleFlowControl(Battle battle) {
         this.getChildren().add(new BattleFlowLabel());
-        while (!battle.getBattleFlow().isEmpty()) {
-            BattleEvent event = battle.getBattleFlow().dequeue();
+        for (int i = 0; i < battle.getBattleFlow().getSize(); i++) {
+            BattleEvent event = battle.getBattleFlow().get(i);
             this.getChildren().add(new BattleEventControl(event));
-            battle.addBattleEvent(event);
         }
     }
 
