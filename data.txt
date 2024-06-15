@@ -14,33 +14,40 @@ Units:
 1. Third Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/ThirdAssaultBrigadeInsignia.png
 2. Brotherhood Batallion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/BratstvoBatallionInsignia.jpg
 3. 5th Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/5thAssaultBrigadeInsignia.png
-4. 28th Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/28thBrigadeInsignia.png
+4. 28th Winter Knights Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/28thBrigadeInsignia.png
 5. Azov Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/AzovAssaultBrigadeInsignia.png
 6. Da Vinci Wolves Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/DaVinciWolvesBatallionInsignia.png
 7. 92nd Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/IvanSirkoBrigadeInsignia.png
 8. 13th Khartiia Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KhartiiaBrigadeInsignia.png
-9. 93rd Separate Mechanized Brigade "Kholodnyi Yar"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KholodnyiYarBrigadeInsignia.png
+9. 93rd Kholodnyi Yar Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KholodnyiYarBrigadeInsignia.png
 10. Kraken Regiment|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KrakenRegimentInsignia.png
 11. Liut Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/LiutBrigadeInsignia.png
-12. 47th Separate Mechanized Brigade "Magura"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MaguraBrigadeInsignia.png
+12. 47th Magura Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MaguraBrigadeInsignia.png
 13. 56th Motorized Mariupol Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MariupolBrigadeInsignia.png
 14. Russian Volunteer Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RussianVolunteerCorpsInsignia.png
 15. 3rd Spartan Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SpartanBrigadeInsignia.jpg
-16. 67th Separate Mechanized Brigade "Ukrainian Volunteer Corps"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UkrainianVolunteerCorpsInsignia.png
+16. 67th Ukrainian Volunteer Corps Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UkrainianVolunteerCorpsInsignia.png
 17. Freedom of Russia Legion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/FRLInsignia.png
 18. 1st Tank Brigade "Siveria"|null
 19. 128th Mountain Assault Brigade "Zakarpattia"|null
 20. Ukrainian Volunteer Army|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UVAInsignia.png
 21. Hospitallers Medical Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/HospitallersInsignia.png
 22. 42nd Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/42ndBrigadeInsignia.png
+23. Special Group "Alpha"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/AlphaGroupInsignia.png
+24. Ranger Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RangerCorpsInsignia.png
+25. 24th King Danylo Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/24thMechanizedBrigadeInsignia.png
+26. 414th Marine Strike UAV Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MagyarBirdsInsignia.png
 Relationships:
 Third Assault Brigade: Battle of Avdiivka, 2024 Kharkiv offensive, 2023 Ukrainian counteroffensive, 2024 western Russia incursion, 2022 Kherson counteroffensive, 2022 Kharkiv counteroffensive, 
-Brotherhood Batallion: Battle of Kyiv, 
-5th Separate Assault Brigade: Battle of Sievierodonetsk, 
+Brotherhood Batallion: Battle of Kyiv, 2024 Kharkiv offensive, 
+5th Separate Assault Brigade: Battle of Sievierodonetsk, 2024 Kharkiv offensive, 
+28th Winter Knights Mechanized Brigade: 2024 Kharkiv offensive, 
 Azov Assault Brigade: Siege of Mariupol, Battle of Kyiv, 
 Da Vinci Wolves Battalion: Battle of Kyiv, 
+92nd Separate Assault Brigade: 2024 Kharkiv offensive, 
 Kraken Regiment: 2022 Kharkiv counteroffensive, 
-47th Separate Mechanized Brigade "Magura": 2023 Ukrainian counteroffensive, 
+Liut Brigade: 2024 Kharkiv offensive, 2023 Ukrainian counteroffensive, 
+47th Magura Separate Mechanized Brigade: 2023 Ukrainian counteroffensive, 
 56th Motorized Mariupol Brigade: Siege of Mariupol, 
 Russian Volunteer Corps: Snake Island campaign, 2024 western Russia incursion, 2024 Kharkiv offensive, Battle of Avdiivka, 
 Freedom of Russia Legion: 2024 western Russia incursion, 2024 Kharkiv offensive, 
@@ -48,6 +55,9 @@ Freedom of Russia Legion: 2024 western Russia incursion, 2024 Kharkiv offensive,
 Ukrainian Volunteer Army: Battle of Kyiv, 2022 Kharkiv counteroffensive, 2023 Ukrainian counteroffensive, 2022 Kherson counteroffensive, 
 Hospitallers Medical Battalion: 2023 Ukrainian counteroffensive, 
 42nd Mechanized Brigade: 2024 Kharkiv offensive, Battle of Bakhmut, 
+Special Group "Alpha": Snake Island campaign, 
+24th King Danylo Separate Mechanized Brigade: Battle of Bakhmut, 
+414th Marine Strike UAV Battalion: Battle of Bakhmut, 2024 Kharkiv offensive, 2023 Ukrainian counteroffensive, 
 Battleflows:
 2023 Ukrainian counteroffensive: 8th of June 2023 - The Washington Post reports the beginning of Ukrainian counteroffensive., 23rd of August 2023 - the 47th Mechanized Brigade captured Robotyne in Zaporizhia Oblast.,, 
 End

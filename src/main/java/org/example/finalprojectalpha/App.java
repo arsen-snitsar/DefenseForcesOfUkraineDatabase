@@ -123,7 +123,7 @@ public class App extends Application {
         Button saveToFileButton = getSaveToFileButton();
         unitsViewButton = getUnitsViewButton(battleLabelControl);
         battlesViewButton = getBattlesViewButton(battleLabelControl);
-        Button settingsButton = getSettingsButton();
+        Button settingsButton = getSettingsButton(battleLabelControl);
 
         return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
     }
@@ -139,6 +139,7 @@ public class App extends Application {
         });
         return loadFromFileButton;
     }
+
     private static Button getSaveToFileButton() {
         Button buttonToReturn = new Button("Save");
         buttonToReturn.setFont(new Font(18));
@@ -149,12 +150,16 @@ public class App extends Application {
         });
         return buttonToReturn;
     }
+
+    private static Node searchControlNode = SettingsControl.getSearchControl();
+
     private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
         Button buttonToReturn = new Button("Units");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
         buttonToReturn.setPrefWidth(90);
         buttonToReturn.setOnAction(event -> {
+            gridPane.getChildren().removeAll(searchControlNode);
             gridPane.getChildren().removeAll(
                     battleLabelControl[0], addNewBattleControlNode,
                     unitLabelControlNode, addNewUnitControlNode);
@@ -171,12 +176,14 @@ public class App extends Application {
         });
         return buttonToReturn;
     }
+
     private static Button getBattlesViewButton(BattleLabelControl[] battleLabelControl) {
         Button buttonToReturn = new Button("Battles");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
         buttonToReturn.setPrefWidth(90);
         buttonToReturn.setOnAction(event -> {
+            gridPane.getChildren().removeAll(searchControlNode);
             gridPane.getChildren().removeAll(unitNodes);
             gridPane.getChildren().removeAll(battleNodes);
             gridPane.getChildren().removeAll(
@@ -193,14 +200,24 @@ public class App extends Application {
         });
         return buttonToReturn;
     }
-    private static Button getSettingsButton(){
+
+    private static Button getSettingsButton(BattleLabelControl[] battleLabelControl) {
         Button buttonToReturn = new Button("Settings");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
         buttonToReturn.setPrefWidth(90);
+        buttonToReturn.setOnAction(e -> {
+                    gridPane.getChildren().removeAll(
+                            unitLabelControlNode, addNewUnitControlNode,
+                            battleLabelControl[0], addNewBattleControlNode);
+                    gridPane.getChildren().removeAll(unitNodes);
+                    gridPane.getChildren().removeAll(battleNodes);
+                    gridPane.add(searchControlNode, 0, 0);
+                }
+        );
+
         return buttonToReturn;
     }
-
 
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);
@@ -264,14 +281,6 @@ public class App extends Application {
         return scene;
     }
 
-    public static Collection<Object> getUnits() {
-        return Collections.singleton(units);
-    }
-
-    public static Collection<Object> getBattles() {
-        return Collections.singleton(battles);
-    }
-
     public static ArrayList<Battle> getBattlesArrayList() {
         return new ArrayList<>(battles);
     }
@@ -315,13 +324,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         App.primaryStage = primaryStage;
         primaryStage.setScene(getMainScene());
         primaryStage.setTitle("Defense Forces of Ukraine Database");
         primaryStage.setMaximized(true);
         primaryStage.show();
-
-
     }
 }
