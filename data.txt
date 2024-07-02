@@ -37,6 +37,7 @@ Units:
 24. Ranger Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RangerCorpsInsignia.png
 25. 24th King Danylo Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/24thMechanizedBrigadeInsignia.png
 26. 414th Marine Strike UAV Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MagyarBirdsInsignia.png
+28. Revanche Tactical Group|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RevancheGroupInsignia.jpg
 Relationships:
 Third Assault Brigade: Battle of Avdiivka, 2024 Kharkiv offensive, 2023 Ukrainian counteroffensive, 2024 western Russia incursion, 2022 Kherson counteroffensive, 2022 Kharkiv counteroffensive, 
 Brotherhood Batallion: Battle of Kyiv, 2024 Kharkiv offensive, 
