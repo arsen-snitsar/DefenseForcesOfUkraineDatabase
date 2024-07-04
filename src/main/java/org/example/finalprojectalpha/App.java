@@ -29,9 +29,6 @@ public class App extends Application {
 
     public static Stage primaryStage;
     private static final List<Unit> units = new ArrayList<>();
-    private static final List<Battle> battles = new ArrayList<>();
-    private static final List<Node> battleNodes = new ArrayList<>();
-
     private static final List<Node> unitNodes = new ArrayList<>();
     private static final GridPane gridPane = new GridPane();
     private static Node unitLabelControlNode = new UnitLabelControl().render(gridPane);
@@ -276,10 +273,6 @@ public class App extends Application {
         return -1;
     }
 
-    //    public static ArrayList getBattleNodes() {
-//        return (ArrayList<Node>) battleNodes;
-//    }
-//
     public static Node getAddNewBattleControlNode() {
         return addNewBattleControlNode;
     }
@@ -290,23 +283,6 @@ public class App extends Application {
         gridPane.add(addNewBattleControlNode, 0, Battles.getNodesSize() + 1);
     }
 
-    //public static void addNewBattle(Battle newBattle) {
-//    if (!battles.contains(newBattle))
-//        battles.add(newBattle);
-//}
-//public static ArrayList<Comparable> getBattlesComparable() {
-//    return new ArrayList<Comparable>(battles);
-//}
-//public static void addNewBattle(String newBattleName) {
-//    //addNewBattle(new Battle(newBattleName, "null"));
-//    Battles.addNewBattle(new Battle(newBattleName, "null"));
-//    Node battleNode = new BattleControl(Battles.getLast());
-//    gridPane.add(battleNode, 0, Battles.size());
-//    battleNodes.add(battleNode);
-//
-//    gridPane.getChildren().removeAll(addNewBattleControlNode);
-//    gridPane.add(addNewBattleControlNode, 0, Battles.size() + 1);
-//}
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;

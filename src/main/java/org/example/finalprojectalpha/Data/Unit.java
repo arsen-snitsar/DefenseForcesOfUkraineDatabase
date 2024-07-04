@@ -65,7 +65,7 @@ public class Unit implements Comparable<Unit> {
 
     @Override
     public String toString() {
-        return this.unitName; // or whatever property you want to print
+        return this.unitName;
     }
 
     public void addBattleParticipated(Battle battle) {

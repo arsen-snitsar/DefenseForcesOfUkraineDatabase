@@ -109,7 +109,7 @@ public class BattleMoreControl {
 
                 {
                     text = new Text();
-                    text.setFont(new Font(18)); // Set the font size here
+                    text.setFont(new Font(18));
                     setGraphic(text);
                 }
 
@@ -153,7 +153,7 @@ public class BattleMoreControl {
 
                     {
                         text = new Text();
-                        text.setFont(new Font(18)); // Set the font size here
+                        text.setFont(new Font(18));
                         setGraphic(text);
                     }
 
@@ -252,7 +252,7 @@ public class BattleMoreControl {
                     setText(null);
                 } else {
                     setText(item);
-                    setFont(new Font(18)); // Set the font size here
+                    setFont(new Font(18));
                 }
             }
         });

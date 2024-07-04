@@ -32,7 +32,6 @@ public class AddNewBattleControl extends HBox {
             if (!newBattleNameField.getText().isEmpty()) {
                 String newBattleName = newBattleNameField.getText();
                 newBattleNameField.clear();
-                //App.addNewBattle(newBattleName);
                 Battles.add(newBattleName);
             }
         });
