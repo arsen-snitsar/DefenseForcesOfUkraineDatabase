@@ -2,37 +2,34 @@ package org.example.finalprojectalpha.Data;
 
 import javafx.collections.ObservableList;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
 
 public class Battle implements Comparable<Battle> {
 
-    private String battleName;
-    private int battleId;
+    private String name;
+    private int id;
     private String imagePath;
-    private static int battleCount = 0;
-    private MyLinkedList<BattleEvent> battleFlow = new MyLinkedList<>();
+    private static int count = 0;
+    private MyLinkedList<BattleEvent> flow = new MyLinkedList<>();
     private ArrayList<Unit> unitsInvolved = new ArrayList<>();
 
     public String getImagePath() {
         return imagePath;
     }
 
-    public String getBattleName() {
-        return battleName;
+    public String getName() {
+        return name;
     }
 
-    public Battle(String battleName, String imagePath) {
-        this.battleName = battleName;
-        this.battleId = battleCount;
+    public Battle(String name, String imagePath) {
+        this.name = name;
+        this.id = count;
         this.imagePath = imagePath;
-        battleCount++;
+        count++;
     }
 
-    public int getBattleId() {
-        return battleId;
+    public int getId() {
+        return id;
     }
 
     public ObservableList<String> getUnitsObsList() {
@@ -52,34 +49,34 @@ public class Battle implements Comparable<Battle> {
     }
 
     public void setName(String text) {
-        this.battleName = text;
+        this.name = text;
     }
 
     @Override
     public int compareTo(Battle o) {
-        return this.battleName.compareTo(o.battleName);
+        return this.name.compareTo(o.name);
     }
 
     public void addUnitInvolved(Unit newUnit) {
         unitsInvolved.add(newUnit);
     }
 
-    public void addBattleEvent(String newBattleEventText) {
+    public void addEvent(String newBattleEventText) {
         BattleEvent newBattleEvent = new BattleEvent(newBattleEventText);
-        battleFlow.add(newBattleEvent);
+        flow.add(newBattleEvent);
     }
 
     public BattleEvent getLastEvent() {
-        return battleFlow.getLast();
+        return flow.getLast();
     }
 
-    public MyLinkedList<BattleEvent> getBattleFlow() {
-        return battleFlow;
+    public MyLinkedList<BattleEvent> getFlow() {
+        return flow;
     }
-    public BattleEvent getFirstBattleEvent() {
-        return battleFlow.getFirst();
+    public BattleEvent getFirstEvent() {
+        return flow.getFirst();
     }
-    public void addBattleEvent(BattleEvent event) {
-        battleFlow.add(event);
+    public void addEvent(BattleEvent event) {
+        flow.add(event);
     }
 }

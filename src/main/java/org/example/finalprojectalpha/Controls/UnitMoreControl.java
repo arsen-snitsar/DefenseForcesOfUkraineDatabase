@@ -112,7 +112,7 @@ public class UnitMoreControl {
                         text.setText(null);
                     } else {
                         text.setText(item);
-                        if (unit.getBattlesParticipated().stream().anyMatch(battle -> battle.getBattleName().equals(item))) {
+                        if (unit.getBattlesParticipated().stream().anyMatch(battle -> battle.getName().equals(item))) {
                             text.setFill(Color.GRAY);
                         } else {
                             text.setFill(Color.BLACK);
@@ -176,7 +176,7 @@ public class UnitMoreControl {
             String selectedBattleName = battlesListView.getSelectionModel().getSelectedItem();
             if (selectedBattleName != null) {
                 Battle selectedBattle = Battles.getArrayList().stream()
-                        .filter(battle -> battle.getBattleName().equals(selectedBattleName))
+                        .filter(battle -> battle.getName().equals(selectedBattleName))
                         .findFirst()
                         .orElse(null);
                 if (selectedBattle != null && !unit.getBattlesParticipated().contains(selectedBattle)) {

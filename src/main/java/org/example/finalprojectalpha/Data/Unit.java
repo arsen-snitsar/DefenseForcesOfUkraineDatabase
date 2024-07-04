@@ -50,7 +50,7 @@ public class Unit implements Comparable<Unit> {
     public ObservableList<String> getBattlesObsList() {
         ObservableList<String> battles = FXCollections.observableArrayList();
         for (Battle battle : battlesParticipated) {
-            battles.add(battle.getBattleName());
+            battles.add(battle.getName());
         }
         return battles;
     }

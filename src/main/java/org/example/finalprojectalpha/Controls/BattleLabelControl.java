@@ -68,7 +68,7 @@ public class BattleLabelControl extends BattleControl {
                 searchField.clear();
                 ArrayList<Comparable> battleNames = new ArrayList<>();
                 for (Comparable comparable : battlesComparable) {
-                    battleNames.add(((Battle) comparable).getBattleName());
+                    battleNames.add(((Battle) comparable).getName());
                 }
                 int index = BinarySearch.search(battleNames, key);
                 gridPane.getChildren().removeAll(Battles.getNodes());
@@ -91,7 +91,7 @@ public class BattleLabelControl extends BattleControl {
                 gridPane.getChildren().remove(App.getAddNewBattleControlNode());
                 for (Comparable comparable : battlesComparable) {
                     Battle battle = (Battle) comparable;
-                    if (battle.getBattleName().toLowerCase().contains(newValue.toLowerCase())) {
+                    if (battle.getName().toLowerCase().contains(newValue.toLowerCase())) {
                         HBox hBox = new BattleControl(battle);
                         Battles.addNode(hBox);
                         gridPane.add(hBox, 0, Battles.getNodesSize());
