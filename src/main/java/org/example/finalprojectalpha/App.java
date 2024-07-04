@@ -42,9 +42,7 @@ public class App extends Application {
         battlesViewButton.fire();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 
     public static Scene getMainScene() {
         return mainScene;
@@ -283,6 +281,10 @@ public class App extends Application {
         gridPane.add(addNewBattleControlNode, 0, Battles.getNodesSize() + 1);
     }
 
+
+    public static void main(String[] args) {
+        launch(args);
+    }
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
