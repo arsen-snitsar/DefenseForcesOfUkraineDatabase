@@ -2,6 +2,7 @@ package org.example.finalprojectalpha.Files;
 
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battle;
+import org.example.finalprojectalpha.Data.Battles;
 import org.example.finalprojectalpha.Data.Unit;
 
 import java.io.BufferedReader;
@@ -10,7 +11,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.example.finalprojectalpha.App.findBattleIndex;
 import static org.example.finalprojectalpha.App.findUnitIndex;
 
 public class Input {
@@ -32,7 +32,7 @@ public class Input {
                         uniqueBattleNames.add(battleName);
                         String imagePath = line.substring(line.indexOf("|") + 1);
                         newBattle = new Battle(battleName, imagePath);
-                        App.addNewBattle(newBattle);
+                        Battles.add(newBattle);
                     }
                 }
             }
@@ -55,10 +55,10 @@ public class Input {
                 if (unit != null) {
                     String[] battles = line.substring(line.indexOf(":") + 2).split(", ");
                     for (String battleName : battles) {
-                        if (findBattleIndex(battleName) == -1) {
+                        if (Battles.findIndex(battleName) == -1) {
                             continue;
                         }
-                        Battle battle = App.getBattlesArrayList().get(findBattleIndex(battleName));
+                        Battle battle = Battles.getArrayList().get(Battles.findIndex(battleName));
                         if (battle != null
                                 && !unit.getBattlesParticipated().contains(battle))
                             unit.addBattleParticipated(battle);
@@ -70,7 +70,7 @@ public class Input {
             }
             while ((line = reader.readLine()) != null && (!line.equals("End"))) {
                 String battleName = line.substring(0, line.indexOf(":"));
-                Battle battle = App.getBattlesArrayList().get(findBattleIndex(battleName));
+                Battle battle = Battles.getArrayList().get(Battles.findIndex(battleName));
                 if (battle != null) {
                     String[] events = line.substring(line.indexOf(":") + 2).split(", ");
                     for (String event : events) {

@@ -1,10 +1,6 @@
 package org.example.finalprojectalpha.Controls;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -21,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battle;
+import org.example.finalprojectalpha.Data.Battles;
 import org.example.finalprojectalpha.Data.Unit;
 
 import java.io.File;
@@ -98,7 +95,7 @@ public class UnitMoreControl {
             Button chooseInsigniaButton = getChooseInsigniaButton(insigniaView, unit);
             gridPane.add(chooseInsigniaButton, 3, 1);
 
-            battlesListView.setItems(App.getBattlesObsList());
+            battlesListView.setItems(Battles.getObservableList());
             battlesListView.setCellFactory(lv -> new ListCell<String>() {
                 private Text text;
 
@@ -178,7 +175,7 @@ public class UnitMoreControl {
         addBattleButton.setOnAction(e -> {
             String selectedBattleName = battlesListView.getSelectionModel().getSelectedItem();
             if (selectedBattleName != null) {
-                Battle selectedBattle = App.getBattlesArrayList().stream()
+                Battle selectedBattle = Battles.getArrayList().stream()
                         .filter(battle -> battle.getBattleName().equals(selectedBattleName))
                         .findFirst()
                         .orElse(null);

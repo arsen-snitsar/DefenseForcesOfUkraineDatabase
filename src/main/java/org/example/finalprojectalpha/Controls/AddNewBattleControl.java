@@ -9,9 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
-import org.example.finalprojectalpha.Data.Battle;
+import org.example.finalprojectalpha.Data.Battles;
 
 public class AddNewBattleControl extends HBox {
     public AddNewBattleControl() {
@@ -33,7 +32,8 @@ public class AddNewBattleControl extends HBox {
             if (!newBattleNameField.getText().isEmpty()) {
                 String newBattleName = newBattleNameField.getText();
                 newBattleNameField.clear();
-                App.addNewBattle(newBattleName);
+                //App.addNewBattle(newBattleName);
+                Battles.add(newBattleName);
             }
         });
 

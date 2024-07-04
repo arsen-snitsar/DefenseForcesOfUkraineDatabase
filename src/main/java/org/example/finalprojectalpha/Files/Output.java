@@ -14,7 +14,7 @@ public class Output {
             FileWriter fileWriter = new FileWriter("data.txt", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.println("Battles:");
-            for (Battle battle : battles) {
+            for (Battle battle : Battles.getList()) {
                 String imagePath = battle.getImagePath();
                 if (imagePath != null && !imagePath.equals("null")) {
                     printWriter.println(battle.getBattleId() + ". " + battle.getBattleName() + "|" + imagePath);

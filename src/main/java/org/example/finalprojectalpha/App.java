@@ -30,81 +30,19 @@ public class App extends Application {
     public static Stage primaryStage;
     private static final List<Unit> units = new ArrayList<>();
     private static final List<Battle> battles = new ArrayList<>();
+    private static final List<Node> battleNodes = new ArrayList<>();
+
     private static final List<Node> unitNodes = new ArrayList<>();
     private static final GridPane gridPane = new GridPane();
     private static Node unitLabelControlNode = new UnitLabelControl().render(gridPane);
     private static final Node addNewUnitControlNode = new AddNewUnitControl().render();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Scene mainScene = setMainScene();
-    private static final List<Node> battleNodes = new ArrayList<>();
     private static Button unitsViewButton;
     private static Button battlesViewButton;
 
-    public static int findBattleIndex(String battleName) {
-        for (Battle battle : battles) {
-            if (battle.getBattleName().equals(battleName)) {
-                return battles.indexOf(battle);
-            }
-        }
-        return -1;
-    }
-
-    public static ObservableList<String> getBattlesObsList() {
-        ObservableList<String> battleNames = FXCollections.observableArrayList();
-        for (Battle battle : battles) {
-            battleNames.add(battle.getBattleName());
-        }
-        return battleNames;
-    }
-
-    public static ObservableList<String> getUnitsObsList() {
-        ObservableList<String> unitNames = FXCollections.observableArrayList();
-        for (Unit unit : units) {
-            unitNames.add(unit.getUnitName());
-        }
-        return unitNames;
-    }
-
-    public static void fireUnitsViewButton() {
-        unitsViewButton.fire();
-    }
-
     public static void fireBattlesViewButton() {
         battlesViewButton.fire();
-    }
-
-    public static void addNewUnit(String newUnitName, Stage primaryStage) {
-        units.add(new Unit(newUnitName));
-        Node unitNode = new UnitControl().render(units.getLast());
-        gridPane.add(unitNode, 0, units.size());
-        unitNodes.add(unitNode);
-
-        gridPane.getChildren().removeAll(addNewUnitControlNode);
-        gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
-    }
-
-    public static void addNewUnit(Unit newUnit) {
-        if (!units.contains(newUnit))
-            units.add(newUnit);
-    }
-
-    public static void removeUnit(Unit unit) {
-        units.remove(unit);
-    }
-
-    public static void addNewBattle(String newBattleName) {
-        battles.add(new Battle(newBattleName, "null"));
-        Node battleNode = new BattleControl(battles.getLast());
-        gridPane.add(battleNode, 0, battles.size());
-        battleNodes.add(battleNode);
-
-        gridPane.getChildren().removeAll(addNewBattleControlNode);
-        gridPane.add(addNewBattleControlNode, 0, battles.size() + 1);
-    }
-
-    public static void addNewBattle(Battle newBattle) {
-        if (!battles.contains(newBattle))
-            battles.add(newBattle);
     }
 
     public static void main(String[] args) {
@@ -146,36 +84,13 @@ public class App extends Application {
         buttonToReturn.setPrefHeight(25);
         buttonToReturn.setPrefWidth(90);
         buttonToReturn.setOnAction(event -> {
-            Output.saveToFile(units, battles);
+            Output.saveToFile(units, Battles.getList());
         });
         return buttonToReturn;
     }
 
     private static Node searchControlNode = SettingsControl.getSearchControl();
 
-    private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
-        Button buttonToReturn = new Button("Units");
-        buttonToReturn.setFont(new Font(18));
-        buttonToReturn.setPrefHeight(25);
-        buttonToReturn.setPrefWidth(90);
-        buttonToReturn.setOnAction(event -> {
-            gridPane.getChildren().removeAll(searchControlNode);
-            gridPane.getChildren().removeAll(
-                    battleLabelControl[0], addNewBattleControlNode,
-                    unitLabelControlNode, addNewUnitControlNode);
-            gridPane.getChildren().removeAll(battleNodes);
-            gridPane.getChildren().removeAll(unitNodes);
-            unitLabelControlNode = new UnitLabelControl().render(gridPane);
-            gridPane.add(unitLabelControlNode, 0, 0);
-            for (Unit unit : units) {
-                HBox hBoxToAdd = new UnitControl().render(unit);
-                unitNodes.add(hBoxToAdd);
-                gridPane.add(hBoxToAdd, 0, units.indexOf(unit) + 1);
-            }
-            gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
-        });
-        return buttonToReturn;
-    }
 
     private static Button getBattlesViewButton(BattleLabelControl[] battleLabelControl) {
         Button buttonToReturn = new Button("Battles");
@@ -185,18 +100,18 @@ public class App extends Application {
         buttonToReturn.setOnAction(event -> {
             gridPane.getChildren().removeAll(searchControlNode);
             gridPane.getChildren().removeAll(unitNodes);
-            gridPane.getChildren().removeAll(battleNodes);
+            gridPane.getChildren().removeAll(Battles.getNodes());
             gridPane.getChildren().removeAll(
                     unitLabelControlNode, addNewUnitControlNode,
                     battleLabelControl[0], addNewBattleControlNode);
             battleLabelControl[0] = new BattleLabelControl(gridPane);
             gridPane.getChildren().add(battleLabelControl[0]);
-            for (Battle battle : battles) {
+            for (Battle battle : Battles.getList()) {
                 HBox hBoxToAdd = new BattleControl(battle);
-                battleNodes.add(hBoxToAdd);
-                gridPane.add(hBoxToAdd, 0, battles.indexOf(battle) + 1);
+                Battles.addNode(hBoxToAdd);
+                gridPane.add(hBoxToAdd, 0, Battles.getIndexOf(battle) + 1);
             }
-            gridPane.add(addNewBattleControlNode, 0, battles.size() + 1);
+            gridPane.add(addNewBattleControlNode, 0, Battles.size() + 1);
         });
         return buttonToReturn;
     }
@@ -211,7 +126,7 @@ public class App extends Application {
                             unitLabelControlNode, addNewUnitControlNode,
                             battleLabelControl[0], addNewBattleControlNode);
                     gridPane.getChildren().removeAll(unitNodes);
-                    gridPane.getChildren().removeAll(battleNodes);
+                    gridPane.getChildren().removeAll(Battles.getNodes());
                     gridPane.add(searchControlNode, 0, 0);
                 }
         );
@@ -281,8 +196,59 @@ public class App extends Application {
         return scene;
     }
 
-    public static ArrayList<Battle> getBattlesArrayList() {
-        return new ArrayList<>(battles);
+    public static ObservableList<String> getUnitsObsList() {
+        ObservableList<String> unitNames = FXCollections.observableArrayList();
+        for (Unit unit : units) {
+            unitNames.add(unit.getUnitName());
+        }
+        return unitNames;
+    }
+
+    public static void fireUnitsViewButton() {
+        unitsViewButton.fire();
+    }
+
+    public static void addNewUnit(String newUnitName, Stage primaryStage) {
+        units.add(new Unit(newUnitName));
+        Node unitNode = new UnitControl().render(units.getLast());
+        gridPane.add(unitNode, 0, units.size());
+        unitNodes.add(unitNode);
+
+        gridPane.getChildren().removeAll(addNewUnitControlNode);
+        gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
+    }
+
+    public static void addNewUnit(Unit newUnit) {
+        if (!units.contains(newUnit))
+            units.add(newUnit);
+    }
+
+    public static void removeUnit(Unit unit) {
+        units.remove(unit);
+    }
+
+    private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
+        Button buttonToReturn = new Button("Units");
+        buttonToReturn.setFont(new Font(18));
+        buttonToReturn.setPrefHeight(25);
+        buttonToReturn.setPrefWidth(90);
+        buttonToReturn.setOnAction(event -> {
+            gridPane.getChildren().removeAll(searchControlNode);
+            gridPane.getChildren().removeAll(
+                    battleLabelControl[0], addNewBattleControlNode,
+                    unitLabelControlNode, addNewUnitControlNode);
+            gridPane.getChildren().removeAll(Battles.getNodes());
+            gridPane.getChildren().removeAll(unitNodes);
+            unitLabelControlNode = new UnitLabelControl().render(gridPane);
+            gridPane.add(unitLabelControlNode, 0, 0);
+            for (Unit unit : units) {
+                HBox hBoxToAdd = new UnitControl().render(unit);
+                unitNodes.add(hBoxToAdd);
+                gridPane.add(hBoxToAdd, 0, units.indexOf(unit) + 1);
+            }
+            gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
+        });
+        return buttonToReturn;
     }
 
     public static ArrayList<Unit> getUnitsArrayList() {
@@ -293,24 +259,12 @@ public class App extends Application {
         return new ArrayList<Comparable>(units);
     }
 
-    public static ArrayList<Comparable> getBattlesComparable() {
-        return new ArrayList<Comparable>(battles);
-    }
-
     public static ArrayList getUnitNodes() {
         return (ArrayList<Node>) unitNodes;
     }
 
     public static Node getAddNewUnitControlNode() {
         return addNewUnitControlNode;
-    }
-
-    public static ArrayList getBattleNodes() {
-        return (ArrayList<Node>) battleNodes;
-    }
-
-    public static Node getAddNewBattleControlNode() {
-        return addNewBattleControlNode;
     }
 
     public static int findUnitIndex(String unitName) {
@@ -322,6 +276,37 @@ public class App extends Application {
         return -1;
     }
 
+    //    public static ArrayList getBattleNodes() {
+//        return (ArrayList<Node>) battleNodes;
+//    }
+//
+    public static Node getAddNewBattleControlNode() {
+        return addNewBattleControlNode;
+    }
+
+    public static void addBattleToGridpane(Node battleNode) {
+        gridPane.add(battleNode, 0, Battles.getNodesSize());
+        gridPane.getChildren().removeAll(addNewBattleControlNode);
+        gridPane.add(addNewBattleControlNode, 0, Battles.getNodesSize() + 1);
+    }
+
+    //public static void addNewBattle(Battle newBattle) {
+//    if (!battles.contains(newBattle))
+//        battles.add(newBattle);
+//}
+//public static ArrayList<Comparable> getBattlesComparable() {
+//    return new ArrayList<Comparable>(battles);
+//}
+//public static void addNewBattle(String newBattleName) {
+//    //addNewBattle(new Battle(newBattleName, "null"));
+//    Battles.addNewBattle(new Battle(newBattleName, "null"));
+//    Node battleNode = new BattleControl(Battles.getLast());
+//    gridPane.add(battleNode, 0, Battles.size());
+//    battleNodes.add(battleNode);
+//
+//    gridPane.getChildren().removeAll(addNewBattleControlNode);
+//    gridPane.add(addNewBattleControlNode, 0, Battles.size() + 1);
+//}
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
