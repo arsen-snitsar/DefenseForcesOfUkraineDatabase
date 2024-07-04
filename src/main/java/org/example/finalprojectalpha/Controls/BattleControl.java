@@ -6,7 +6,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -15,10 +14,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battle;
-import org.example.finalprojectalpha.Data.Unit;
 
 public class BattleControl extends HBox {
 
@@ -45,7 +42,7 @@ public class BattleControl extends HBox {
     }
 
     private Node getBattleNameText(Battle battle) {
-        Text battleNameText = new Text(battle.getBattleName());
+        Text battleNameText = new Text(battle.getName());
         battleNameText.setFont(new Font(18));
         battleNameText.setTextAlignment(TextAlignment.LEFT);
 

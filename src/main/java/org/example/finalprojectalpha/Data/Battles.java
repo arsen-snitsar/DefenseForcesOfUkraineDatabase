@@ -22,7 +22,7 @@ public class Battles {
     public static ObservableList<String> getObservableList() {
         ObservableList<String> battleNames = FXCollections.observableArrayList();
         for (Battle battle : battles) {
-            battleNames.add(battle.getBattleName());
+            battleNames.add(battle.getName());
         }
         return battleNames;
     }
@@ -41,7 +41,7 @@ public class Battles {
 
     public static int findIndex(String battleName) {
         for (Battle battle : battles) {
-            if (battle.getBattleName().equals(battleName)) {
+            if (battle.getName().equals(battleName)) {
                 return battles.indexOf(battle);
             }
         }

@@ -1,7 +1,6 @@
 package org.example.finalprojectalpha.Controls;
 
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -10,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -22,7 +19,6 @@ import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.*;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import static org.example.finalprojectalpha.App.primaryStage;
 
@@ -92,7 +88,7 @@ public class BattleMoreControl {
             gridPane.getChildren().remove(imageView);
 
             gridPane.getChildren().remove(battleNameText);
-            TextField editNameField = new TextField(battle.getBattleName());
+            TextField editNameField = new TextField(battle.getName());
             editNameField.setFont(new Font(18));
             gridPane.add(editNameField, 1, 1);
             Button chooseImageButton = getChooseImageButton(imageView, battle);
@@ -143,7 +139,7 @@ public class BattleMoreControl {
 
                 battle.setName(editNameField.getText());
                 gridPane.getChildren().remove(editNameField);
-                battleNameText.setText(battle.getBattleName());
+                battleNameText.setText(battle.getName());
                 battleNameText.setFont(new Font(18));
                 gridPane.add(battleNameText, 1, 1);
 
@@ -221,7 +217,7 @@ public class BattleMoreControl {
         gridPane.add(battleFlowBox, 3, 3);
 
         ImageView imageView = getImageView(battle);
-        Text battleNameText = new Text(battle.getBattleName());
+        Text battleNameText = new Text(battle.getName());
         battleNameText.setFont(new Font(18));
         gridPane.add(imageView, 3, 1);
 

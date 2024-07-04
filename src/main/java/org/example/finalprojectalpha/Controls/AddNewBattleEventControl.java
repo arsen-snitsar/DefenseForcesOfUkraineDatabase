@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battle;
 import org.example.finalprojectalpha.Data.BattleEvent;
@@ -31,7 +30,7 @@ public class AddNewBattleEventControl extends HBox {
                 String newEventText = textField.getText();
                 battleFlowBox.removeAddNewBattleEventControl();
                 battleFlowBox.addBattleEvent(newEventText, battle);
-                battle.addBattleEvent(new BattleEvent(newEventText));
+                battle.addEvent(new BattleEvent(newEventText));
                 battleFlowBox.addAddNewBattleEventControl(battle);
             }
             textField.clear();
