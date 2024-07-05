@@ -14,30 +14,36 @@ import org.example.finalprojectalpha.Data.Battles;
 
 public class AddNewBattleControl extends HBox {
     public AddNewBattleControl() {
-        Button addNewBattleButton = new Button();
+        Button button = new Button();
         Image image = new Image(App.class.getResource("AddButton.png").toExternalForm());
         ImageView buttonView = new ImageView(image);
         buttonView.setFitHeight(90);
         buttonView.setFitWidth(90);
-        addNewBattleButton.setGraphic(buttonView);
-        addNewBattleButton.setPrefHeight(100);
-        addNewBattleButton.setPrefWidth(100);
+        button.setGraphic(buttonView);
+        button.setPrefHeight(100);
+        button.setPrefWidth(100);
 
-        TextField newBattleNameField = new TextField();
-        newBattleNameField.setPromptText("Enter new battle name");
-        newBattleNameField.setFont(new Font(18));
-        newBattleNameField.setAlignment(Pos.CENTER_LEFT);
+        TextField field = new TextField();
+        field.setPromptText("Enter new battle name");
+        field.setFont(new Font(18));
+        field.setAlignment(Pos.CENTER_LEFT);
 
-        addNewBattleButton.setOnAction(e -> {
-            if (!newBattleNameField.getText().isEmpty()) {
-                String name = newBattleNameField.getText();
-                newBattleNameField.clear();
+        button.setOnAction(e -> {
+            if (!field.getText().isEmpty()) {
+                String name = field.getText();
+                field.clear();
+                Battles.add(name);
+            }
+        });
+        field.setOnAction(e -> {
+            if (!field.getText().isEmpty()) {
+                String name = field.getText();
+                field.clear();
                 Battles.add(name);
             }
         });
 
-
-        this.getChildren().addAll(addNewBattleButton, newBattleNameField);
+        this.getChildren().addAll(button, field);
 
         this.setBorder(
                 new Border(

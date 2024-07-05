@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import org.example.finalprojectalpha.Controls.BattleControl;
 import org.example.finalprojectalpha.Controls.UnitControl;
 import org.example.finalprojectalpha.App;
 
@@ -18,6 +19,7 @@ public class Units {
     public static boolean contains(Unit newUnit) {
         return list.contains(newUnit);
     }
+
     public static boolean contains(String name) {
         for (Unit unit : list) {
             if (unit.getName().equals(name))
@@ -38,6 +40,7 @@ public class Units {
     public static Unit get(int index) {
         return list.get(index);
     }
+
     public static Unit get(String unitName) {
         return list.get(findIndex(unitName));
     }
@@ -58,14 +61,18 @@ public class Units {
     public static void add(Unit newUnit) {
         list.add(newUnit);
     }
+
     public static void add(String name) {
         add(new Unit(name));
         Node unit = new UnitControl(list.getLast());
-        App.addUnitToGridpane(unit);}
+        nodes.add(unit);
+        App.addUnitToGridpane(unit);
+    }
 
     public static int nodesSize() {
         return nodes.size();
     }
+
     public static ObservableList<String> getObservableList() {
         ObservableList<String> unitNames = FXCollections.observableArrayList();
         for (Unit unit : list) {

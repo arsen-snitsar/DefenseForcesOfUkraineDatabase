@@ -24,26 +24,33 @@ public class AddNewUnitControl extends HBox {
     public AddNewUnitControl() {
         this.setPrefWidth(myGetPrefWidth());
 
-        Button addNewUnitButton = new Button();
+        Button button = new Button();
         Image image = new Image(App.class.getResource("AddButton.png").toExternalForm());
         ImageView buttonView = new ImageView(image);
         buttonView.setFitHeight(90);
         buttonView.setFitWidth(90);
-        addNewUnitButton.setGraphic(buttonView);
-        addNewUnitButton.setPrefHeight(100);
-        addNewUnitButton.setPrefWidth(100);
-        this.getChildren().add(addNewUnitButton);
+        button.setGraphic(buttonView);
+        button.setPrefHeight(100);
+        button.setPrefWidth(100);
+        this.getChildren().add(button);
 
-        TextField newUnitNameField = new TextField();
-        newUnitNameField.setPromptText("Enter new unit name");
-        newUnitNameField.setFont(new Font(18));
-        newUnitNameField.setAlignment(Pos.CENTER_LEFT);
-        this.getChildren().add(newUnitNameField);
+        TextField field = new TextField();
+        field.setPromptText("Enter new unit name");
+        field.setFont(new Font(18));
+        field.setAlignment(Pos.CENTER_LEFT);
+        this.getChildren().add(field);
 
-        addNewUnitButton.setOnAction(event -> {
-            if (!newUnitNameField.getText().isEmpty()) {
-                String newUnitName = newUnitNameField.getText();
-                newUnitNameField.clear();
+        button.setOnAction(event -> {
+            if (!field.getText().isEmpty()) {
+                String newUnitName = field.getText();
+                field.clear();
+                Units.add(newUnitName);
+            }
+        });
+        field.setOnAction(event -> {
+            if (!field.getText().isEmpty()) {
+                String newUnitName = field.getText();
+                field.clear();
                 Units.add(newUnitName);
             }
         });
