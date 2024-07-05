@@ -18,6 +18,13 @@ public class Units {
     public static boolean contains(Unit newUnit) {
         return list.contains(newUnit);
     }
+    public static boolean contains(String name) {
+        for (Unit unit : list) {
+            if (unit.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
 
 
     public static int findIndex(String unitName) {

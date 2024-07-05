@@ -14,7 +14,7 @@ public class BattleLabelControl extends BattleControl {
     private String sortOrder = "asc";
 
     private HBox changeSort(GridPane gridPane) {
-        sort(gridPane, battlesComparable);
+        sort(gridPane, Battles.getComparable());
 
         HBox hBoxToRet;
         if (sortOrder.equals("desc")) {
@@ -37,6 +37,7 @@ public class BattleLabelControl extends BattleControl {
             Battles.addNode(new BattleControl((Battle) comparable));
             gridPane.add(Battles.getLastNode(), 0, Battles.nodesSize());
         }
+        gridPane.add(App.getAddNewBattleControlNode(), 0, Battles.nodesSize() + 1);
     }
 
     private HBox removeImageAndButton(HBox hBox) {
@@ -49,8 +50,6 @@ public class BattleLabelControl extends BattleControl {
         return hBox;
     }
 
-    private ArrayList<Comparable> battlesComparable = Battles.getComparable();
-
     private TextField getSearchField(GridPane gridPane) {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
@@ -58,8 +57,8 @@ public class BattleLabelControl extends BattleControl {
         if (Settings.getUseBinarySearch()) {
             searchField.setOnAction(event -> {
                 gridPane.getChildren().removeAll(Battles.getNodes());
-                sort(gridPane, battlesComparable);
-                for (Comparable comparable : battlesComparable) {
+                sort(gridPane, Battles.getComparable());
+                for (Comparable comparable : Battles.getComparable()) {
                     HBox hBox = new BattleControl((Battle) comparable);
                     Battles.addNode(hBox);
                     gridPane.add(hBox, 0, Battles.nodesSize());
@@ -67,7 +66,7 @@ public class BattleLabelControl extends BattleControl {
                 String key = searchField.getText();
                 searchField.clear();
                 ArrayList<Comparable> battleNames = new ArrayList<>();
-                for (Comparable comparable : battlesComparable) {
+                for (Comparable comparable : Battles.getComparable()) {
                     battleNames.add(((Battle) comparable).getName());
                 }
                 int index = BinarySearch.search(battleNames, key);
@@ -76,7 +75,7 @@ public class BattleLabelControl extends BattleControl {
                 gridPane.getChildren().remove(App.getAddNewBattleControlNode());
                 HBox hBox;
                 if (index != -1) {
-                    hBox = new BattleControl((Battle) battlesComparable.get(index));
+                    hBox = new BattleControl((Battle) Battles.getComparable().get(index));
                 } else {
                     hBox = new BattleControl(new Battle("No such battle", null));
                 }
@@ -89,7 +88,7 @@ public class BattleLabelControl extends BattleControl {
                 gridPane.getChildren().removeAll(Battles.getNodes());
                 Battles.clearNodes();
                 gridPane.getChildren().remove(App.getAddNewBattleControlNode());
-                for (Comparable comparable : battlesComparable) {
+                for (Comparable comparable : Battles.getComparable()) {
                     Battle battle = (Battle) comparable;
                     if (battle.getName().toLowerCase().contains(newValue.toLowerCase())) {
                         HBox hBox = new BattleControl(battle);

@@ -39,14 +39,12 @@ public class UnitLabelControl extends UnitControl {
 
     private void sort(GridPane gridPane, ArrayList<Comparable> unitsComparable) {
         gridPane.getChildren().removeAll(Units.getNodes());
-        gridPane.getChildren().remove(App.getAddNewUnitControlNode());
+        gridPane.getChildren().removeAll(App.getAddNewUnitControlNode());
         Quicksort.sort(unitsComparable, sortOrder);
         for (Comparable comparable : unitsComparable) {
             Units.addNode(new UnitControl().render((Unit) comparable));
             App.addUnitToGridpane(Units.getLastNode());
-//            gridPane.add((Node) App.getUnitNodes().getLast(), 0, App.getUnitNodes().size());
         }
-        gridPane.add(App.getAddNewUnitControlNode(), 0, Units.nodesSize() + 1);
     }
 
     private TextField getSearchField(GridPane gridPane) {
@@ -83,8 +81,7 @@ public class UnitLabelControl extends UnitControl {
                 gridPane.add(hbox, 0, 1);
                 gridPane.add(App.getAddNewUnitControlNode(), 0, 2);
             });
-        }
-        else {
+        } else {
             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 gridPane.getChildren().removeAll(Units.getNodes());
                 Units.clearNodes();
@@ -97,7 +94,7 @@ public class UnitLabelControl extends UnitControl {
                         gridPane.add(hBox, 0, Units.nodesSize());
                     }
                 }
-                gridPane.add(App.getAddNewUnitControlNode(), 0,  Units.nodesSize() + 1);
+                gridPane.add(App.getAddNewUnitControlNode(), 0, Units.nodesSize() + 1);
             });
         }
 
