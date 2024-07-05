@@ -21,7 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.*;
 
 public class App extends Application {
 
@@ -31,8 +30,6 @@ public class App extends Application {
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Node searchControlNode = SettingsControl.getSearchControl();
-
-
 
     private static VBox getButtonBox() {
         final BattleLabelControl[] battleLabelControl = {new BattleLabelControl(gridPane)};
@@ -126,7 +123,6 @@ public class App extends Application {
 
         return buttonToReturn;
     }
-
 
     private static final Scene mainScene = setMainScene();
     public static Scene getMainScene() {

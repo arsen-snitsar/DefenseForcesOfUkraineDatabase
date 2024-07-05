@@ -28,11 +28,11 @@ public class AddNewBattleControl extends HBox {
         newBattleNameField.setFont(new Font(18));
         newBattleNameField.setAlignment(Pos.CENTER_LEFT);
 
-        addNewBattleButton.setOnAction(event -> {
+        addNewBattleButton.setOnAction(e -> {
             if (!newBattleNameField.getText().isEmpty()) {
-                String newBattleName = newBattleNameField.getText();
+                String name = newBattleNameField.getText();
                 newBattleNameField.clear();
-                Battles.add(newBattleName);
+                Battles.add(name);
             }
         });
 

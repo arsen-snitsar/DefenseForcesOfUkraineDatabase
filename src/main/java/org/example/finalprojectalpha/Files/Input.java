@@ -17,34 +17,28 @@ public class Input {
     public static void loadFromFile() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("data.txt"));
-            String line = reader.readLine();
+            reader.readLine();
+            String line;
 
-            Set<String> uniqueBattleNames = new HashSet<>();
             Set<String> uniqueUnitNames = new HashSet<>();
 
             while ((line = reader.readLine()) != null && (!line.equals("Units:"))) {
                 int dotIndex = line.indexOf(". ");
                 if (dotIndex != -1) {
                     String battleName = line.substring(dotIndex + 2, line.indexOf("|"));
-                    Battle newBattle;
-                    if (!uniqueBattleNames.contains(battleName)) {
-                        uniqueBattleNames.add(battleName);
+                    if (!Battles.contains(battleName)) {
                         String imagePath = line.substring(line.indexOf("|") + 1);
-                        newBattle = new Battle(battleName, imagePath);
-                        Battles.add(newBattle);
+                        Battles.add(new Battle(battleName, imagePath));
                     }
                 }
             }
             while ((line = reader.readLine()) != null && (!line.equals("Relationships:"))) {
                 int dotIndex = line.indexOf(". ");
                 if (dotIndex != -1) {
-                    Unit newUnit;
-                    String unitName = line.substring(dotIndex + 2, line.indexOf("|"));
-                    if (!uniqueUnitNames.contains(unitName)) {
-                        uniqueUnitNames.add(unitName);
+                    String name = line.substring(dotIndex + 2, line.indexOf("|"));
+                    if (!Units.contains(name)) {
                         String insigniaPath = line.substring(line.indexOf("|") + 1);
-                        newUnit = new Unit(unitName, insigniaPath);
-                        Units.add(newUnit);
+                        Units.add(new Unit(name, insigniaPath));
                     }
                 }
             }

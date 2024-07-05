@@ -90,4 +90,12 @@ public class Battles {
     public static Node getLastNode() {
         return nodes.getLast();
     }
+
+    public static boolean contains(String name) {
+        for (Battle battle : list) {
+            if (battle.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
 }
