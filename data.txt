@@ -10,9 +10,6 @@ Battles:
 9. 2022 Kharkiv counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KharkivCounterOffensive.jpg
 10. 2022 Kherson counteroffensive|null
 11. 2024 western Russia incursion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024WestRussiaIncursion.jpg
-12. gfsdgfsdfg|null
-13. 123|null
-14. 243trrewt|null
 Units:
 1. Third Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/ThirdAssaultBrigadeInsignia.png
 2. Brotherhood Batallion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/BratstvoBatallionInsignia.jpg

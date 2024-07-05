@@ -39,6 +39,10 @@ public class Battles {
         App.addBattleToGridpane(battleNode);
     }
 
+    public static void remove(Battle battle){
+        battles.remove(battle);
+    }
+
     public static int findIndex(String battleName) {
         for (Battle battle : battles) {
             if (battle.getName().equals(battleName)) {

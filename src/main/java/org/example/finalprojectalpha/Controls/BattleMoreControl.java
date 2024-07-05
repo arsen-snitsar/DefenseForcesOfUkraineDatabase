@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -225,11 +226,25 @@ public class BattleMoreControl {
         battleNameText.setFont(new Font(18));
         gridPane.add(battleImageText, 3, 2);
 
-        gridPane.add(getBackButton(primaryStage), 0, 0);
         gridPane.add(
-                getEditButton(gridPane, imageView, battleImageText, battle, battleNameText, unitsListView, battleFlowBox),
-                1, 0
+                getButtonBox(
+                        gridPane,
+                        imageView,
+                        battleImageText,
+                        battle,
+                        battleNameText,
+                        unitsListView,
+                        battleFlowBox
+                ),
+                0, 0
         );
+
+//        gridPane.add(getBackButton(primaryStage), 0, 0);
+//        gridPane.add(
+//                getEditButton(gridPane, imageView, battleImageText, battle, battleNameText, unitsListView, battleFlowBox),
+//                1, 0
+//        );
+//        gridPane.add(getDeleteButton(battle), 2, 0);
         gridPane.add(battleNameText, 1, 1);
 
 
@@ -255,4 +270,41 @@ public class BattleMoreControl {
         return unitsListView;
     }
 
+    private Button getDeleteButton(Battle battle) {
+        Button deleteButton = new Button("Delete");
+        deleteButton.setFont(new Font(18));
+        deleteButton.setOnAction(event -> {
+            Battles.remove(battle);
+            App.fireBattlesViewButton();
+            primaryStage.setScene(App.getMainScene());
+        });
+        return deleteButton;
+    }
+
+    private HBox getButtonBox(
+            GridPane gridPane,
+            ImageView imageView,
+            Text battleImageText,
+            Battle battle,
+            Text battleNameText,
+            ListView unitsListView,
+            BattleFlowControl battleFlowBox
+            ){
+        HBox hbox = new HBox();
+        hbox.setSpacing(10);
+        hbox.getChildren().addAll(
+                getBackButton(primaryStage),
+                getEditButton(
+                        gridPane,
+                        imageView,
+                        battleImageText,
+                        battle,
+                        battleNameText,
+                        unitsListView,
+                        battleFlowBox
+                ),
+                getDeleteButton(battle)
+        );
+        return hbox;
+    }
 }
