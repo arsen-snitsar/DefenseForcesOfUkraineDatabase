@@ -73,7 +73,9 @@ public class App extends Application {
                     battleLabelControl[0], addNewBattleControlNode,
                     unitLabelControlNode, addNewUnitControlNode);
             gridPane.getChildren().removeAll(Battles.getNodes());
+            Battles.clearNodes();
             gridPane.getChildren().removeAll(Units.getNodes());
+            Units.clearNodes();
             unitLabelControlNode = new UnitLabelControl().render(gridPane);
             gridPane.add(unitLabelControlNode, 0, 0);
             for (Unit unit : Units.getArrayList()) {
@@ -92,7 +94,9 @@ public class App extends Application {
         buttonToReturn.setOnAction(event -> {
             gridPane.getChildren().removeAll(searchControlNode);
             gridPane.getChildren().removeAll(Units.getNodes());
+            Units.clearNodes();
             gridPane.getChildren().removeAll(Battles.getNodes());
+            Battles.clearNodes();
             gridPane.getChildren().removeAll(
                     unitLabelControlNode, addNewUnitControlNode,
                     battleLabelControl[0], addNewBattleControlNode);
