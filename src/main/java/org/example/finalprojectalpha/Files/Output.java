@@ -17,9 +17,9 @@ public class Output {
             for (Battle battle : Battles.getList()) {
                 String imagePath = battle.getImagePath();
                 if (imagePath != null && !imagePath.equals("null")) {
-                    printWriter.println(battle.getBattleId() + ". " + battle.getBattleName() + "|" + imagePath);
+                    printWriter.println(battle.getId() + ". " + battle.getName() + "|" + imagePath);
                 } else {
-                    printWriter.println(battle.getBattleId() + ". " + battle.getBattleName() + "|null");
+                    printWriter.println(battle.getId() + ". " + battle.getName() + "|null");
                 }
             }
             printWriter.println("Units:");
@@ -38,18 +38,18 @@ public class Output {
                 }
                 printWriter.print(unit.getUnitName() + ": ");
                 for (Battle battle : unit.getBattlesParticipated()) {
-                     printWriter.print(battle.getBattleName() + ", ");
+                     printWriter.print(battle.getName() + ", ");
                 }
                 printWriter.println();
             }
             printWriter.println("Battleflows:");
             for (Battle battle : battles) {
-                if (battle.getBattleFlow().isEmpty()) {
+                if (battle.getFlow().isEmpty()) {
                     continue;
                 }
-                printWriter.print(battle.getBattleName() + ": ");
-                for (int i = 0; i < battle.getBattleFlow().getSize(); i++) {
-                    printWriter.print(battle.getBattleFlow().get(i).getEventText() + ", ");
+                printWriter.print(battle.getName() + ": ");
+                for (int i = 0; i < battle.getFlow().getSize(); i++) {
+                    printWriter.print(battle.getFlow().get(i).getEventText() + ", ");
                 }
                 printWriter.println();
             }
