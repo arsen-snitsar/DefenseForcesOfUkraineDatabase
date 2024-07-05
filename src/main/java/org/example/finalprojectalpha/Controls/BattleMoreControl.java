@@ -238,16 +238,7 @@ public class BattleMoreControl {
                 ),
                 0, 0
         );
-
-//        gridPane.add(getBackButton(primaryStage), 0, 0);
-//        gridPane.add(
-//                getEditButton(gridPane, imageView, battleImageText, battle, battleNameText, unitsListView, battleFlowBox),
-//                1, 0
-//        );
-//        gridPane.add(getDeleteButton(battle), 2, 0);
         gridPane.add(battleNameText, 1, 1);
-
-
         return scene;
     }
 

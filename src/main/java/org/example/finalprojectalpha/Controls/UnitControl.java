@@ -63,16 +63,13 @@ public class UnitControl extends HBox {
         return unitNameLabel;
     }
 
-    public HBox render(Unit unit) {
-        HBox hBoxToReturn = new HBox();
-
-        hBoxToReturn.getChildren().addAll(
+    public UnitControl(Unit unit){
+        this.getChildren().addAll(
                 getInsigniaView(unit),
                 getUnitNameLabel(unit),
                 getButtonMore(unit)
         );
-
-        hBoxToReturn.setBorder(
+        this.setBorder(
                 new Border(
                         new BorderStroke(
                                 Color.BLACK,
@@ -82,10 +79,11 @@ public class UnitControl extends HBox {
                         )
                 )
         );
-        hBoxToReturn.setPadding(new Insets(10));
-        hBoxToReturn.setAlignment(Pos.CENTER_LEFT);
-        hBoxToReturn.setSpacing(5);
-        return hBoxToReturn;
+        this.setPadding(new Insets(10));
+        this.setAlignment(Pos.CENTER_LEFT);
+        this.setSpacing(5);
+
+
     }
 
 

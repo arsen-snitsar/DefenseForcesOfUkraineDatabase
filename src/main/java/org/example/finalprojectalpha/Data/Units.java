@@ -60,7 +60,7 @@ public class Units {
     }
     public static void add(String name) {
         add(new Unit(name));
-        Node unit = new UnitControl().render(list.getLast());
+        Node unit = new UnitControl(list.getLast());
         App.addUnitToGridpane(unit);}
 
     public static int nodesSize() {

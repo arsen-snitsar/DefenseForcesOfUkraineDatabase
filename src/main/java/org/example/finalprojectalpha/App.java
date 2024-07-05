@@ -26,7 +26,7 @@ public class App extends Application {
 
     public static Stage primaryStage;
     private static final GridPane gridPane = new GridPane();
-    private static Node unitLabelControlNode = new UnitLabelControl().render(gridPane);
+    private static Node unitLabelControlNode = new UnitLabelControl(gridPane);
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Node searchControlNode = SettingsControl.getSearchControl();
@@ -67,7 +67,7 @@ public class App extends Application {
         button.setFont(new Font(18));
         button.setPrefHeight(25);
         button.setPrefWidth(90);
-        button.setOnAction(event -> {
+        button.setOnAction(_ -> {
             gridPane.getChildren().removeAll(searchControlNode);
             gridPane.getChildren().removeAll(
                     battleLabelControl[0], addNewBattleControlNode,
@@ -76,10 +76,10 @@ public class App extends Application {
             Battles.clearNodes();
             gridPane.getChildren().removeAll(Units.getNodes());
             Units.clearNodes();
-            unitLabelControlNode = new UnitLabelControl().render(gridPane);
+            unitLabelControlNode = new UnitLabelControl(gridPane);
             gridPane.add(unitLabelControlNode, 0, 0);
             for (Unit unit : Units.getArrayList()) {
-                HBox hbox = new UnitControl().render(unit);
+                HBox hbox = new UnitControl(unit);
                 Units.addNode(hbox);
                 App.addUnitToGridpane(hbox);
             }

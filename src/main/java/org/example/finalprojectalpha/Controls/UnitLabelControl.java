@@ -25,13 +25,13 @@ public class UnitLabelControl extends UnitControl {
 
         if (sortOrder.equals("desc")) {
             sortOrder = "asc";
-            HBox labelBox = new UnitControl().render(new Unit("Unit Insignia | Unit name | ▼"));
+            HBox labelBox = new UnitControl(new Unit("Unit Insignia | Unit name | ▼"));
             labelBox.getChildren().add(getSearchField(gridPane));
             return labelBox;
         }
         {
             sortOrder = "desc";
-            HBox labelBox = new UnitControl().render(new Unit("Unit Insignia | Unit name | ▲"));
+            HBox labelBox = new UnitControl(new Unit("Unit Insignia | Unit name | ▲"));
             labelBox.getChildren().add(getSearchField(gridPane));
             return labelBox;
         }
@@ -42,7 +42,7 @@ public class UnitLabelControl extends UnitControl {
         gridPane.getChildren().removeAll(App.getAddNewUnitControlNode());
         Quicksort.sort(unitsComparable, sortOrder);
         for (Comparable comparable : unitsComparable) {
-            Units.addNode(new UnitControl().render((Unit) comparable));
+            Units.addNode(new UnitControl((Unit) comparable));
             App.addUnitToGridpane(Units.getLastNode());
         }
     }
@@ -56,7 +56,7 @@ public class UnitLabelControl extends UnitControl {
                 gridPane.getChildren().removeAll(Units.getNodes());
                 sort(gridPane, unitsComparable);
                 for (Comparable comparable : unitsComparable) {
-                    HBox hBox = new UnitControl().render((Unit) comparable);
+                    HBox hBox = new UnitControl((Unit) comparable);
                     Units.addNode(hBox);
                     gridPane.add(hBox, 0, Units.nodesSize());
                 }
@@ -73,9 +73,9 @@ public class UnitLabelControl extends UnitControl {
                 gridPane.getChildren().remove(App.getAddNewUnitControlNode());
                 HBox hbox;
                 if (index != -1) {
-                    hbox = new UnitControl().render((Unit) unitsComparable.get(index));
+                    hbox = new UnitControl((Unit) unitsComparable.get(index));
                 } else {
-                    hbox = new UnitControl().render(new Unit("No such unit"));
+                    hbox = new UnitControl(new Unit("No such unit"));
                 }
                 Units.addNode(hbox);
                 gridPane.add(hbox, 0, 1);
@@ -89,7 +89,7 @@ public class UnitLabelControl extends UnitControl {
                 for (Comparable comparable : unitsComparable) {
                     Unit unit = (Unit) comparable;
                     if (unit.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                        HBox hBox = new UnitControl().render(unit);
+                        HBox hBox = new UnitControl(unit);
                         Units.addNode(hBox);
                         gridPane.add(hBox, 0, Units.nodesSize());
                     }
@@ -101,23 +101,18 @@ public class UnitLabelControl extends UnitControl {
         return searchField;
     }
 
-    public HBox render(GridPane gridPane) {
-        Unit labelUnit = new Unit("Unit Insignia | Unit name");
-        final HBox[] hBoxToReturn = {new UnitControl().render(labelUnit)};
-        removeImageAndButton(hBoxToReturn[0]);
-
-        hBoxToReturn[0].setOnMouseClicked(e -> {
+    public UnitLabelControl(GridPane gridPane){
+        super(new Unit("Unit Insignia | Unit name"));
+        removeImageAndButton(this);
+        this.setOnMouseClicked(e -> {
             gridPane.getChildren().removeAll(Units.getNodes());
             Units.clearNodes();
             gridPane.getChildren().remove(App.getAddNewUnitControlNode());
 
-            HBox newHbox = changeSort(gridPane);
-            removeImageAndButton(newHbox);
-            hBoxToReturn[0].getChildren().setAll(newHbox.getChildren());
+            HBox hbox = changeSort(gridPane);
+            removeImageAndButton(hbox);
+            this.getChildren().setAll(hbox.getChildren());
         });
-
-        hBoxToReturn[0].getChildren().add(getSearchField(gridPane));
-
-        return hBoxToReturn[0];
+        this.getChildren().add(getSearchField(gridPane));
     }
 }
