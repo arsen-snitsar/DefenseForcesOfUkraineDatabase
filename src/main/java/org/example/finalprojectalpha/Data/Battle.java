@@ -3,6 +3,7 @@ package org.example.finalprojectalpha.Data;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Battle implements Comparable<Battle> {
 
@@ -12,6 +13,15 @@ public class Battle implements Comparable<Battle> {
     private static int count = 0;
     private MyLinkedList<BattleEvent> flow = new MyLinkedList<>();
     private ArrayList<Unit> unitsInvolved = new ArrayList<>();
+
+    public boolean containsEvent(String event) {
+        for (int i = 0; i < flow.getSize(); i++) {
+            String current = flow.get(i).getEventText();
+            if (event.equals(current))
+                return true;
+        }
+        return false;
+    }
 
     public String getImagePath() {
         return imagePath;

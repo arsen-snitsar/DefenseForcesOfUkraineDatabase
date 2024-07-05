@@ -67,7 +67,8 @@ public class Input {
                 if (battle != null) {
                     String[] events = line.substring(line.indexOf(":") + 2).split(", ");
                     for (String event : events) {
-                        battle.addEvent(event);
+                        if (!battle.containsEvent(event))
+                            battle.addEvent(event);
                     }
                 }
             }
