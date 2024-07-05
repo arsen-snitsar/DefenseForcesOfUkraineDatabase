@@ -1,7 +1,5 @@
 package org.example.finalprojectalpha;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
 import org.example.finalprojectalpha.Files.*;
@@ -28,25 +26,12 @@ import java.util.*;
 public class App extends Application {
 
     public static Stage primaryStage;
-    private static final List<Unit> units = new ArrayList<>();
-    private static final List<Node> unitNodes = new ArrayList<>();
     private static final GridPane gridPane = new GridPane();
     private static Node unitLabelControlNode = new UnitLabelControl().render(gridPane);
-    private static final Node addNewUnitControlNode = new AddNewUnitControl().render();
+    private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
-    private static final Scene mainScene = setMainScene();
-    private static Button unitsViewButton;
-    private static Button battlesViewButton;
+    private static final Node searchControlNode = SettingsControl.getSearchControl();
 
-    public static void fireBattlesViewButton() {
-        battlesViewButton.fire();
-    }
-
-
-
-    public static Scene getMainScene() {
-        return mainScene;
-    }
 
 
     private static VBox getButtonBox() {
@@ -60,8 +45,6 @@ public class App extends Application {
 
         return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
     }
-
-
     private static Button getLoadFromFileButton() {
         Button loadFromFileButton = new Button("Load");
         loadFromFileButton.setFont(new Font(18));
@@ -72,21 +55,38 @@ public class App extends Application {
         });
         return loadFromFileButton;
     }
-
     private static Button getSaveToFileButton() {
         Button buttonToReturn = new Button("Save");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
         buttonToReturn.setPrefWidth(90);
         buttonToReturn.setOnAction(event -> {
-            Output.saveToFile(units, Battles.getList());
+            Output.saveToFile(Units.getArrayList(), Battles.getList());
         });
         return buttonToReturn;
     }
-
-    private static Node searchControlNode = SettingsControl.getSearchControl();
-
-
+    private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
+        Button button = new Button("Units");
+        button.setFont(new Font(18));
+        button.setPrefHeight(25);
+        button.setPrefWidth(90);
+        button.setOnAction(event -> {
+            gridPane.getChildren().removeAll(searchControlNode);
+            gridPane.getChildren().removeAll(
+                    battleLabelControl[0], addNewBattleControlNode,
+                    unitLabelControlNode, addNewUnitControlNode);
+            gridPane.getChildren().removeAll(Battles.getNodes());
+            gridPane.getChildren().removeAll(Units.getNodes());
+            unitLabelControlNode = new UnitLabelControl().render(gridPane);
+            gridPane.add(unitLabelControlNode, 0, 0);
+            for (Unit unit : Units.getArrayList()) {
+                HBox hbox = new UnitControl().render(unit);
+                Units.addNode(hbox);
+                App.addUnitToGridpane(hbox);
+            }
+        });
+        return button;
+    }
     private static Button getBattlesViewButton(BattleLabelControl[] battleLabelControl) {
         Button buttonToReturn = new Button("Battles");
         buttonToReturn.setFont(new Font(18));
@@ -94,7 +94,7 @@ public class App extends Application {
         buttonToReturn.setPrefWidth(90);
         buttonToReturn.setOnAction(event -> {
             gridPane.getChildren().removeAll(searchControlNode);
-            gridPane.getChildren().removeAll(unitNodes);
+            gridPane.getChildren().removeAll(Units.getNodes());
             gridPane.getChildren().removeAll(Battles.getNodes());
             gridPane.getChildren().removeAll(
                     unitLabelControlNode, addNewUnitControlNode,
@@ -104,13 +104,11 @@ public class App extends Application {
             for (Battle battle : Battles.getList()) {
                 HBox hBoxToAdd = new BattleControl(battle);
                 Battles.addNode(hBoxToAdd);
-                gridPane.add(hBoxToAdd, 0, Battles.getIndexOf(battle) + 1);
+                App.addBattleToGridpane(hBoxToAdd);
             }
-            gridPane.add(addNewBattleControlNode, 0, Battles.size() + 1);
         });
         return buttonToReturn;
     }
-
     private static Button getSettingsButton(BattleLabelControl[] battleLabelControl) {
         Button buttonToReturn = new Button("Settings");
         buttonToReturn.setFont(new Font(18));
@@ -120,7 +118,7 @@ public class App extends Application {
                     gridPane.getChildren().removeAll(
                             unitLabelControlNode, addNewUnitControlNode,
                             battleLabelControl[0], addNewBattleControlNode);
-                    gridPane.getChildren().removeAll(unitNodes);
+                    gridPane.getChildren().removeAll(Units.getNodes());
                     gridPane.getChildren().removeAll(Battles.getNodes());
                     gridPane.add(searchControlNode, 0, 0);
                 }
@@ -129,6 +127,11 @@ public class App extends Application {
         return buttonToReturn;
     }
 
+
+    private static final Scene mainScene = setMainScene();
+    public static Scene getMainScene() {
+        return mainScene;
+    }
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
@@ -190,97 +193,32 @@ public class App extends Application {
         });
         return scene;
     }
-
-    public static ObservableList<String> getUnitsObsList() {
-        ObservableList<String> unitNames = FXCollections.observableArrayList();
-        for (Unit unit : units) {
-            unitNames.add(unit.getUnitName());
-        }
-        return unitNames;
-    }
-
+    private static Button unitsViewButton;
     public static void fireUnitsViewButton() {
         unitsViewButton.fire();
     }
-
-    public static void addNewUnit(String newUnitName, Stage primaryStage) {
-        units.add(new Unit(newUnitName));
-        Node unitNode = new UnitControl().render(units.getLast());
-        gridPane.add(unitNode, 0, units.size());
-        unitNodes.add(unitNode);
-
-        gridPane.getChildren().removeAll(addNewUnitControlNode);
-        gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
-    }
-
-    public static void addNewUnit(Unit newUnit) {
-        if (!units.contains(newUnit))
-            units.add(newUnit);
-    }
-
-    public static void removeUnit(Unit unit) {
-        units.remove(unit);
-    }
-
-    private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
-        Button buttonToReturn = new Button("Units");
-        buttonToReturn.setFont(new Font(18));
-        buttonToReturn.setPrefHeight(25);
-        buttonToReturn.setPrefWidth(90);
-        buttonToReturn.setOnAction(event -> {
-            gridPane.getChildren().removeAll(searchControlNode);
-            gridPane.getChildren().removeAll(
-                    battleLabelControl[0], addNewBattleControlNode,
-                    unitLabelControlNode, addNewUnitControlNode);
-            gridPane.getChildren().removeAll(Battles.getNodes());
-            gridPane.getChildren().removeAll(unitNodes);
-            unitLabelControlNode = new UnitLabelControl().render(gridPane);
-            gridPane.add(unitLabelControlNode, 0, 0);
-            for (Unit unit : units) {
-                HBox hBoxToAdd = new UnitControl().render(unit);
-                unitNodes.add(hBoxToAdd);
-                gridPane.add(hBoxToAdd, 0, units.indexOf(unit) + 1);
-            }
-            gridPane.add(addNewUnitControlNode, 0, units.size() + 1);
-        });
-        return buttonToReturn;
-    }
-
-    public static ArrayList<Unit> getUnitsArrayList() {
-        return new ArrayList<>(units);
-    }
-
-    public static ArrayList<Comparable> getUnitsComparable() {
-        return new ArrayList<Comparable>(units);
-    }
-
-    public static ArrayList getUnitNodes() {
-        return (ArrayList<Node>) unitNodes;
+    private static Button battlesViewButton;
+    public static void fireBattlesViewButton() {
+        battlesViewButton.fire();
     }
 
     public static Node getAddNewUnitControlNode() {
         return addNewUnitControlNode;
     }
-
-    public static int findUnitIndex(String unitName) {
-        for (Unit unit : units) {
-            if (unit.getUnitName().equals(unitName)) {
-                return units.indexOf(unit);
-            }
-        }
-        return -1;
-    }
-
     public static Node getAddNewBattleControlNode() {
         return addNewBattleControlNode;
     }
 
-    public static void addBattleToGridpane(Node battleNode) {
-        gridPane.add(battleNode, 0, Battles.getNodesSize());
-        gridPane.getChildren().removeAll(addNewBattleControlNode);
-        gridPane.add(addNewBattleControlNode, 0, Battles.getNodesSize() + 1);
+    public static void addUnitToGridpane(Node unit) {
+        gridPane.add(unit, 0, Units.nodesSize());
+        gridPane.getChildren().removeAll(addNewUnitControlNode);
+        gridPane.add(addNewUnitControlNode, 0, Units.nodesSize() + 1);
     }
-
+    public static void addBattleToGridpane(Node battle) {
+        gridPane.add(battle, 0, Battles.nodesSize());
+        gridPane.getChildren().removeAll(addNewBattleControlNode);
+        gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
+    }
 
     public static void main(String[] args) {
         launch(args);

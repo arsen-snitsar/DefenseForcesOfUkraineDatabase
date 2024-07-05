@@ -12,14 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Unit;
-
-import java.io.File;
 
 public class UnitControl extends HBox {
 
@@ -34,7 +29,7 @@ public class UnitControl extends HBox {
         Button moreButton = new Button("More");
         moreButton.setFont(new Font(18));
         moreButton.setAlignment(Pos.CENTER_RIGHT);
-        TextField editNameField = new TextField(unit.getUnitName());
+        TextField editNameField = new TextField(unit.getName());
         editNameField.setFont(new Font(18));
         editNameField.setAlignment(Pos.CENTER_LEFT);
         editNameField.setPrefWidth(myGetPrefWidth());
@@ -61,7 +56,7 @@ public class UnitControl extends HBox {
     }
 
     private Label getUnitNameLabel (Unit unit){
-        Label unitNameLabel = new Label(unit.getUnitName());
+        Label unitNameLabel = new Label(unit.getName());
         unitNameLabel.setFont(new Font(18));
         unitNameLabel.setAlignment(Pos.CENTER_LEFT);
         unitNameLabel.setPrefWidth(myGetPrefWidth());

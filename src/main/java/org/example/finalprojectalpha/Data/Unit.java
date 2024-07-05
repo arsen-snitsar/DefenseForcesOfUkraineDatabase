@@ -27,11 +27,11 @@ public class Unit implements Comparable<Unit> {
         unitCount++;
     }
 
-    public String getUnitName() {
+    public String getName() {
         return unitName;
     }
 
-    public void setUnitName(String unitName) {
+    public void setName(String unitName) {
         this.unitName = unitName;
     }
 

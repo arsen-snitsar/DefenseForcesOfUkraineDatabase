@@ -12,24 +12,24 @@ import java.util.List;
 
 public class Battles {
 
-    private static final List<Battle> battles = new ArrayList<>();
+    private static final List<Battle> list = new ArrayList<>();
     private static final List<Node> nodes = new ArrayList<>();
 
     public static List<Battle> getList() {
-        return battles;
+        return list;
     }
 
     public static ObservableList<String> getObservableList() {
         ObservableList<String> battleNames = FXCollections.observableArrayList();
-        for (Battle battle : battles) {
+        for (Battle battle : list) {
             battleNames.add(battle.getName());
         }
         return battleNames;
     }
 
     public static void add(Battle newBattle) {
-        if (!battles.contains(newBattle))
-            battles.add(newBattle);
+        if (!list.contains(newBattle))
+            list.add(newBattle);
     }
 
     public static void add(String newBattleName) {
@@ -40,32 +40,32 @@ public class Battles {
     }
 
     public static void remove(Battle battle){
-        battles.remove(battle);
+        list.remove(battle);
     }
 
     public static int findIndex(String battleName) {
-        for (Battle battle : battles) {
+        for (Battle battle : list) {
             if (battle.getName().equals(battleName)) {
-                return battles.indexOf(battle);
+                return list.indexOf(battle);
             }
         }
         return -1;
     }
 
     public static ArrayList<Battle> getArrayList() {
-        return new ArrayList<>(battles);
+        return new ArrayList<>(list);
     }
 
     public static Battle getLast() {
-        return battles.getLast();
+        return list.getLast();
     }
 
     public static int size() {
-        return battles.size();
+        return list.size();
     }
 
     public static ArrayList<Comparable> getComparable() {
-        return new ArrayList<Comparable>(battles);
+        return new ArrayList<Comparable>(list);
     }
 
     public static List<Node> getNodes() {
@@ -77,14 +77,14 @@ public class Battles {
     }
 
     public static int getIndexOf(Battle battle) {
-        return battles.indexOf(battle);
+        return list.indexOf(battle);
     }
 
     public static void clearNodes() {
         nodes.clear();
     }
 
-    public static int getNodesSize() {
+    public static int nodesSize() {
         return nodes.size();
     }
     public static Node getLastNode() {

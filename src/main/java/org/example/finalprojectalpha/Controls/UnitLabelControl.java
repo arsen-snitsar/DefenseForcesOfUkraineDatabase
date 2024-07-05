@@ -1,6 +1,5 @@
 package org.example.finalprojectalpha.Controls;
 
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 
 public class UnitLabelControl extends UnitControl {
 
-    private ArrayList<Comparable> unitsComparable = App.getUnitsComparable();
+    private ArrayList<Comparable> unitsComparable = Units.getComparable();
 
     private void removeImageAndButton(HBox hBox) {
         hBox.getChildren().remove(0);
@@ -39,14 +38,15 @@ public class UnitLabelControl extends UnitControl {
     }
 
     private void sort(GridPane gridPane, ArrayList<Comparable> unitsComparable) {
-        gridPane.getChildren().removeAll(App.getUnitNodes());
+        gridPane.getChildren().removeAll(Units.getNodes());
         gridPane.getChildren().remove(App.getAddNewUnitControlNode());
         Quicksort.sort(unitsComparable, sortOrder);
         for (Comparable comparable : unitsComparable) {
-            App.getUnitNodes().add(new UnitControl().render((Unit) comparable));
-            gridPane.add((Node) App.getUnitNodes().getLast(), 0, App.getUnitNodes().size());
+            Units.addNode(new UnitControl().render((Unit) comparable));
+            App.addUnitToGridpane(Units.getLastNode());
+//            gridPane.add((Node) App.getUnitNodes().getLast(), 0, App.getUnitNodes().size());
         }
-        gridPane.add(App.getAddNewUnitControlNode(), 0, App.getUnitNodes().size() + 1);
+        gridPane.add(App.getAddNewUnitControlNode(), 0, Units.nodesSize() + 1);
     }
 
     private TextField getSearchField(GridPane gridPane) {
@@ -55,49 +55,49 @@ public class UnitLabelControl extends UnitControl {
         searchField.setFont(new Font(18));
         if (Settings.getUseBinarySearch()) {
             searchField.setOnAction(event -> {
-                gridPane.getChildren().removeAll(App.getUnitNodes());
+                gridPane.getChildren().removeAll(Units.getNodes());
                 sort(gridPane, unitsComparable);
                 for (Comparable comparable : unitsComparable) {
                     HBox hBox = new UnitControl().render((Unit) comparable);
-                    App.getUnitNodes().add(hBox);
-                    gridPane.add(hBox, 0, App.getUnitNodes().size());
+                    Units.addNode(hBox);
+                    gridPane.add(hBox, 0, Units.nodesSize());
                 }
                 String key = searchField.getText();
                 searchField.clear();
                 ArrayList<Comparable> unitNames = new ArrayList<>();
                 for (Comparable comparable : unitsComparable) {
-                    unitNames.add(((Unit) comparable).getUnitName());
+                    unitNames.add(((Unit) comparable).getName());
                 }
                 int index = BinarySearch.search(unitNames, key);
 
-                gridPane.getChildren().removeAll(App.getUnitNodes());
-                App.getUnitNodes().clear();
+                gridPane.getChildren().removeAll(Units.getNodes());
+                Units.clearNodes();
                 gridPane.getChildren().remove(App.getAddNewUnitControlNode());
-                HBox hBox;
+                HBox hbox;
                 if (index != -1) {
-                    hBox = new UnitControl().render((Unit) unitsComparable.get(index));
+                    hbox = new UnitControl().render((Unit) unitsComparable.get(index));
                 } else {
-                    hBox = new UnitControl().render(new Unit("No such unit"));
+                    hbox = new UnitControl().render(new Unit("No such unit"));
                 }
-                App.getUnitNodes().add(hBox);
-                gridPane.add(hBox, 0, 1);
+                Units.addNode(hbox);
+                gridPane.add(hbox, 0, 1);
                 gridPane.add(App.getAddNewUnitControlNode(), 0, 2);
             });
         }
         else {
             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                gridPane.getChildren().removeAll(App.getUnitNodes());
-                App.getUnitNodes().clear();
+                gridPane.getChildren().removeAll(Units.getNodes());
+                Units.clearNodes();
                 gridPane.getChildren().remove(App.getAddNewUnitControlNode());
                 for (Comparable comparable : unitsComparable) {
                     Unit unit = (Unit) comparable;
-                    if (unit.getUnitName().toLowerCase().contains(newValue.toLowerCase())) {
+                    if (unit.getName().toLowerCase().contains(newValue.toLowerCase())) {
                         HBox hBox = new UnitControl().render(unit);
-                        App.getUnitNodes().add(hBox);
-                        gridPane.add(hBox, 0, App.getUnitNodes().size());
+                        Units.addNode(hBox);
+                        gridPane.add(hBox, 0, Units.nodesSize());
                     }
                 }
-                gridPane.add(App.getAddNewUnitControlNode(), 0, App.getUnitNodes().size() + 1);
+                gridPane.add(App.getAddNewUnitControlNode(), 0,  Units.nodesSize() + 1);
             });
         }
 
@@ -110,8 +110,8 @@ public class UnitLabelControl extends UnitControl {
         removeImageAndButton(hBoxToReturn[0]);
 
         hBoxToReturn[0].setOnMouseClicked(e -> {
-            gridPane.getChildren().removeAll(App.getUnitNodes());
-            App.getUnitNodes().clear();
+            gridPane.getChildren().removeAll(Units.getNodes());
+            Units.clearNodes();
             gridPane.getChildren().remove(App.getAddNewUnitControlNode());
 
             HBox newHbox = changeSort(gridPane);

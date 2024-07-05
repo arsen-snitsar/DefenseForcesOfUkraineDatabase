@@ -19,6 +19,7 @@ import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battle;
 import org.example.finalprojectalpha.Data.Battles;
 import org.example.finalprojectalpha.Data.Unit;
+import org.example.finalprojectalpha.Data.Units;
 
 import java.io.File;
 
@@ -89,7 +90,7 @@ public class UnitMoreControl {
             gridPane.getChildren().remove(insigniaView);
 
             gridPane.getChildren().remove(unitNameText);
-            TextField editNameField = new TextField(unit.getUnitName());
+            TextField editNameField = new TextField(unit.getName());
             editNameField.setFont(new Font(18));
             gridPane.add(editNameField, 1, 1);
             Button chooseInsigniaButton = getChooseInsigniaButton(insigniaView, unit);
@@ -131,9 +132,9 @@ public class UnitMoreControl {
                 gridPane.getChildren().remove(chooseInsigniaButton);
                 gridPane.add(insigniaView, 3, 1);
 
-                unit.setUnitName(editNameField.getText());
+                unit.setName(editNameField.getText());
                 gridPane.getChildren().remove(editNameField);
-                unitNameText.setText(unit.getUnitName());
+                unitNameText.setText(unit.getName());
                 unitNameText.setFont(new Font(18));
                 gridPane.add(unitNameText, 1, 1);
 
@@ -209,7 +210,7 @@ public class UnitMoreControl {
         Scene scene = new Scene(gridPane, 1920, 1080);
 
         ImageView insigniaView = getInsigniaView(unit);
-        Text unitNameText = new Text(unit.getUnitName());
+        Text unitNameText = new Text(unit.getName());
         unitNameText.setFont(new Font(18));
 
         Text battlesParticipatedText = new Text("Battles participated:");
@@ -242,7 +243,7 @@ public class UnitMoreControl {
         Button deleteButton = new Button("Delete");
         deleteButton.setFont(new Font(18));
         deleteButton.setOnAction(event -> {
-            App.removeUnit(unit);
+            Units.remove(unit);
             App.fireUnitsViewButton();
             primaryStage.setScene(App.getMainScene());
         });

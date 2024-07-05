@@ -4,14 +4,13 @@ import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battle;
 import org.example.finalprojectalpha.Data.Battles;
 import org.example.finalprojectalpha.Data.Unit;
+import org.example.finalprojectalpha.Data.Units;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.example.finalprojectalpha.App.findUnitIndex;
 
 public class Input {
 
@@ -45,13 +44,13 @@ public class Input {
                         uniqueUnitNames.add(unitName);
                         String insigniaPath = line.substring(line.indexOf("|") + 1);
                         newUnit = new Unit(unitName, insigniaPath);
-                        App.addNewUnit(newUnit);
+                        Units.add(newUnit);
                     }
                 }
             }
             while ((line = reader.readLine()) != null && (!line.equals("Battleflows:"))) {
                 String unitName = line.substring(0, line.indexOf(":"));
-                Unit unit = App.getUnitsArrayList().get(findUnitIndex(unitName));
+                Unit unit = Units.get(unitName);
                 if (unit != null) {
                     String[] battles = line.substring(line.indexOf(":") + 2).split(", ");
                     for (String battleName : battles) {

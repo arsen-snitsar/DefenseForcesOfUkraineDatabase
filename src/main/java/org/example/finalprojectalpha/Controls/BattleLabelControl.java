@@ -35,7 +35,7 @@ public class BattleLabelControl extends BattleControl {
         Quicksort.sort(battlesComparable, sortOrder);
         for (Comparable comparable : battlesComparable) {
             Battles.addNode(new BattleControl((Battle) comparable));
-            gridPane.add(Battles.getLastNode(), 0, Battles.getNodesSize());
+            gridPane.add(Battles.getLastNode(), 0, Battles.nodesSize());
         }
     }
 
@@ -62,7 +62,7 @@ public class BattleLabelControl extends BattleControl {
                 for (Comparable comparable : battlesComparable) {
                     HBox hBox = new BattleControl((Battle) comparable);
                     Battles.addNode(hBox);
-                    gridPane.add(hBox, 0, Battles.getNodesSize());
+                    gridPane.add(hBox, 0, Battles.nodesSize());
                 }
                 String key = searchField.getText();
                 searchField.clear();
@@ -94,10 +94,10 @@ public class BattleLabelControl extends BattleControl {
                     if (battle.getName().toLowerCase().contains(newValue.toLowerCase())) {
                         HBox hBox = new BattleControl(battle);
                         Battles.addNode(hBox);
-                        gridPane.add(hBox, 0, Battles.getNodesSize());
+                        gridPane.add(hBox, 0, Battles.nodesSize());
                     }
                 }
-                gridPane.add(App.getAddNewBattleControlNode(), 0, Battles.getNodesSize() + 1);
+                gridPane.add(App.getAddNewBattleControlNode(), 0, Battles.nodesSize() + 1);
             });
         }
         return searchField;

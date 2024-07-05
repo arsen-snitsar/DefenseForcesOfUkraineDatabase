@@ -100,7 +100,7 @@ public class BattleMoreControl {
             gridPane.add(battleFlowBox, 2, 3);
             battleFlowBox.addAddNewBattleEventControl(battle);
 
-            unitsListView.setItems(App.getUnitsObsList());
+            unitsListView.setItems(Units.getObservableList());
             unitsListView.setCellFactory(lv -> new ListCell<String>() {
                 private Text text;
 
@@ -117,7 +117,7 @@ public class BattleMoreControl {
                         text.setText(null);
                     } else {
                         text.setText(item);
-                        if (battle.getUnitsInvolved().stream().anyMatch(unit -> unit.getUnitName().equals(item))) {
+                        if (battle.getUnitsInvolved().stream().anyMatch(unit -> unit.getName().equals(item))) {
                             text.setFill(Color.GRAY);
                         } else {
                             text.setFill(Color.BLACK);
@@ -183,8 +183,8 @@ public class BattleMoreControl {
         addUnitButton.setOnAction(e -> {
             String selectedUnitName = unitsListView.getSelectionModel().getSelectedItem();
             if (selectedUnitName != null) {
-                Unit selectedUnit = App.getUnitsArrayList().stream()
-                        .filter(unit -> unit.getUnitName().equals(selectedUnitName))
+                Unit selectedUnit = Units.getArrayList().stream()
+                        .filter(unit -> unit.getName().equals(selectedUnitName))
                         .findFirst()
                         .orElse(null);
                 if (selectedUnit != null && !battle.getUnitsInvolved().contains(selectedUnit)) {

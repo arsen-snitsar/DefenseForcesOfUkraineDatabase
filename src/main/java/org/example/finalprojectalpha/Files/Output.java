@@ -26,9 +26,9 @@ public class Output {
             for (Unit unit : units) {
                 String insigniaPath = unit.getInsigniaPath();
                 if (insigniaPath != null && !insigniaPath.equals("null")) {
-                    printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|" + insigniaPath);
+                    printWriter.println(unit.getUnitId() + ". " + unit.getName() + "|" + insigniaPath);
                 } else {
-                    printWriter.println(unit.getUnitId() + ". " + unit.getUnitName() + "|null");
+                    printWriter.println(unit.getUnitId() + ". " + unit.getName() + "|null");
                 }
             }
             printWriter.println("Relationships:");
@@ -36,7 +36,7 @@ public class Output {
                 if (unit.getBattlesParticipated().isEmpty()) {
                     continue;
                 }
-                printWriter.print(unit.getUnitName() + ": ");
+                printWriter.print(unit.getName() + ": ");
                 for (Battle battle : unit.getBattlesParticipated()) {
                      printWriter.print(battle.getName() + ", ");
                 }

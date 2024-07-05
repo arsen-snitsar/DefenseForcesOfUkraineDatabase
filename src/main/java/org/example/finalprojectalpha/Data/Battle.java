@@ -35,7 +35,7 @@ public class Battle implements Comparable<Battle> {
     public ObservableList<String> getUnitsObsList() {
         ObservableList<String> units = javafx.collections.FXCollections.observableArrayList();
         for (Unit unit : unitsInvolved) {
-            units.add(unit.getUnitName());
+            units.add(unit.getName());
         }
         return units;
     }

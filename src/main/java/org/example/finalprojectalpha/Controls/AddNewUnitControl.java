@@ -15,12 +15,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Unit;
+import org.example.finalprojectalpha.Data.Units;
 
-public class AddNewUnitControl extends UnitControl {
+import static org.example.finalprojectalpha.Controls.UnitControl.myGetPrefWidth;
 
-    public HBox render() {
-        HBox hBoxToReturn = new HBox();
-        hBoxToReturn.setPrefWidth(myGetPrefWidth());
+public class AddNewUnitControl extends HBox {
+
+    public AddNewUnitControl() {
+        this.setPrefWidth(myGetPrefWidth());
 
         Button addNewUnitButton = new Button();
         Image image = new Image(App.class.getResource("AddButton.png").toExternalForm());
@@ -28,27 +30,25 @@ public class AddNewUnitControl extends UnitControl {
         buttonView.setFitHeight(90);
         buttonView.setFitWidth(90);
         addNewUnitButton.setGraphic(buttonView);
-
         addNewUnitButton.setPrefHeight(100);
         addNewUnitButton.setPrefWidth(100);
-
-        hBoxToReturn.getChildren().add(addNewUnitButton);
+        this.getChildren().add(addNewUnitButton);
 
         TextField newUnitNameField = new TextField();
         newUnitNameField.setPromptText("Enter new unit name");
         newUnitNameField.setFont(new Font(18));
         newUnitNameField.setAlignment(Pos.CENTER_LEFT);
-        hBoxToReturn.getChildren().add(newUnitNameField);
+        this.getChildren().add(newUnitNameField);
 
         addNewUnitButton.setOnAction(event -> {
             if (!newUnitNameField.getText().isEmpty()) {
                 String newUnitName = newUnitNameField.getText();
                 newUnitNameField.clear();
-                App.addNewUnit(newUnitName, null);
+                Units.add(newUnitName);
             }
         });
 
-        hBoxToReturn.setBorder(
+        this.setBorder(
                 new Border(
                         new BorderStroke(
                                 Color.BLACK,
@@ -58,10 +58,9 @@ public class AddNewUnitControl extends UnitControl {
                         )
                 )
         );
-        hBoxToReturn.setPadding(new Insets(10));
-        hBoxToReturn.setAlignment(Pos.CENTER_LEFT);
-        hBoxToReturn.setSpacing(5);
-        return hBoxToReturn;
-    }
 
+        this.setPadding(new Insets(10));
+        this.setAlignment(Pos.CENTER_LEFT);
+        this.setSpacing(5);
+    }
 }
