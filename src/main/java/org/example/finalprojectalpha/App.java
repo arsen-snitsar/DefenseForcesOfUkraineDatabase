@@ -43,24 +43,28 @@ public class App extends Application {
         return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
     }
     private static Button getLoadFromFileButton() {
-        Button loadFromFileButton = new Button("Load");
-        loadFromFileButton.setFont(new Font(18));
-        loadFromFileButton.setPrefHeight(25);
-        loadFromFileButton.setPrefWidth(90);
-        loadFromFileButton.setOnAction(event -> {
+        Button button = new Button("Load");
+        button.setFont(new Font(18));
+        button.setPrefHeight(25);
+        button.setPrefWidth(90);
+        button.setOnAction(event -> {
             Input.loadFromFile();
+            button.setDisable(true);
+            button.setStyle("-fx-opacity: 0.5; -fx-background-color: grey;");
         });
-        return loadFromFileButton;
+        return button;
     }
     private static Button getSaveToFileButton() {
-        Button buttonToReturn = new Button("Save");
-        buttonToReturn.setFont(new Font(18));
-        buttonToReturn.setPrefHeight(25);
-        buttonToReturn.setPrefWidth(90);
-        buttonToReturn.setOnAction(event -> {
-            Output.saveToFile(Units.getArrayList(), Battles.getList());
+        Button button = new Button("Save");
+        button.setFont(new Font(18));
+        button.setPrefHeight(25);
+        button.setPrefWidth(90);
+        button.setOnAction(event -> {
+            Output.saveToFile();
+            button.setDisable(true);
+            button.setStyle("-fx-opacity: 0.5; -fx-background-color: grey;");
         });
-        return buttonToReturn;
+        return button;
     }
     private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
         Button button = new Button("Units");
@@ -83,6 +87,7 @@ public class App extends Application {
                 Units.addNode(hbox);
                 App.addUnitToGridpane(hbox);
             }
+            addNewUnitButtonToGridpane();
         });
         return button;
     }
@@ -107,6 +112,7 @@ public class App extends Application {
                 Battles.addNode(hBoxToAdd);
                 App.addBattleToGridpane(hBoxToAdd);
             }
+            addNewBattleButtonToGridpane();
         });
         return buttonToReturn;
     }
@@ -114,7 +120,7 @@ public class App extends Application {
         Button buttonToReturn = new Button("Settings");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
-        buttonToReturn.setPrefWidth(90);
+        buttonToReturn.setPrefWidth(95);
         buttonToReturn.setOnAction(e -> {
                     gridPane.getChildren().removeAll(
                             unitLabelControlNode, addNewUnitControlNode,
@@ -211,12 +217,14 @@ public class App extends Application {
 
     public static void addUnitToGridpane(Node unit) {
         gridPane.add(unit, 0, Units.nodesSize());
-        gridPane.getChildren().removeAll(addNewUnitControlNode);
+    }
+    public static void addNewUnitButtonToGridpane(){
         gridPane.add(addNewUnitControlNode, 0, Units.nodesSize() + 1);
     }
     public static void addBattleToGridpane(Node battle) {
         gridPane.add(battle, 0, Battles.nodesSize());
-        gridPane.getChildren().removeAll(addNewBattleControlNode);
+    }
+    public static void addNewBattleButtonToGridpane(){
         gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
     }
 

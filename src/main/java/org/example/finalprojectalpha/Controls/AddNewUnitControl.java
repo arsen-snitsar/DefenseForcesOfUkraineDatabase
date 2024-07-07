@@ -21,6 +21,15 @@ import static org.example.finalprojectalpha.Controls.UnitControl.myGetPrefWidth;
 
 public class AddNewUnitControl extends HBox {
 
+    private void addNewUnit(TextField field) {
+        if (!field.getText().isEmpty()) {
+            String newUnitName = field.getText();
+            field.clear();
+            Units.add(newUnitName);
+            App.addNewUnitButtonToGridpane();
+        }
+    }
+
     public AddNewUnitControl() {
         this.setPrefWidth(myGetPrefWidth());
 
@@ -41,18 +50,10 @@ public class AddNewUnitControl extends HBox {
         this.getChildren().add(field);
 
         button.setOnAction(event -> {
-            if (!field.getText().isEmpty()) {
-                String newUnitName = field.getText();
-                field.clear();
-                Units.add(newUnitName);
-            }
+            addNewUnit(field);
         });
         field.setOnAction(event -> {
-            if (!field.getText().isEmpty()) {
-                String newUnitName = field.getText();
-                field.clear();
-                Units.add(newUnitName);
-            }
+            addNewUnit(field);
         });
 
         this.setBorder(

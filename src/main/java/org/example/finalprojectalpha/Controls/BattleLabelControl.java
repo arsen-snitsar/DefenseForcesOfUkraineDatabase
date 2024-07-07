@@ -37,7 +37,7 @@ public class BattleLabelControl extends BattleControl {
             Battles.addNode(new BattleControl((Battle) comparable));
             gridPane.add(Battles.getLastNode(), 0, Battles.nodesSize());
         }
-        gridPane.add(App.getAddNewBattleControlNode(), 0, Battles.nodesSize() + 1);
+        App.addNewBattleButtonToGridpane();
     }
 
     private HBox removeImageAndButton(HBox hBox) {

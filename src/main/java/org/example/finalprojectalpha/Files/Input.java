@@ -20,8 +20,6 @@ public class Input {
             reader.readLine();
             String line;
 
-            Set<String> uniqueUnitNames = new HashSet<>();
-
             while ((line = reader.readLine()) != null && (!line.equals("Units:"))) {
                 int dotIndex = line.indexOf(". ");
                 if (dotIndex != -1) {

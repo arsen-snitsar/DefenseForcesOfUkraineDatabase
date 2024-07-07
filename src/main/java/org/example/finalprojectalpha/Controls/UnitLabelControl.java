@@ -45,6 +45,7 @@ public class UnitLabelControl extends UnitControl {
             Units.addNode(new UnitControl((Unit) comparable));
             App.addUnitToGridpane(Units.getLastNode());
         }
+        App.addNewUnitButtonToGridpane();
     }
 
     private TextField getSearchField(GridPane gridPane) {

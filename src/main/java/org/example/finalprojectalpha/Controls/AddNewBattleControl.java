@@ -13,6 +13,16 @@ import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Battles;
 
 public class AddNewBattleControl extends HBox {
+
+    private void addNewBattle(TextField field){
+        if (!field.getText().isEmpty()) {
+            String name = field.getText();
+            field.clear();
+            Battles.add(name);
+            App.addNewBattleButtonToGridpane();
+        }
+    }
+
     public AddNewBattleControl() {
         Button button = new Button();
         Image image = new Image(App.class.getResource("AddButton.png").toExternalForm());
@@ -29,18 +39,10 @@ public class AddNewBattleControl extends HBox {
         field.setAlignment(Pos.CENTER_LEFT);
 
         button.setOnAction(e -> {
-            if (!field.getText().isEmpty()) {
-                String name = field.getText();
-                field.clear();
-                Battles.add(name);
-            }
+           addNewBattle(field);
         });
         field.setOnAction(e -> {
-            if (!field.getText().isEmpty()) {
-                String name = field.getText();
-                field.clear();
-                Battles.add(name);
-            }
+            addNewBattle(field);
         });
 
         this.getChildren().addAll(button, field);
