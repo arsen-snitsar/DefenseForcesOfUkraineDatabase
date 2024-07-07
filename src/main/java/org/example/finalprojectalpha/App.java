@@ -27,18 +27,17 @@ public class App extends Application {
     public static Stage primaryStage;
     private static final GridPane gridPane = new GridPane();
     private static Node unitLabelControlNode = new UnitLabelControl(gridPane);
+    private static Node battleLabelControlNode = new BattleLabelControl(gridPane);
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Node searchControlNode = SettingsControl.getSearchControl();
 
     private static VBox getButtonBox() {
-        final BattleLabelControl[] battleLabelControl = {new BattleLabelControl(gridPane)};
-
         Button loadFromFileButton = getLoadFromFileButton();
         Button saveToFileButton = getSaveToFileButton();
-        unitsViewButton = getUnitsViewButton(battleLabelControl);
-        battlesViewButton = getBattlesViewButton(battleLabelControl);
-        Button settingsButton = getSettingsButton(battleLabelControl);
+        unitsViewButton = getUnitsViewButton();
+        battlesViewButton = getBattlesViewButton();
+        Button settingsButton = getSettingsButton();
 
         return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
     }
@@ -66,7 +65,7 @@ public class App extends Application {
         });
         return button;
     }
-    private static Button getUnitsViewButton(BattleLabelControl[] battleLabelControl) {
+    private static Button getUnitsViewButton() {
         Button button = new Button("Units");
         button.setFont(new Font(18));
         button.setPrefHeight(25);
@@ -74,7 +73,7 @@ public class App extends Application {
         button.setOnAction(_ -> {
             gridPane.getChildren().removeAll(searchControlNode);
             gridPane.getChildren().removeAll(
-                    battleLabelControl[0], addNewBattleControlNode,
+                    battleLabelControlNode, addNewBattleControlNode,
                     unitLabelControlNode, addNewUnitControlNode);
             gridPane.getChildren().removeAll(Battles.getNodes());
             Battles.clearNodes();
@@ -91,7 +90,7 @@ public class App extends Application {
         });
         return button;
     }
-    private static Button getBattlesViewButton(BattleLabelControl[] battleLabelControl) {
+    private static Button getBattlesViewButton() {
         Button buttonToReturn = new Button("Battles");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
@@ -104,9 +103,9 @@ public class App extends Application {
             Battles.clearNodes();
             gridPane.getChildren().removeAll(
                     unitLabelControlNode, addNewUnitControlNode,
-                    battleLabelControl[0], addNewBattleControlNode);
-            battleLabelControl[0] = new BattleLabelControl(gridPane);
-            gridPane.getChildren().add(battleLabelControl[0]);
+                    battleLabelControlNode, addNewBattleControlNode);
+            battleLabelControlNode = new BattleLabelControl(gridPane);
+            gridPane.getChildren().add(battleLabelControlNode);
             for (Battle battle : Battles.getList()) {
                 HBox hBoxToAdd = new BattleControl(battle);
                 Battles.addNode(hBoxToAdd);
@@ -116,7 +115,7 @@ public class App extends Application {
         });
         return buttonToReturn;
     }
-    private static Button getSettingsButton(BattleLabelControl[] battleLabelControl) {
+    private static Button getSettingsButton() {
         Button buttonToReturn = new Button("Settings");
         buttonToReturn.setFont(new Font(18));
         buttonToReturn.setPrefHeight(25);
@@ -124,7 +123,7 @@ public class App extends Application {
         buttonToReturn.setOnAction(e -> {
                     gridPane.getChildren().removeAll(
                             unitLabelControlNode, addNewUnitControlNode,
-                            battleLabelControl[0], addNewBattleControlNode);
+                            battleLabelControlNode, addNewBattleControlNode);
                     gridPane.getChildren().removeAll(Units.getNodes());
                     gridPane.getChildren().removeAll(Battles.getNodes());
                     gridPane.add(searchControlNode, 0, 0);
