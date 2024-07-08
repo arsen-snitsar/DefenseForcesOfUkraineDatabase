@@ -244,8 +244,9 @@ public class UnitMoreControl {
         deleteButton.setFont(new Font(18));
         deleteButton.setOnAction(event -> {
             Units.remove(unit);
-            App.fireUnitsViewButton();
             primaryStage.setScene(App.getMainScene());
+            App.fireUnitsViewButton();
+
         });
         return deleteButton;
     }

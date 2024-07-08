@@ -32,11 +32,11 @@ public class Battles {
             list.add(newBattle);
     }
 
-    public static void add(String newBattleName) {
-        add(new Battle(newBattleName, "null"));
-        Node battleNode = new BattleControl(getLast());
-        nodes.add(battleNode);
-        App.addBattleToGridpane(battleNode);
+    public static void add(String name) {
+        add(new Battle(name));
+        Node battle = new BattleControl(getLast());
+        nodes.add(battle);
+        App.addBattleToGridpane(battle);
     }
 
     public static void remove(Battle battle){

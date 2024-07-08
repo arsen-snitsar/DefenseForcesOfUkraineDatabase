@@ -266,8 +266,8 @@ public class BattleMoreControl {
         deleteButton.setFont(new Font(18));
         deleteButton.setOnAction(event -> {
             Battles.remove(battle);
-            App.fireBattlesViewButton();
             primaryStage.setScene(App.getMainScene());
+            App.fireBattlesViewButton();
         });
         return deleteButton;
     }

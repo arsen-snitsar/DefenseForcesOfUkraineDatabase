@@ -37,6 +37,12 @@ public class Battle implements Comparable<Battle> {
         this.imagePath = imagePath;
         count++;
     }
+    public Battle(String name) {
+        this.name = name;
+        this.id = count;
+        this.imagePath = "null";
+        count++;
+    }
 
     public int getId() {
         return id;

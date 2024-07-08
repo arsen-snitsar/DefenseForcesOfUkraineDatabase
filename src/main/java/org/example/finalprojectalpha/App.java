@@ -41,6 +41,7 @@ public class App extends Application {
 
         return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
     }
+
     private static Button getLoadFromFileButton() {
         Button button = new Button("Load");
         button.setFont(new Font(18));
@@ -48,11 +49,10 @@ public class App extends Application {
         button.setPrefWidth(90);
         button.setOnAction(event -> {
             Input.loadFromFile();
-            button.setDisable(true);
-            button.setStyle("-fx-opacity: 0.5; -fx-background-color: grey;");
         });
         return button;
     }
+
     private static Button getSaveToFileButton() {
         Button button = new Button("Save");
         button.setFont(new Font(18));
@@ -60,11 +60,10 @@ public class App extends Application {
         button.setPrefWidth(90);
         button.setOnAction(event -> {
             Output.saveToFile();
-            button.setDisable(true);
-            button.setStyle("-fx-opacity: 0.5; -fx-background-color: grey;");
         });
         return button;
     }
+
     private static Button getUnitsViewButton() {
         Button button = new Button("Units");
         button.setFont(new Font(18));
@@ -86,10 +85,10 @@ public class App extends Application {
                 Units.addNode(hbox);
                 App.addUnitToGridpane(hbox);
             }
-            addNewUnitButtonToGridpane();
         });
         return button;
     }
+
     private static Button getBattlesViewButton() {
         Button buttonToReturn = new Button("Battles");
         buttonToReturn.setFont(new Font(18));
@@ -111,10 +110,10 @@ public class App extends Application {
                 Battles.addNode(hBoxToAdd);
                 App.addBattleToGridpane(hBoxToAdd);
             }
-            addNewBattleButtonToGridpane();
         });
         return buttonToReturn;
     }
+
     private static Button getSettingsButton() {
         Button buttonToReturn = new Button("Settings");
         buttonToReturn.setFont(new Font(18));
@@ -134,9 +133,11 @@ public class App extends Application {
     }
 
     private static final Scene mainScene = setMainScene();
+
     public static Scene getMainScene() {
         return mainScene;
     }
+
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
@@ -198,11 +199,15 @@ public class App extends Application {
         });
         return scene;
     }
+
     private static Button unitsViewButton;
+
     public static void fireUnitsViewButton() {
         unitsViewButton.fire();
     }
+
     private static Button battlesViewButton;
+
     public static void fireBattlesViewButton() {
         battlesViewButton.fire();
     }
@@ -210,26 +215,35 @@ public class App extends Application {
     public static Node getAddNewUnitControlNode() {
         return addNewUnitControlNode;
     }
+
     public static Node getAddNewBattleControlNode() {
         return addNewBattleControlNode;
     }
 
     public static void addUnitToGridpane(Node unit) {
+        gridPane.getChildren().remove(addNewUnitControlNode);
         gridPane.add(unit, 0, Units.nodesSize());
-    }
-    public static void addNewUnitButtonToGridpane(){
         gridPane.add(addNewUnitControlNode, 0, Units.nodesSize() + 1);
     }
-    public static void addBattleToGridpane(Node battle) {
-        gridPane.add(battle, 0, Battles.nodesSize());
+
+    public static void addNewUnitButtonToGridpane() {
+        gridPane.add(addNewUnitControlNode, 0, Units.nodesSize() + 1);
     }
-    public static void addNewBattleButtonToGridpane(){
+
+    public static void addBattleToGridpane(Node battle) {
+        gridPane.getChildren().remove(addNewBattleControlNode);
+        gridPane.add(battle, 0, Battles.nodesSize());
+        gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
+    }
+
+    public static void addNewBattleButtonToGridpane() {
         gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;

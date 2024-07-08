@@ -19,7 +19,6 @@ public class AddNewBattleControl extends HBox {
             String name = field.getText();
             field.clear();
             Battles.add(name);
-            App.addNewBattleButtonToGridpane();
         }
     }
 

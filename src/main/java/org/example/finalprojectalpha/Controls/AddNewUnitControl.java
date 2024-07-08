@@ -23,10 +23,9 @@ public class AddNewUnitControl extends HBox {
 
     private void addNewUnit(TextField field) {
         if (!field.getText().isEmpty()) {
-            String newUnitName = field.getText();
+            String name = field.getText();
             field.clear();
-            Units.add(newUnitName);
-            App.addNewUnitButtonToGridpane();
+            Units.add(name);
         }
     }
 

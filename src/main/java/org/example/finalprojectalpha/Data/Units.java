@@ -64,7 +64,7 @@ public class Units {
 
     public static void add(String name) {
         add(new Unit(name));
-        Node unit = new UnitControl(list.getLast());
+        Node unit = new UnitControl(getLast());
         nodes.add(unit);
         App.addUnitToGridpane(unit);
     }
@@ -85,8 +85,8 @@ public class Units {
         return nodes;
     }
 
-    public static int getIndexOf(Unit unit) {
-        return list.indexOf(unit);
+    public static Unit getLast(){
+        return list.getLast();
     }
 
     public static int size() {
