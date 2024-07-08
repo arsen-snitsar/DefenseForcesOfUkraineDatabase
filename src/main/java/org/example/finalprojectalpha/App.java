@@ -138,6 +138,10 @@ public class App extends Application {
         saveItem.setOnAction(_ -> Output.saveToFile());
         fileMenu.getItems().add(saveItem);
 
+        MenuItem quit = new MenuItem("Quit");
+        quit.setOnAction(_ -> primaryStage.close());
+        fileMenu.getItems().add(quit);
+
         Menu editMenu = new Menu("Edit");
         MenuItem settings = new MenuItem("Settings");
         settings.setOnAction(_ -> {

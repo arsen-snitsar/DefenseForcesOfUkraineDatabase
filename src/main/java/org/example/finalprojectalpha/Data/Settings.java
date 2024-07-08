@@ -4,7 +4,7 @@ import org.example.finalprojectalpha.App;
 
 public class Settings {
 
-    private static boolean useBinarySearch = false;
+    private static boolean useBinarySearch;
 
     public static void useBinarySearch() {
         useBinarySearch = true;
@@ -18,7 +18,7 @@ public class Settings {
         return useBinarySearch;
     }
 
-    private static boolean useMenuBar = false;
+    private static boolean useMenuBar = true;
 
     public static void useMenuBar() {
         useMenuBar = true;

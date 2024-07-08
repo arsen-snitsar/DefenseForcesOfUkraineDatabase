@@ -57,7 +57,7 @@ public class SettingsControl {
         barButton.setToggleGroup(interfaceGroup);
         bigButtons.setToggleGroup(interfaceGroup);
 
-        bigButtons.setSelected(true);
+        barButton.setSelected(true);
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(interfaceSettingsText, barButton, bigButtons);
