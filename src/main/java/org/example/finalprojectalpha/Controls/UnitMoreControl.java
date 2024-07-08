@@ -16,10 +16,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.finalprojectalpha.App;
-import org.example.finalprojectalpha.Data.Battle;
-import org.example.finalprojectalpha.Data.Battles;
-import org.example.finalprojectalpha.Data.Unit;
-import org.example.finalprojectalpha.Data.Units;
+import org.example.finalprojectalpha.Data.*;
 
 import java.io.File;
 
@@ -242,11 +239,10 @@ public class UnitMoreControl {
     private Button getDeleteButton(Unit unit) {
         Button deleteButton = new Button("Delete");
         deleteButton.setFont(new Font(18));
-        deleteButton.setOnAction(event -> {
+        deleteButton.setOnAction(_ -> {
             Units.remove(unit);
             primaryStage.setScene(App.getMainScene());
-            App.fireUnitsViewButton();
-
+            App.viewUnits();
         });
         return deleteButton;
     }

@@ -24,8 +24,6 @@ public class App extends Application {
 
     public static Stage primaryStage;
     private static final GridPane gridPane = new GridPane();
-    private static Node unitLabelControlNode = new UnitLabelControl(gridPane);
-    private static Node battleLabelControlNode = new BattleLabelControl(gridPane);
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Node[] settingsNodes = new Node[]{SettingsControl.getSearchControl(), SettingsControl.getInterfaceControl()};
@@ -85,8 +83,9 @@ public class App extends Application {
         Battles.clearNodes();
         Units.clearNodes();
 
-        battleLabelControlNode = new BattleLabelControl(gridPane);
-        gridPane.getChildren().add(battleLabelControlNode);
+        Node battleLabelControlNode = new BattleLabelControl(gridPane);
+        gridPane.add(battleLabelControlNode, 0, 0);
+        gridPane.add(addNewBattleControlNode, 0, 1);
         for (Battle battle : Battles.getList()) {
             HBox hBoxToAdd = new BattleControl(battle);
             Battles.addNode(hBoxToAdd);
@@ -127,8 +126,9 @@ public class App extends Application {
         Battles.clearNodes();
         Units.clearNodes();
 
-        unitLabelControlNode = new UnitLabelControl(gridPane);
+        Node unitLabelControlNode = new UnitLabelControl(gridPane);
         gridPane.add(unitLabelControlNode, 0, 0);
+        gridPane.add(getAddNewUnitControlNode(), 0, 1);
         for (Unit unit : Units.getArrayList()) {
             HBox hbox = new UnitControl(unit);
             Units.addNode(hbox);
@@ -149,7 +149,7 @@ public class App extends Application {
         saveItem.setOnAction(_ -> Output.saveToFile());
         fileMenu.getItems().add(saveItem);
 
-        MenuItem quit = new MenuItem("Quit");
+        MenuItem quit = new MenuItem("Quit | Alt + F4");
         quit.setOnAction(_ -> primaryStage.close());
         fileMenu.getItems().add(quit);
 

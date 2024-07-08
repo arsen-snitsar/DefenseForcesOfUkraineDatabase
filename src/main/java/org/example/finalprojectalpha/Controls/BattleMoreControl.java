@@ -267,7 +267,7 @@ public class BattleMoreControl {
         deleteButton.setOnAction(event -> {
             Battles.remove(battle);
             primaryStage.setScene(App.getMainScene());
-            App.fireBattlesViewButton();
+            App.viewBattles();
         });
         return deleteButton;
     }
@@ -280,7 +280,7 @@ public class BattleMoreControl {
             Text battleNameText,
             ListView unitsListView,
             BattleFlowControl battleFlowBox
-            ){
+    ) {
         HBox hbox = new HBox();
         hbox.setSpacing(10);
         hbox.getChildren().addAll(
