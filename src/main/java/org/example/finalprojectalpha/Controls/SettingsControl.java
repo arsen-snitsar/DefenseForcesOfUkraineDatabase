@@ -15,13 +15,13 @@ public class SettingsControl {
 
         RadioButton radioButtonBinarySearch = new RadioButton("Use binary search - faster algorithm, but requires 1 by 1 matching");
         radioButtonBinarySearch.setFont(new Font(18));
-        radioButtonBinarySearch.setOnAction(e ->{
+        radioButtonBinarySearch.setOnAction(e -> {
             Settings.useBinarySearch();
         });
 
         RadioButton radioButtonContainsSearch = new RadioButton("Use search with contains - slower, but much more convenient and can be used with keywords");
         radioButtonContainsSearch.setFont(new Font(18));
-        radioButtonContainsSearch.setOnAction(e ->{
+        radioButtonContainsSearch.setOnAction(e -> {
             Settings.useContainsSearch();
         });
 
@@ -34,6 +34,34 @@ public class SettingsControl {
         VBox vBoxToReturn = new VBox();
         vBoxToReturn.getChildren().addAll(searchSettingsLabel, radioButtonBinarySearch, radioButtonContainsSearch);
         return vBoxToReturn;
+    }
+
+    public static VBox getInterfaceControl() {
+        Text interfaceSettingsText = new Text("Interface settings");
+        interfaceSettingsText.setFont(new Font(18));
+
+        RadioButton barButton = new RadioButton("Use menu bar - a classical File | Edit | View bar ");
+        barButton.setFont(new Font(18));
+        barButton.setOnAction(_ -> {
+            Settings.useMenuBar();
+        });
+
+        RadioButton bigButtons = new RadioButton("Use big buttons - modern " +
+                "and more appropriate for touch screen devices");
+        bigButtons.setFont(new Font(18));
+        bigButtons.setOnAction(_ -> {
+            Settings.useButtons();
+        });
+
+        ToggleGroup interfaceGroup = new ToggleGroup();
+        barButton.setToggleGroup(interfaceGroup);
+        bigButtons.setToggleGroup(interfaceGroup);
+
+        bigButtons.setSelected(true);
+
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(interfaceSettingsText, barButton, bigButtons);
+        return vbox;
     }
 
 }

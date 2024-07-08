@@ -1,5 +1,6 @@
 package org.example.finalprojectalpha;
 
+import javafx.scene.control.*;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
 import org.example.finalprojectalpha.Files.*;
@@ -9,9 +10,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -30,7 +28,7 @@ public class App extends Application {
     private static Node battleLabelControlNode = new BattleLabelControl(gridPane);
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
-    private static final Node searchControlNode = SettingsControl.getSearchControl();
+    private static final Node[] settingsNodes = new Node[]{SettingsControl.getSearchControl(), SettingsControl.getInterfaceControl()};
 
     private static VBox getButtonBox() {
         Button loadFromFileButton = getLoadFromFileButton();
@@ -70,13 +68,8 @@ public class App extends Application {
         button.setPrefHeight(25);
         button.setPrefWidth(90);
         button.setOnAction(_ -> {
-            gridPane.getChildren().removeAll(searchControlNode);
-            gridPane.getChildren().removeAll(
-                    battleLabelControlNode, addNewBattleControlNode,
-                    unitLabelControlNode, addNewUnitControlNode);
-            gridPane.getChildren().removeAll(Battles.getNodes());
+            gridPane.getChildren().clear();
             Battles.clearNodes();
-            gridPane.getChildren().removeAll(Units.getNodes());
             Units.clearNodes();
             unitLabelControlNode = new UnitLabelControl(gridPane);
             gridPane.add(unitLabelControlNode, 0, 0);
@@ -90,19 +83,15 @@ public class App extends Application {
     }
 
     private static Button getBattlesViewButton() {
-        Button buttonToReturn = new Button("Battles");
-        buttonToReturn.setFont(new Font(18));
-        buttonToReturn.setPrefHeight(25);
-        buttonToReturn.setPrefWidth(90);
-        buttonToReturn.setOnAction(event -> {
-            gridPane.getChildren().removeAll(searchControlNode);
-            gridPane.getChildren().removeAll(Units.getNodes());
-            Units.clearNodes();
-            gridPane.getChildren().removeAll(Battles.getNodes());
+        Button button = new Button("Battles");
+        button.setFont(new Font(18));
+        button.setPrefHeight(25);
+        button.setPrefWidth(90);
+        button.setOnAction(event -> {
+            gridPane.getChildren().clear();
             Battles.clearNodes();
-            gridPane.getChildren().removeAll(
-                    unitLabelControlNode, addNewUnitControlNode,
-                    battleLabelControlNode, addNewBattleControlNode);
+            Units.clearNodes();
+
             battleLabelControlNode = new BattleLabelControl(gridPane);
             gridPane.getChildren().add(battleLabelControlNode);
             for (Battle battle : Battles.getList()) {
@@ -111,25 +100,23 @@ public class App extends Application {
                 App.addBattleToGridpane(hBoxToAdd);
             }
         });
-        return buttonToReturn;
+        return button;
     }
 
     private static Button getSettingsButton() {
-        Button buttonToReturn = new Button("Settings");
-        buttonToReturn.setFont(new Font(18));
-        buttonToReturn.setPrefHeight(25);
-        buttonToReturn.setPrefWidth(95);
-        buttonToReturn.setOnAction(e -> {
-                    gridPane.getChildren().removeAll(
-                            unitLabelControlNode, addNewUnitControlNode,
-                            battleLabelControlNode, addNewBattleControlNode);
-                    gridPane.getChildren().removeAll(Units.getNodes());
-                    gridPane.getChildren().removeAll(Battles.getNodes());
-                    gridPane.add(searchControlNode, 0, 0);
+        Button button = new Button("Settings");
+        button.setFont(new Font(18));
+        button.setPrefHeight(25);
+        button.setPrefWidth(95);
+        button.setOnAction(_ -> {
+                    gridPane.getChildren().clear();
+
+                    gridPane.add(settingsNodes[0], 0, 0);
+                    gridPane.add(settingsNodes[1], 0, 1);
                 }
         );
 
-        return buttonToReturn;
+        return button;
     }
 
     private static final Scene mainScene = setMainScene();
@@ -138,9 +125,72 @@ public class App extends Application {
         return mainScene;
     }
 
+    public static MenuBar getMenuBar() {
+        MenuBar menuBar = new MenuBar();
+
+        Menu fileMenu = new Menu("File");
+
+        MenuItem loadItem = new MenuItem("Load");
+        loadItem.setOnAction(_ -> Input.loadFromFile());
+        fileMenu.getItems().add(loadItem);
+
+        MenuItem saveItem = new MenuItem("Save");
+        saveItem.setOnAction(_ -> Output.saveToFile());
+        fileMenu.getItems().add(saveItem);
+
+        Menu editMenu = new Menu("Edit");
+        MenuItem settings = new MenuItem("Settings");
+        settings.setOnAction(_ -> {
+            gridPane.getChildren().clear();
+
+            gridPane.add(settingsNodes[0], 0, 0);
+            gridPane.add(settingsNodes[1], 0, 1);
+        });
+        editMenu.getItems().add(settings);
+
+        Menu viewMenu = new Menu("View");
+        MenuItem units = new MenuItem("Units");
+        units.setOnAction(_ -> {
+            gridPane.getChildren().clear();
+            Battles.clearNodes();
+            Units.clearNodes();
+
+            unitLabelControlNode = new UnitLabelControl(gridPane);
+            gridPane.add(unitLabelControlNode, 0, 0);
+            for (Unit unit : Units.getArrayList()) {
+                HBox hbox = new UnitControl(unit);
+                Units.addNode(hbox);
+                App.addUnitToGridpane(hbox);
+            }
+        });
+        viewMenu.getItems().add(units);
+
+        MenuItem battles = new MenuItem("Battles");
+        battles.setOnAction(_ -> {
+            gridPane.getChildren().clear();
+            Battles.clearNodes();
+            Units.clearNodes();
+
+            battleLabelControlNode = new BattleLabelControl(gridPane);
+            gridPane.getChildren().add(battleLabelControlNode);
+            for (Battle battle : Battles.getList()) {
+                HBox hBoxToAdd = new BattleControl(battle);
+                Battles.addNode(hBoxToAdd);
+                App.addBattleToGridpane(hBoxToAdd);
+            }
+        });
+        viewMenu.getItems().add(battles);
+
+        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);
+
+        return menuBar;
+    }
+
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
+        if (Settings.getUseMenuBar())
+            vBox.getChildren().add(getMenuBar());
         Scene scene = new Scene(vBox, 1920, 1080);
         gridPane.setPadding(new Insets(10));
         gridPane.setVgap(10);
@@ -171,7 +221,9 @@ public class App extends Application {
 
         vBox.getChildren().add(topBox);
 
-        lowerBox.getChildren().addAll(getButtonBox(), gridPane);
+        if (!Settings.getUseMenuBar())
+            lowerBox.getChildren().add(getButtonBox());
+        lowerBox.getChildren().add(gridPane);
         vBox.getChildren().add(lowerBox);
 
 
@@ -223,10 +275,6 @@ public class App extends Application {
     public static void addUnitToGridpane(Node unit) {
         gridPane.getChildren().remove(addNewUnitControlNode);
         gridPane.add(unit, 0, Units.nodesSize());
-        gridPane.add(addNewUnitControlNode, 0, Units.nodesSize() + 1);
-    }
-
-    public static void addNewUnitButtonToGridpane() {
         gridPane.add(addNewUnitControlNode, 0, Units.nodesSize() + 1);
     }
 

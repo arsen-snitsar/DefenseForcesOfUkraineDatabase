@@ -10,7 +10,7 @@ public class Output {
 
     private static final String data = "data.txt";
 
-    public static void clearFile(){
+    private static void clearFile(){
         try {
             FileWriter fileWriter = new FileWriter(data, false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -21,7 +21,7 @@ public class Output {
 
     }
 
-    public static void saveBattles() {
+    private static void saveBattles() {
         try {
             FileWriter fileWriter = new FileWriter(data, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -40,7 +40,7 @@ public class Output {
         }
     }
 
-    public static void saveUnits() {
+    private static void saveUnits() {
         try {
             FileWriter fileWriter = new FileWriter(data, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -59,7 +59,7 @@ public class Output {
         }
     }
 
-    public static void saveRelationships() {
+    private static void saveRelationships() {
         try {
             FileWriter fileWriter = new FileWriter(data, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -80,7 +80,7 @@ public class Output {
         }
     }
 
-    public static void saveFlows() {
+    private static void saveFlows() {
         try {
             FileWriter fileWriter = new FileWriter(data, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -101,7 +101,7 @@ public class Output {
         }
     }
 
-    public static void writeEnd(){
+    private static void writeEnd(){
         try{
             FileWriter fileWriter = new FileWriter(data, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
