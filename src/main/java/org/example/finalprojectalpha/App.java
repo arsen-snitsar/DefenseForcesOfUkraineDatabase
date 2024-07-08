@@ -30,87 +30,84 @@ public class App extends Application {
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Node[] settingsNodes = new Node[]{SettingsControl.getSearchControl(), SettingsControl.getInterfaceControl()};
 
+    private static final int buttonWidth = 95;
+    private static final int buttonHeight = 25;
+    private static final Font defFont = new Font(18);
+
+    public static void setButtonGraphics(Button button) {
+        button.setFont(defFont);
+        button.setPrefHeight(buttonHeight);
+        button.setPrefWidth(buttonWidth);
+    }
+
+
     private static VBox getButtonBox() {
-        Button loadFromFileButton = getLoadFromFileButton();
-        Button saveToFileButton = getSaveToFileButton();
+
+        Button loadButton = getLoadFromFileButton();
+        Button saveButton = getSaveToFileButton();
         unitsViewButton = getUnitsViewButton();
         battlesViewButton = getBattlesViewButton();
         Button settingsButton = getSettingsButton();
 
-        return new VBox(10, loadFromFileButton, saveToFileButton, unitsViewButton, battlesViewButton, settingsButton);
+        return new VBox(
+                10,
+                loadButton, saveButton,
+                unitsViewButton, battlesViewButton,
+                settingsButton
+        );
     }
 
     private static Button getLoadFromFileButton() {
         Button button = new Button("Load");
-        button.setFont(new Font(18));
-        button.setPrefHeight(25);
-        button.setPrefWidth(90);
-        button.setOnAction(event -> {
-            Input.loadFromFile();
-        });
+        setButtonGraphics(button);
+        button.setOnAction(_ -> Input.loadFromFile());
         return button;
     }
 
     private static Button getSaveToFileButton() {
         Button button = new Button("Save");
-        button.setFont(new Font(18));
-        button.setPrefHeight(25);
-        button.setPrefWidth(90);
-        button.setOnAction(event -> {
-            Output.saveToFile();
-        });
+        setButtonGraphics(button);
+        button.setOnAction(_ -> Output.saveToFile());
         return button;
     }
 
     private static Button getUnitsViewButton() {
         Button button = new Button("Units");
-        button.setFont(new Font(18));
-        button.setPrefHeight(25);
-        button.setPrefWidth(90);
+        setButtonGraphics(button);
         button.setOnAction(_ -> {
-            gridPane.getChildren().clear();
-            Battles.clearNodes();
-            Units.clearNodes();
-            unitLabelControlNode = new UnitLabelControl(gridPane);
-            gridPane.add(unitLabelControlNode, 0, 0);
-            for (Unit unit : Units.getArrayList()) {
-                HBox hbox = new UnitControl(unit);
-                Units.addNode(hbox);
-                App.addUnitToGridpane(hbox);
-            }
+            viewUnits();
         });
         return button;
     }
 
+    public static void viewBattles() {
+        gridPane.getChildren().clear();
+        Battles.clearNodes();
+        Units.clearNodes();
+
+        battleLabelControlNode = new BattleLabelControl(gridPane);
+        gridPane.getChildren().add(battleLabelControlNode);
+        for (Battle battle : Battles.getList()) {
+            HBox hBoxToAdd = new BattleControl(battle);
+            Battles.addNode(hBoxToAdd);
+            App.addBattleToGridpane(hBoxToAdd);
+        }
+    }
+
     private static Button getBattlesViewButton() {
         Button button = new Button("Battles");
-        button.setFont(new Font(18));
-        button.setPrefHeight(25);
-        button.setPrefWidth(90);
-        button.setOnAction(event -> {
-            gridPane.getChildren().clear();
-            Battles.clearNodes();
-            Units.clearNodes();
-
-            battleLabelControlNode = new BattleLabelControl(gridPane);
-            gridPane.getChildren().add(battleLabelControlNode);
-            for (Battle battle : Battles.getList()) {
-                HBox hBoxToAdd = new BattleControl(battle);
-                Battles.addNode(hBoxToAdd);
-                App.addBattleToGridpane(hBoxToAdd);
-            }
+        setButtonGraphics(button);
+        button.setOnAction(_ -> {
+            viewBattles();
         });
         return button;
     }
 
     private static Button getSettingsButton() {
         Button button = new Button("Settings");
-        button.setFont(new Font(18));
-        button.setPrefHeight(25);
-        button.setPrefWidth(95);
+        setButtonGraphics(button);
         button.setOnAction(_ -> {
                     gridPane.getChildren().clear();
-
                     gridPane.add(settingsNodes[0], 0, 0);
                     gridPane.add(settingsNodes[1], 0, 1);
                 }
@@ -123,6 +120,20 @@ public class App extends Application {
 
     public static Scene getMainScene() {
         return mainScene;
+    }
+
+    public static void viewUnits() {
+        gridPane.getChildren().clear();
+        Battles.clearNodes();
+        Units.clearNodes();
+
+        unitLabelControlNode = new UnitLabelControl(gridPane);
+        gridPane.add(unitLabelControlNode, 0, 0);
+        for (Unit unit : Units.getArrayList()) {
+            HBox hbox = new UnitControl(unit);
+            Units.addNode(hbox);
+            App.addUnitToGridpane(hbox);
+        }
     }
 
     public static MenuBar getMenuBar() {
@@ -155,34 +166,12 @@ public class App extends Application {
         Menu viewMenu = new Menu("View");
         MenuItem units = new MenuItem("Units");
         units.setOnAction(_ -> {
-            gridPane.getChildren().clear();
-            Battles.clearNodes();
-            Units.clearNodes();
-
-            unitLabelControlNode = new UnitLabelControl(gridPane);
-            gridPane.add(unitLabelControlNode, 0, 0);
-            for (Unit unit : Units.getArrayList()) {
-                HBox hbox = new UnitControl(unit);
-                Units.addNode(hbox);
-                App.addUnitToGridpane(hbox);
-            }
+            viewUnits();
         });
         viewMenu.getItems().add(units);
 
         MenuItem battles = new MenuItem("Battles");
-        battles.setOnAction(_ -> {
-            gridPane.getChildren().clear();
-            Battles.clearNodes();
-            Units.clearNodes();
-
-            battleLabelControlNode = new BattleLabelControl(gridPane);
-            gridPane.getChildren().add(battleLabelControlNode);
-            for (Battle battle : Battles.getList()) {
-                HBox hBoxToAdd = new BattleControl(battle);
-                Battles.addNode(hBoxToAdd);
-                App.addBattleToGridpane(hBoxToAdd);
-            }
-        });
+        battles.setOnAction(_ -> viewBattles());
         viewMenu.getItems().add(battles);
 
         menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);
