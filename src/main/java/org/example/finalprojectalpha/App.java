@@ -274,6 +274,11 @@ public class App extends Application {
                 event.consume();
             }
         });
+        addKeyBindings(scene);
+        return scene;
+    }
+
+    private static void addKeyBindings(Scene scene){
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.isControlDown() && event.getCode() == KeyCode.S) {
                 save();
@@ -291,8 +296,6 @@ public class App extends Application {
                 viewUnits();
             }
         });
-
-        return scene;
     }
 
     public static Node getAddNewUnitControlNode() {
