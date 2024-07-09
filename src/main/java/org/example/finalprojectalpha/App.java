@@ -1,6 +1,7 @@
 package org.example.finalprojectalpha;
 
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
 import org.example.finalprojectalpha.Files.*;
@@ -61,10 +62,44 @@ public class App extends Application {
         return button;
     }
 
+    private static void save(){
+        if (Battles.size() > 0 || Units.size() > 0) {
+            Output.saveToFile();
+            System.out.println(Battles.size());
+            System.out.println(Units.size());
+        } else {
+            Stage warning = new Stage();
+            GridPane gridpane = new GridPane(500, 500);
+            gridpane.setPadding(new Insets(10));
+            gridpane.setVgap(10);
+            gridpane.setHgap(10);
+            warning.setScene(new Scene(gridpane));
+            Text text = new Text("There is no data in your app. Delete all data in the file?");
+            text.setFont(new Font(18));
+            gridpane.add(text, 0, 0);
+
+            Button clear = new Button("Delete all data");
+            clear.setFont(new Font(18));
+            clear.setOnAction(_ -> {
+                Output.saveToFile();
+                warning.close();
+            });
+            Button cancel = new Button("Cancel saving");
+            cancel.setFont(new Font(18));
+            cancel.setOnAction(_ -> warning.close());
+
+            HBox box = new HBox(10);
+            box.setAlignment(Pos.CENTER);
+            box.getChildren().addAll(clear, cancel);
+            gridpane.add(box, 0, 1);
+            warning.show();
+        }
+    }
+
     private static Button getSaveToFileButton() {
         Button button = new Button("Save");
         setButtonGraphics(button);
-        button.setOnAction(_ -> Output.saveToFile());
+        button.setOnAction(_ -> save());
         return button;
     }
 
@@ -145,7 +180,9 @@ public class App extends Application {
         fileMenu.getItems().add(loadItem);
 
         MenuItem saveItem = new MenuItem("Save");
-        saveItem.setOnAction(_ -> Output.saveToFile());
+        saveItem.setOnAction(_ -> {
+            save();
+        });
         fileMenu.getItems().add(saveItem);
 
         MenuItem quit = new MenuItem("Quit | Alt + F4");
