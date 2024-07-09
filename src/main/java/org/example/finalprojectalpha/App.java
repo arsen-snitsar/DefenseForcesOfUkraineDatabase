@@ -111,7 +111,7 @@ public class App extends Application {
     }
 
     public static void viewBattles() {
-        primaryStage.setScene(setMainScene());
+        primaryStage.setScene(setMainScene(false));
         gridPane.getChildren().clear();
         Battles.clearNodes();
         Units.clearNodes();
@@ -146,14 +146,14 @@ public class App extends Application {
         return button;
     }
 
-    private static final Scene mainScene = setMainScene();
+    private static final Scene mainScene = setMainScene(true);
 
     public static Scene getMainScene() {
         return mainScene;
     }
 
     public static void viewUnits() {
-        primaryStage.setScene(setMainScene());
+        primaryStage.setScene(setMainScene(false));
         gridPane.getChildren().clear();
         Battles.clearNodes();
         Units.clearNodes();
@@ -211,7 +211,7 @@ public class App extends Application {
         return menuBar;
     }
 
-    public static Scene setMainScene() {
+    public static Scene setMainScene(Boolean onLaunch) {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
         if (Settings.getUseMenuBar())
@@ -250,11 +250,8 @@ public class App extends Application {
             lowerBox.getChildren().add(getButtonBox());
 
         lowerBox.getChildren().add(gridPane);
-
-        if (Battles.size() != 0 || Units.size() != 0) {
+        if (!onLaunch)
             vBox.getChildren().add(lowerBox);
-        }
-
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(gridPane);
@@ -329,7 +326,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
-        primaryStage.setScene(setMainScene());
+        primaryStage.setScene(setMainScene(true));
         primaryStage.setTitle("Defense Forces of Ukraine Database");
         primaryStage.setMaximized(true);
         primaryStage.show();

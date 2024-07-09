@@ -18,11 +18,11 @@ public class Settings {
     private static boolean useMenuBar = true;
     public static void useMenuBar() {
         useMenuBar = true;
-        App.primaryStage.setScene(App.setMainScene());
+        App.primaryStage.setScene(App.setMainScene(true));
     }
     public static void useButtons() {
         useMenuBar = false;
-        App.primaryStage.setScene(App.setMainScene());
+        App.primaryStage.setScene(App.setMainScene(false));
     }
     public static Boolean getUseMenuBar() {
         return useMenuBar;
