@@ -67,8 +67,6 @@ public class App extends Application {
     private static void save() {
         if (Battles.size() > 0 || Units.size() > 0) {
             Output.saveToFile();
-            System.out.println(Battles.size());
-            System.out.println(Units.size());
         } else {
             Stage warning = new Stage();
             GridPane gridpane = new GridPane(500, 500);
@@ -113,6 +111,7 @@ public class App extends Application {
     }
 
     public static void viewBattles() {
+        primaryStage.setScene(setMainScene());
         gridPane.getChildren().clear();
         Battles.clearNodes();
         Units.clearNodes();
@@ -154,6 +153,7 @@ public class App extends Application {
     }
 
     public static void viewUnits() {
+        primaryStage.setScene(setMainScene());
         gridPane.getChildren().clear();
         Battles.clearNodes();
         Units.clearNodes();
@@ -248,8 +248,12 @@ public class App extends Application {
 
         if (!Settings.getUseMenuBar())
             lowerBox.getChildren().add(getButtonBox());
+
         lowerBox.getChildren().add(gridPane);
-        vBox.getChildren().add(lowerBox);
+
+        if (Battles.size() != 0 || Units.size() != 0) {
+            vBox.getChildren().add(lowerBox);
+        }
 
 
         ScrollPane scrollPane = new ScrollPane();
@@ -278,7 +282,7 @@ public class App extends Application {
         return scene;
     }
 
-    private static void addKeyBindings(Scene scene){
+    private static void addKeyBindings(Scene scene) {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.isControlDown() && event.getCode() == KeyCode.S) {
                 save();
