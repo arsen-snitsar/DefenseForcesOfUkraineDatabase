@@ -40,8 +40,8 @@ public class UnitMoreControl {
 
     private Button getBackButton(Stage primaryStage) {
         Button backButton = new Button("Back");
-        backButton.setFont(new Font(18));
-        backButton.setOnAction(event -> {
+        backButton.setFont(App.defFont);
+        backButton.setOnAction(_ -> {
             primaryStage.setMaximized(true);
             primaryStage.setScene(App.getMainScene());
             App.fireUnitsViewButton();
@@ -51,7 +51,7 @@ public class UnitMoreControl {
 
     private static Button getChooseInsigniaButton(ImageView insigniaView, Unit unit) {
         Button chooseInsigniaButton = new Button("Choose\nInsignia");
-        chooseInsigniaButton.setFont(new Font(18));
+        chooseInsigniaButton.setFont(App.defFont);
         chooseInsigniaButton.setTextAlignment(TextAlignment.CENTER);
         chooseInsigniaButton.setPrefHeight(100);
         chooseInsigniaButton.setPrefWidth(100);
@@ -80,8 +80,8 @@ public class UnitMoreControl {
             ListView<String> battlesListView
     ) {
         Button editButton = new Button("Edit");
-        editButton.setFont(new Font(18));
-        editButton.setOnAction(event -> {
+        editButton.setFont(App.defFont);
+        editButton.setOnAction(_ -> {
             buttonbox.getChildren().removeLast();
 
             gridPane.getChildren().remove(insigniaView);

@@ -44,7 +44,7 @@ public class AddNewUnitControl extends HBox {
 
         TextField field = new TextField();
         field.setPromptText("Enter new unit name");
-        field.setFont(new Font(18));
+        field.setFont(App.defFont);
         field.setAlignment(Pos.CENTER_LEFT);
         this.getChildren().add(field);
 

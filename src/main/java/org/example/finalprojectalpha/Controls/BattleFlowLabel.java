@@ -6,11 +6,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.example.finalprojectalpha.App;
 
 public class BattleFlowLabel extends HBox {
     public BattleFlowLabel() {
         Text text = new Text("Battle Flow");
-        text.setFont(new Font(18));
+        text.setFont(App.defFont);
         this.getChildren().add(text);
         this.setBorder(
                 new Border(

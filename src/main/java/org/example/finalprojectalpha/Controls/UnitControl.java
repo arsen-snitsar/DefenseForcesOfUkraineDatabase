@@ -27,13 +27,13 @@ public class UnitControl extends HBox {
 
     private Button getButtonMore(Unit unit) {
         Button moreButton = new Button("More");
-        moreButton.setFont(new Font(18));
+        moreButton.setFont(App.defFont);
         moreButton.setAlignment(Pos.CENTER_RIGHT);
         TextField editNameField = new TextField(unit.getName());
-        editNameField.setFont(new Font(18));
+        editNameField.setFont(App.defFont);
         editNameField.setAlignment(Pos.CENTER_LEFT);
         editNameField.setPrefWidth(myGetPrefWidth());
-        moreButton.setOnAction(event -> {
+        moreButton.setOnAction(_ -> {
             UnitMoreControl unitMoreControl = new UnitMoreControl();
             Scene scene = unitMoreControl.render(unit);
             App.primaryStage.setScene(scene);
@@ -57,7 +57,7 @@ public class UnitControl extends HBox {
 
     private Label getUnitNameLabel (Unit unit){
         Label unitNameLabel = new Label(unit.getName());
-        unitNameLabel.setFont(new Font(18));
+        unitNameLabel.setFont(App.defFont);
         unitNameLabel.setAlignment(Pos.CENTER_LEFT);
         unitNameLabel.setPrefWidth(myGetPrefWidth());
         return unitNameLabel;
