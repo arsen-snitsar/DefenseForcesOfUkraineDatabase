@@ -1,44 +1,44 @@
 Battles:
-1. 2023 Ukrainian counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2023UkrainianCounteroffensive.jpg
-2. Battle of Avdiivka|null
-3. Battle of Kyiv|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfKyiv.jpg
-4. Snake Island campaign|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SnakeIslandCampaign.jpg
-5. Battle of Sievierodonetsk|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfSieverodonetsk.jpg
-6. 2024 Kharkiv offensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024KharkivOffensive.jpg
-7. Battle of Bakhmut|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfBakhmut.jpg
-8. Siege of Mariupol|null
-9. 2022 Kharkiv counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KharkivCounterOffensive.jpg
-10. 2022 Kherson counteroffensive|null
-11. 2024 western Russia incursion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024WestRussiaIncursion.jpg
+0. 2023 Ukrainian counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2023UkrainianCounteroffensive.jpg
+1. Battle of Avdiivka|null
+2. Battle of Kyiv|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfKyiv.jpg
+3. Snake Island campaign|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SnakeIslandCampaign.jpg
+4. Battle of Sievierodonetsk|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfSieverodonetsk.jpg
+5. 2024 Kharkiv offensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024KharkivOffensive.jpg
+6. Battle of Bakhmut|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/battleOfBakhmut.jpg
+7. Siege of Mariupol|null
+8. 2022 Kharkiv counteroffensive|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KharkivCounterOffensive.jpg
+9. 2022 Kherson counteroffensive|null
+10. 2024 western Russia incursion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/2024WestRussiaIncursion.jpg
 Units:
-1. Third Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/ThirdAssaultBrigadeInsignia.png
-2. Brotherhood Batallion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/BratstvoBatallionInsignia.jpg
-3. 5th Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/5thAssaultBrigadeInsignia.png
-4. 28th Winter Knights Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/28thBrigadeInsignia.png
-5. 12th Azov Special Operations Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/AzovAssaultBrigadeInsignia.png
-6. Da Vinci Wolves Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/DaVinciWolvesBatallionInsignia.png
-7. 92nd Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/IvanSirkoBrigadeInsignia.png
-8. 13th Khartiia Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KhartiiaBrigadeInsignia.png
-9. 93rd Kholodnyi Yar Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KholodnyiYarBrigadeInsignia.png
-10. Kraken Regiment|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KrakenRegimentInsignia.png
-11. Liut Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/LiutBrigadeInsignia.png
-12. 47th Magura Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MaguraBrigadeInsignia.png
-13. 56th Motorized Mariupol Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MariupolBrigadeInsignia.png
-14. Russian Volunteer Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RussianVolunteerCorpsInsignia.png
-15. 3rd Spartan Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SpartanBrigadeInsignia.jpg
-16. 67th Ukrainian Volunteer Corps Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UkrainianVolunteerCorpsInsignia.png
-17. Freedom of Russia Legion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/FRLInsignia.png
-18. 1st Siveria Tank Brigade|null
-19. 128th Zakarpattia Mountain Assault Brigade|null
-20. Ukrainian Volunteer Army|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UVAInsignia.png
-21. Hospitallers Medical Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/HospitallersInsignia.png
-22. 42nd Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/42ndBrigadeInsignia.png
-23. Special Group "Alpha"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/AlphaGroupInsignia.png
-24. Ranger Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RangerCorpsInsignia.png
-25. 24th King Danylo Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/24thMechanizedBrigadeInsignia.png
-26. 414th Marine Strike UAV Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MagyarBirdsInsignia.png
-27. Revanche Tactical Group|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RevancheGroupInsignia.jpg
-28. Freikorps Volunteer Group|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/FreikorpsVolunteerGroupInsignia.png
+0. Third Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/ThirdAssaultBrigadeInsignia.png
+1. Brotherhood Batallion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/BratstvoBatallionInsignia.jpg
+2. 5th Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/5thAssaultBrigadeInsignia.png
+3. 28th Winter Knights Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/28thBrigadeInsignia.png
+4. 12th Azov Special Operations Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/AzovAssaultBrigadeInsignia.png
+5. Da Vinci Wolves Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/DaVinciWolvesBatallionInsignia.png
+6. 92nd Separate Assault Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/IvanSirkoBrigadeInsignia.png
+7. 13th Khartiia Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KhartiiaBrigadeInsignia.png
+8. 93rd Kholodnyi Yar Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KholodnyiYarBrigadeInsignia.png
+9. Kraken Regiment|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/KrakenRegimentInsignia.png
+10. Liut Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/LiutBrigadeInsignia.png
+11. 47th Magura Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MaguraBrigadeInsignia.png
+12. 56th Motorized Mariupol Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MariupolBrigadeInsignia.png
+13. Russian Volunteer Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RussianVolunteerCorpsInsignia.png
+14. 3rd Spartan Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/SpartanBrigadeInsignia.jpg
+15. 67th Ukrainian Volunteer Corps Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UkrainianVolunteerCorpsInsignia.png
+16. Freedom of Russia Legion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/FRLInsignia.png
+17. 1st Siveria Tank Brigade|null
+18. 128th Zakarpattia Mountain Assault Brigade|null
+19. Ukrainian Volunteer Army|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/UVAInsignia.png
+20. Hospitallers Medical Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/HospitallersInsignia.png
+21. 42nd Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/42ndBrigadeInsignia.png
+22. Special Group "Alpha"|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/AlphaGroupInsignia.png
+23. Ranger Corps|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RangerCorpsInsignia.png
+24. 24th King Danylo Separate Mechanized Brigade|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/24thMechanizedBrigadeInsignia.png
+25. 414th Marine Strike UAV Battalion|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/MagyarBirdsInsignia.png
+26. Revanche Tactical Group|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/RevancheGroupInsignia.jpg
+27. Freikorps Volunteer Group|file:/D:/auk/object-oriented-programming-and-data-structures/finalProjectPictures/FreikorpsVolunteerGroupInsignia.png
 Relationships:
 Third Assault Brigade: Battle of Avdiivka, 2024 Kharkiv offensive, 2023 Ukrainian counteroffensive, 2024 western Russia incursion, 2022 Kherson counteroffensive, 2022 Kharkiv counteroffensive, 
 Brotherhood Batallion: Battle of Kyiv, 2024 Kharkiv offensive, 
