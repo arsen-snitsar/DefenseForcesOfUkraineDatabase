@@ -3,6 +3,7 @@ package org.example.finalprojectalpha.Controls;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import org.example.finalprojectalpha.Data.*;
 import org.example.finalprojectalpha.App;
 
@@ -49,9 +50,9 @@ public class UnitLabelControl extends UnitControl {
     private TextField getSearchField(GridPane gridPane) {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
-        searchField.setFont(App.defFont);
+        searchField.setFont(new Font(18));
         if (Settings.getUseBinarySearch()) {
-            searchField.setOnAction(_ -> {
+            searchField.setOnAction(event -> {
                 gridPane.getChildren().removeAll(Units.getNodes());
                 sort(gridPane, unitsComparable);
                 for (Comparable comparable : unitsComparable) {

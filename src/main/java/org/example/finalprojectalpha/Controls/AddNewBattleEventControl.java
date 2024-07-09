@@ -42,7 +42,7 @@ public class AddNewBattleEventControl extends HBox {
     public AddNewBattleEventControl(BattleFlowControl battleFlowBox, Battle battle) {
         TextField textField = new TextField();
         textField.setPromptText("Enter new event");
-        textField.setFont(App.defFont);
+        textField.setFont(new Font(18));
 
         Button addNewEventButton = getAddNewEventButton(textField, battleFlowBox, battle);
         this.getChildren().add(addNewEventButton);

@@ -30,7 +30,7 @@ public class App extends Application {
 
     private static final int buttonWidth = 95;
     private static final int buttonHeight = 25;
-    public static final Font defFont = new Font(18);
+    private static final Font defFont = new Font(18);
 
     public static void setButtonGraphics(Button button) {
         button.setFont(defFont);
@@ -202,7 +202,7 @@ public class App extends Application {
         coatOfArmsView.setFitWidth(75);
         topBox.getChildren().add(coatOfArmsView);
         Label defenseForcesOfUkraineLabel = new Label("Defense Forces of Ukraine");
-        defenseForcesOfUkraineLabel.setFont(defFont);
+        defenseForcesOfUkraineLabel.setFont(new Font(18));
         defenseForcesOfUkraineLabel.setAlignment(Pos.CENTER);
         topBox.setBackground(
                 new Background(

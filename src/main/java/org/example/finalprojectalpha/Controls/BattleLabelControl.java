@@ -53,9 +53,9 @@ public class BattleLabelControl extends BattleControl {
     private TextField getSearchField(GridPane gridPane) {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
-        searchField.setFont(App.defFont);
+        searchField.setFont(new Font(18));
         if (Settings.getUseBinarySearch()) {
-            searchField.setOnAction(_ -> {
+            searchField.setOnAction(event -> {
                 gridPane.getChildren().removeAll(Battles.getNodes());
                 sort(gridPane, Battles.getComparable());
                 for (Comparable comparable : Battles.getComparable()) {
@@ -84,7 +84,7 @@ public class BattleLabelControl extends BattleControl {
                 gridPane.add(App.getAddNewBattleControlNode(), 0, 2);
             });
         } else {
-            searchField.textProperty().addListener((_, _, newValue) -> {
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 gridPane.getChildren().removeAll(Battles.getNodes());
                 Battles.clearNodes();
                 gridPane.getChildren().remove(App.getAddNewBattleControlNode());
@@ -101,6 +101,7 @@ public class BattleLabelControl extends BattleControl {
         }
         return searchField;
     }
+
 
     public BattleLabelControl(GridPane gridPane) {
         super(new Battle("Battle Image | Battle Name", null));

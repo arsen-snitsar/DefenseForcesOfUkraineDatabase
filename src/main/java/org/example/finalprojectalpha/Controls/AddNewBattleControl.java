@@ -34,7 +34,7 @@ public class AddNewBattleControl extends HBox {
 
         TextField field = new TextField();
         field.setPromptText("Enter new battle name");
-        field.setFont(App.defFont);
+        field.setFont(new Font(18));
         field.setAlignment(Pos.CENTER_LEFT);
 
         button.setOnAction(e -> {

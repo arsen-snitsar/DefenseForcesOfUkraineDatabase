@@ -42,8 +42,8 @@ public class BattleMoreControl {
 
     private Button getBackButton(Stage primaryStage) {
         Button backButton = new Button("Back");
-        backButton.setFont(App.defFont);
-        backButton.setOnAction(_ -> {
+        backButton.setFont(new Font(18));
+        backButton.setOnAction(event -> {
             primaryStage.setMaximized(true);
             primaryStage.setScene(App.getMainScene());
             App.fireBattlesViewButton();
@@ -53,7 +53,7 @@ public class BattleMoreControl {
 
     private static Button getChooseImageButton(ImageView imageView, Battle battle) {
         Button chooseImageButton = new Button("Choose\nImage");
-        chooseImageButton.setFont(App.defFont);
+        chooseImageButton.setFont(new Font(18));
         chooseImageButton.setTextAlignment(TextAlignment.CENTER);
         chooseImageButton.setPrefHeight(100);
         chooseImageButton.setPrefWidth(100);
@@ -84,13 +84,13 @@ public class BattleMoreControl {
             BattleFlowControl battleFlowBox
     ) {
         Button editButton = new Button("Edit");
-        editButton.setFont(App.defFont);
-        editButton.setOnAction(_ -> {
+        editButton.setFont(new Font(18));
+        editButton.setOnAction(event -> {
             gridPane.getChildren().remove(imageView);
 
             gridPane.getChildren().remove(battleNameText);
             TextField editNameField = new TextField(battle.getName());
-            editNameField.setFont(App.defFont);
+            editNameField.setFont(new Font(18));
             gridPane.add(editNameField, 1, 1);
             Button chooseImageButton = getChooseImageButton(imageView, battle);
             gridPane.add(chooseImageButton, 2, 1);
@@ -101,12 +101,12 @@ public class BattleMoreControl {
             battleFlowBox.addAddNewBattleEventControl(battle);
 
             unitsListView.setItems(Units.getObservableList());
-            unitsListView.setCellFactory(_ -> new ListCell<>() {
+            unitsListView.setCellFactory(lv -> new ListCell<String>() {
                 private Text text;
 
                 {
                     text = new Text();
-                    text.setFont(App.defFont);
+                    text.setFont(new Font(18));
                     setGraphic(text);
                 }
 
@@ -131,8 +131,8 @@ public class BattleMoreControl {
 
             gridPane.getChildren().remove(editButton);
             Button saveButton = new Button("Save");
-            saveButton.setFont(App.defFont);
-            saveButton.setOnAction(_ -> {
+            saveButton.setFont(new Font(18));
+            saveButton.setOnAction(e -> {
                 gridPane.getChildren().remove(chooseImageButton);
                 gridPane.add(imageView, 2, 1);
                 gridPane.getChildren().remove(battleImageText);
@@ -141,16 +141,16 @@ public class BattleMoreControl {
                 battle.setName(editNameField.getText());
                 gridPane.getChildren().remove(editNameField);
                 battleNameText.setText(battle.getName());
-                battleNameText.setFont(App.defFont);
+                battleNameText.setFont(new Font(18));
                 gridPane.add(battleNameText, 1, 1);
 
                 unitsListView.setItems(battle.getUnitsObsList());
-                unitsListView.setCellFactory(_ -> new ListCell<>() {
+                unitsListView.setCellFactory(lv -> new ListCell<String>() {
                     private Text text;
 
                     {
                         text = new Text();
-                        text.setFont(App.defFont);
+                        text.setFont(new Font(18));
                         setGraphic(text);
                     }
 
@@ -179,8 +179,8 @@ public class BattleMoreControl {
 
     private static Button getAddUnitButton(Battle battle, ListView<String> unitsListView) {
         Button addUnitButton = new Button("Add Unit");
-        addUnitButton.setFont(App.defFont);
-        addUnitButton.setOnAction(_ -> {
+        addUnitButton.setFont(new Font(18));
+        addUnitButton.setOnAction(e -> {
             String selectedUnitName = unitsListView.getSelectionModel().getSelectedItem();
             if (selectedUnitName != null) {
                 Unit selectedUnit = Units.getArrayList().stream()
@@ -209,7 +209,7 @@ public class BattleMoreControl {
         Scene scene = new Scene(gridPane, 1920, 1080);
 
         Text unitsInvolvedText = new Text("Units involved:");
-        unitsInvolvedText.setFont(App.defFont);
+        unitsInvolvedText.setFont(new Font(18));
         ListView<String> unitsListView = getUnitsListView(battle);
         gridPane.add(unitsInvolvedText, 1, 2);
         gridPane.add(unitsListView, 1, 3);
@@ -246,7 +246,7 @@ public class BattleMoreControl {
         ListView<String> unitsListView = new ListView<>();
         unitsListView.setPrefWidth(450);
         unitsListView.setItems(battle.getUnitsObsList());
-        unitsListView.setCellFactory(_ -> new ListCell<>() {
+        unitsListView.setCellFactory(lv -> new ListCell<String>() {
             @Override
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);

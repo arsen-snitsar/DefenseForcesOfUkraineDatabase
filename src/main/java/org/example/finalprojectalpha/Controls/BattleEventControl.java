@@ -6,14 +6,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.BattleEvent;
 
 public class BattleEventControl extends HBox {
 
     public BattleEventControl(BattleEvent battleEvent) {
         Text text = new Text(battleEvent.getEventText());
-        text.setFont(App.defFont);
+        text.setFont(new Font(18));
         this.getChildren().add(text);
         this.setBorder(
                 new Border(

@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
@@ -42,7 +43,7 @@ public class BattleControl extends HBox {
 
     private Node getBattleNameText(Battle battle) {
         Text battleNameText = new Text(battle.getName());
-        battleNameText.setFont(App.defFont);
+        battleNameText.setFont(new Font(18));
         battleNameText.setTextAlignment(TextAlignment.LEFT);
 
         battleNameText.setWrappingWidth(myGetPrefWidth());
@@ -73,8 +74,8 @@ public class BattleControl extends HBox {
 
     private Button getButtonMore(Battle battle) {
         Button moreButton = new Button("More");
-        moreButton.setFont(App.defFont);
-        moreButton.setOnAction(_ -> {
+        moreButton.setFont(new Font(18));
+        moreButton.setOnAction(event -> {
             BattleMoreControl battleMoreControl = new BattleMoreControl();
             Scene scene = battleMoreControl.render(battle);
             App.primaryStage.setScene(scene);

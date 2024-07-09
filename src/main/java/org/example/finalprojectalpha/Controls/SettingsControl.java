@@ -5,24 +5,23 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import org.example.finalprojectalpha.App;
 import org.example.finalprojectalpha.Data.Settings;
 
 public class SettingsControl {
 
     public static VBox getSearchControl() {
         Text searchSettingsLabel = new Text("Search settings");
-        searchSettingsLabel.setFont(App.defFont);
+        searchSettingsLabel.setFont(new Font(18));
 
         RadioButton radioButtonBinarySearch = new RadioButton("Use binary search - faster algorithm, but requires 1 by 1 matching");
-        radioButtonBinarySearch.setFont(App.defFont);
-        radioButtonBinarySearch.setOnAction(_ -> {
+        radioButtonBinarySearch.setFont(new Font(18));
+        radioButtonBinarySearch.setOnAction(e -> {
             Settings.useBinarySearch();
         });
 
         RadioButton radioButtonContainsSearch = new RadioButton("Use search with contains - slower, but much more convenient and can be used with keywords");
-        radioButtonContainsSearch.setFont(App.defFont);
-        radioButtonContainsSearch.setOnAction(_ -> {
+        radioButtonContainsSearch.setFont(new Font(18));
+        radioButtonContainsSearch.setOnAction(e -> {
             Settings.useContainsSearch();
         });
 
@@ -39,17 +38,17 @@ public class SettingsControl {
 
     public static VBox getInterfaceControl() {
         Text interfaceSettingsText = new Text("Interface settings");
-        interfaceSettingsText.setFont(App.defFont);
+        interfaceSettingsText.setFont(new Font(18));
 
         RadioButton barButton = new RadioButton("Use menu bar - a classical File | Edit | View bar ");
-        barButton.setFont(App.defFont);
+        barButton.setFont(new Font(18));
         barButton.setOnAction(_ -> {
             Settings.useMenuBar();
         });
 
         RadioButton bigButtons = new RadioButton("Use big buttons - modern " +
                 "and more appropriate for touch screen devices");
-        bigButtons.setFont(App.defFont);
+        bigButtons.setFont(new Font(18));
         bigButtons.setOnAction(_ -> {
             Settings.useButtons();
         });
