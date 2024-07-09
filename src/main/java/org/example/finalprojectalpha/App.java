@@ -2,6 +2,7 @@ package org.example.finalprojectalpha;
 
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
@@ -107,9 +108,7 @@ public class App extends Application {
     private static Button getUnitsViewButton() {
         Button button = new Button("Units");
         setButtonGraphics(button);
-        button.setOnAction(_ -> {
-            viewUnits();
-        });
+        button.setOnAction(_ -> viewUnits());
         return button;
     }
 
@@ -131,9 +130,7 @@ public class App extends Application {
     private static Button getBattlesViewButton() {
         Button button = new Button("Battles");
         setButtonGraphics(button);
-        button.setOnAction(_ -> {
-            viewBattles();
-        });
+        button.setOnAction(_ -> viewBattles());
         return button;
     }
 
@@ -176,14 +173,12 @@ public class App extends Application {
 
         Menu fileMenu = new Menu("File");
 
-        MenuItem loadItem = new MenuItem("Load");
+        MenuItem loadItem = new MenuItem("Load | Ctrl + O");
         loadItem.setOnAction(_ -> Input.loadFromFile());
         fileMenu.getItems().add(loadItem);
 
         MenuItem saveItem = new MenuItem("Save | Ctrl + S");
-        saveItem.setOnAction(_ -> {
-            save();
-        });
+        saveItem.setOnAction(_ -> save());
         fileMenu.getItems().add(saveItem);
 
         MenuItem quit = new MenuItem("Quit | Alt + F4");
@@ -218,10 +213,6 @@ public class App extends Application {
 
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);
-        vBox.setOnKeyPressed(e -> {
-            if (e.isControlDown() && e.getCode() == KeyCode.S)
-                save();
-        });
         vBox.setPadding(new Insets(10));
         if (Settings.getUseMenuBar())
             vBox.getChildren().add(getMenuBar());
@@ -280,6 +271,19 @@ public class App extends Application {
         scrollPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 scrollPane.setVvalue(dragContext.initialScrollY + (dragContext.mouseAnchorY - event.getSceneY()) / scrollPane.getHeight());
+                event.consume();
+            }
+        });
+
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.getCode() == KeyCode.S) {
+                save();
+                event.consume();
+            }
+        });
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.getCode() == KeyCode.O) {
+                Input.loadFromFile();
                 event.consume();
             }
         });
