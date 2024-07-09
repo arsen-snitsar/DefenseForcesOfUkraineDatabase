@@ -37,7 +37,6 @@ public class BattleLabelControl extends BattleControl {
             Battles.addNode(new BattleControl((Battle) comparable));
             gridPane.add(Battles.getLastNode(), 0, Battles.nodesSize());
         }
-        App.addNewBattleButtonToGridpane();
     }
 
     private HBox removeImageAndButton(HBox hBox) {
@@ -73,14 +72,15 @@ public class BattleLabelControl extends BattleControl {
                 gridPane.getChildren().removeAll(Battles.getNodes());
                 Battles.clearNodes();
                 gridPane.getChildren().remove(App.getAddNewBattleControlNode());
-                HBox hBox;
+                HBox hbox;
                 if (index != -1) {
-                    hBox = new BattleControl((Battle) Battles.getComparable().get(index));
+                    hbox = new BattleControl((Battle) Battles.getComparable().get(index));
                 } else {
-                    hBox = new BattleControl(new Battle("No such battle", null));
+                    hbox = new BattleControl(new Battle("No such battle"));
+                    removeImageAndButton(hbox);
                 }
-                Battles.addNode(hBox);
-                gridPane.add(hBox, 0, 1);
+                Battles.addNode(hbox);
+                gridPane.add(hbox, 0, 1);
                 gridPane.add(App.getAddNewBattleControlNode(), 0, 2);
             });
         } else {

@@ -30,10 +30,9 @@ public class App extends Application {
 
     private static final int buttonWidth = 95;
     private static final int buttonHeight = 25;
-    private static final Font defFont = new Font(18);
 
     public static void setButtonGraphics(Button button) {
-        button.setFont(defFont);
+        button.setFont(new Font(18));
         button.setPrefHeight(buttonHeight);
         button.setPrefWidth(buttonWidth);
     }

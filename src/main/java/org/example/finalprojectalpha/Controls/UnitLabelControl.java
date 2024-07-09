@@ -76,6 +76,7 @@ public class UnitLabelControl extends UnitControl {
                     hbox = new UnitControl((Unit) unitsComparable.get(index));
                 } else {
                     hbox = new UnitControl(new Unit("No such unit"));
+                    removeImageAndButton(hbox);
                 }
                 Units.addNode(hbox);
                 gridPane.add(hbox, 0, 1);
