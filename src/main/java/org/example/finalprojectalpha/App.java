@@ -329,6 +329,7 @@ public class App extends Application {
         primaryStage.setScene(setMainScene(true));
         primaryStage.setTitle("Defense Forces of Ukraine Database");
         primaryStage.setMaximized(true);
+        Input.loadFromFile();
         primaryStage.show();
     }
 }

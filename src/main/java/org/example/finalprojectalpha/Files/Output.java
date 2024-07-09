@@ -5,6 +5,7 @@ import org.example.finalprojectalpha.Data.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 
 public class Output {
 
@@ -84,7 +85,7 @@ public class Output {
         try {
             FileWriter fileWriter = new FileWriter(data, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.println("Battleflows:");
+            printWriter.println("Battle flows:");
             for (Battle battle : Battles.getArrayList()) {
                 if (battle.getFlow().isEmpty()) {
                     continue;
@@ -97,6 +98,21 @@ public class Output {
             }
             printWriter.close();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void writeSettings(){
+        try{
+            FileWriter fileWriter = new FileWriter(data, true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            printWriter.println("Settings:");
+            printWriter.println("Use binary search - " + Settings.getUseBinarySearch());
+            printWriter.println("Use menu bar - " + Settings.getUseMenuBar());
+
+            printWriter.close();
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }
@@ -118,6 +134,7 @@ public class Output {
         saveUnits();
         saveRelationships();
         saveFlows();
+        writeSettings();
         writeEnd();
     }
 }

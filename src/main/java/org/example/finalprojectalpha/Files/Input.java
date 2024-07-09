@@ -1,10 +1,8 @@
 package org.example.finalprojectalpha.Files;
 
 import org.example.finalprojectalpha.App;
-import org.example.finalprojectalpha.Data.Battle;
-import org.example.finalprojectalpha.Data.Battles;
-import org.example.finalprojectalpha.Data.Unit;
-import org.example.finalprojectalpha.Data.Units;
+import org.example.finalprojectalpha.Controls.SettingsControl;
+import org.example.finalprojectalpha.Data.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,7 +38,7 @@ public class Input {
                     }
                 }
             }
-            while ((line = reader.readLine()) != null && (!line.equals("Battleflows:"))) {
+            while ((line = reader.readLine()) != null && (!line.equals("Battle flows:"))) {
                 String unitName = line.substring(0, line.indexOf(":"));
                 Unit unit = Units.get(unitName);
                 if (unit != null) {
@@ -59,7 +57,7 @@ public class Input {
                     }
                 }
             }
-            while ((line = reader.readLine()) != null && (!line.equals("End"))) {
+            while ((line = reader.readLine()) != null && (!line.equals("Settings:"))) {
                 String battleName = line.substring(0, line.indexOf(":"));
                 Battle battle = Battles.getArrayList().get(Battles.findIndex(battleName));
                 if (battle != null) {
@@ -69,6 +67,21 @@ public class Input {
                             battle.addEvent(event);
                     }
                 }
+            }
+            while ((line = reader.readLine()) != null && (!line.equals("End"))) {
+                if (line.substring(0, line.indexOf(" - ")).equals("Use binary search")) {
+                    if (line.substring(line.indexOf("- ") + 2).equals("true")) {
+                        Settings.useBinarySearch();
+                    } else {
+                        Settings.useContainsSearch();
+                    }
+                }
+                if (line.substring(0, line.indexOf(" - ")).equals("Use menu bar"))
+                    if (line.substring(line.indexOf("- ") + 2).equals("true")) {
+                        Settings.useMenuBar();
+                    } else {
+                        Settings.useButtons();
+                    }
             }
             reader.close();
         } catch (IOException e) {
