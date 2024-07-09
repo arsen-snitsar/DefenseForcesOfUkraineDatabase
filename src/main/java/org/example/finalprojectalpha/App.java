@@ -64,7 +64,7 @@ public class App extends Application {
         return button;
     }
 
-    private static void save(){
+    private static void save() {
         if (Battles.size() > 0 || Units.size() > 0) {
             Output.saveToFile();
             System.out.println(Battles.size());
@@ -186,7 +186,7 @@ public class App extends Application {
         fileMenu.getItems().add(quit);
 
         Menu editMenu = new Menu("Edit");
-        MenuItem settings = new MenuItem("Settings");
+        MenuItem settings = new MenuItem("Settings | Ctrl + E");
         settings.setOnAction(_ -> {
             gridPane.getChildren().clear();
 
@@ -196,13 +196,13 @@ public class App extends Application {
         editMenu.getItems().add(settings);
 
         Menu viewMenu = new Menu("View");
-        MenuItem units = new MenuItem("Units");
+        MenuItem units = new MenuItem("Units | Ctrl + U");
         units.setOnAction(_ -> {
             viewUnits();
         });
         viewMenu.getItems().add(units);
 
-        MenuItem battles = new MenuItem("Battles");
+        MenuItem battles = new MenuItem("Battles | Ctrl + B");
         battles.setOnAction(_ -> viewBattles());
         viewMenu.getItems().add(battles);
 
@@ -274,19 +274,24 @@ public class App extends Application {
                 event.consume();
             }
         });
-
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.isControlDown() && event.getCode() == KeyCode.S) {
                 save();
                 event.consume();
-            }
-        });
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.isControlDown() && event.getCode() == KeyCode.O) {
+            } else if (event.isControlDown() && event.getCode() == KeyCode.O) {
                 Input.loadFromFile();
                 event.consume();
+            } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
+                gridPane.getChildren().clear();
+                gridPane.add(settingsNodes[0], 0, 0);
+                gridPane.add(settingsNodes[1], 0, 1);
+            } else if (event.isControlDown() && event.getCode() == KeyCode.B) {
+                viewBattles();
+            } else if (event.isControlDown() && event.getCode() == KeyCode.U) {
+                viewUnits();
             }
         });
+
         return scene;
     }
 
