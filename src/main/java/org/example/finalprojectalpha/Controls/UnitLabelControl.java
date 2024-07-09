@@ -105,7 +105,7 @@ public class UnitLabelControl extends UnitControl {
     public UnitLabelControl(GridPane gridPane){
         super(new Unit("Unit Insignia | Unit name"));
         removeImageAndButton(this);
-        this.setOnMouseClicked(e -> {
+        this.setOnMouseClicked(_ -> {
             gridPane.getChildren().removeAll(Units.getNodes());
             Units.clearNodes();
             gridPane.getChildren().remove(App.getAddNewUnitControlNode());

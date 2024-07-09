@@ -32,10 +32,12 @@ public class BattleLabelControl extends BattleControl {
     }
 
     private void sort(GridPane gridPane, ArrayList<Comparable> battlesComparable) {
+        gridPane.getChildren().removeAll(Units.getNodes());
+        gridPane.getChildren().removeAll(App.getAddNewUnitControlNode());
         Quicksort.sort(battlesComparable, sortOrder);
         for (Comparable comparable : battlesComparable) {
             Battles.addNode(new BattleControl((Battle) comparable));
-            gridPane.add(Battles.getLastNode(), 0, Battles.nodesSize());
+            App.addBattleToGridpane(Battles.getLastNode());
         }
     }
 
@@ -117,9 +119,9 @@ public class BattleLabelControl extends BattleControl {
     }
 
     public BattleLabelControl(GridPane gridPane, String name) {
-        super(new Battle(name, null));
+        super(new Battle(name));
 
-        this.setOnMouseClicked(e -> {
+        this.setOnMouseClicked(_ -> {
             gridPane.getChildren().removeAll(Battles.getNodes());
             Battles.clearNodes();
             gridPane.getChildren().remove(App.getAddNewBattleControlNode());
