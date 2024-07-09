@@ -21,6 +21,7 @@ import org.example.finalprojectalpha.Data.*;
 import java.io.File;
 
 import static org.example.finalprojectalpha.App.primaryStage;
+import static org.example.finalprojectalpha.App.viewUnits;
 
 public class UnitMoreControl {
 
@@ -44,7 +45,7 @@ public class UnitMoreControl {
         backButton.setOnAction(event -> {
             primaryStage.setMaximized(true);
             primaryStage.setScene(App.getMainScene());
-            App.fireUnitsViewButton();
+            viewUnits();
         });
         return backButton;
     }

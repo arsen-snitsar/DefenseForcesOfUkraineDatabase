@@ -22,6 +22,7 @@ import org.example.finalprojectalpha.Data.*;
 import java.io.File;
 
 import static org.example.finalprojectalpha.App.primaryStage;
+import static org.example.finalprojectalpha.App.viewBattles;
 
 public class BattleMoreControl {
 
@@ -46,7 +47,7 @@ public class BattleMoreControl {
         backButton.setOnAction(event -> {
             primaryStage.setMaximized(true);
             primaryStage.setScene(App.getMainScene());
-            App.fireBattlesViewButton();
+            viewBattles();
         });
         return backButton;
     }

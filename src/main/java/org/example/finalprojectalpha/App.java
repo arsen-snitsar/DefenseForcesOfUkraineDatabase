@@ -42,8 +42,8 @@ public class App extends Application {
 
         Button loadButton = getLoadFromFileButton();
         Button saveButton = getSaveToFileButton();
-        unitsViewButton = getUnitsViewButton();
-        battlesViewButton = getBattlesViewButton();
+        Button unitsViewButton = getUnitsViewButton();
+        Button battlesViewButton = getBattlesViewButton();
         Button settingsButton = getSettingsButton();
 
         return new VBox(
@@ -244,18 +244,6 @@ public class App extends Application {
         return scene;
     }
 
-    private static Button unitsViewButton;
-
-    public static void fireUnitsViewButton() {
-        unitsViewButton.fire();
-    }
-
-    private static Button battlesViewButton;
-
-    public static void fireBattlesViewButton() {
-        battlesViewButton.fire();
-    }
-
     public static Node getAddNewUnitControlNode() {
         return addNewUnitControlNode;
     }
@@ -273,10 +261,6 @@ public class App extends Application {
     public static void addBattleToGridpane(Node battle) {
         gridPane.getChildren().remove(addNewBattleControlNode);
         gridPane.add(battle, 0, Battles.nodesSize());
-        gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
-    }
-
-    public static void addNewBattleButtonToGridpane() {
         gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
     }
 
