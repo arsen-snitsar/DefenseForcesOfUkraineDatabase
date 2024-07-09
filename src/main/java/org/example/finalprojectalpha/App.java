@@ -1,6 +1,7 @@
 package org.example.finalprojectalpha;
 
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
@@ -179,7 +180,7 @@ public class App extends Application {
         loadItem.setOnAction(_ -> Input.loadFromFile());
         fileMenu.getItems().add(loadItem);
 
-        MenuItem saveItem = new MenuItem("Save");
+        MenuItem saveItem = new MenuItem("Save | Ctrl + S");
         saveItem.setOnAction(_ -> {
             save();
         });
@@ -217,6 +218,10 @@ public class App extends Application {
 
     public static Scene setMainScene() {
         VBox vBox = new VBox(10);
+        vBox.setOnKeyPressed(e -> {
+            if (e.isControlDown() && e.getCode() == KeyCode.S)
+                save();
+        });
         vBox.setPadding(new Insets(10));
         if (Settings.getUseMenuBar())
             vBox.getChildren().add(getMenuBar());
@@ -308,7 +313,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
-        primaryStage.setScene(getMainScene());
+        primaryStage.setScene(setMainScene());
         primaryStage.setTitle("Defense Forces of Ukraine Database");
         primaryStage.setMaximized(true);
         primaryStage.show();
