@@ -137,6 +137,7 @@ public class App extends Application {
         Button button = new Button("Settings");
         setButtonGraphics(button);
         button.setOnAction(_ -> {
+                    primaryStage.setScene(setMainScene(false));
                     gridPane.getChildren().clear();
                     gridPane.add(settingsNodes[0], 0, 0);
                     gridPane.add(settingsNodes[1], 0, 1);
@@ -188,6 +189,7 @@ public class App extends Application {
         Menu editMenu = new Menu("Edit");
         MenuItem settings = new MenuItem("Settings | Ctrl + E");
         settings.setOnAction(_ -> {
+            primaryStage.setScene(setMainScene(false));
             gridPane.getChildren().clear();
 
             gridPane.add(settingsNodes[0], 0, 0);
@@ -197,9 +199,7 @@ public class App extends Application {
 
         Menu viewMenu = new Menu("View");
         MenuItem units = new MenuItem("Units | Ctrl + U");
-        units.setOnAction(_ -> {
-            viewUnits();
-        });
+        units.setOnAction(_ -> viewUnits());
         viewMenu.getItems().add(units);
 
         MenuItem battles = new MenuItem("Battles | Ctrl + B");
@@ -288,6 +288,7 @@ public class App extends Application {
                 Input.loadFromFile();
                 event.consume();
             } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
+                primaryStage.setScene(setMainScene(false));
                 gridPane.getChildren().clear();
                 gridPane.add(settingsNodes[0], 0, 0);
                 gridPane.add(settingsNodes[1], 0, 1);

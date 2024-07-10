@@ -15,7 +15,7 @@ public class Settings {
         return useBinarySearch;
     }
 
-    private static boolean useMenuBar = true;
+    private static boolean useMenuBar;
     public static void useMenuBar() {
         useMenuBar = true;
         App.primaryStage.setScene(App.setMainScene(true));

@@ -25,7 +25,10 @@ public class SettingsControl {
             Settings.useContainsSearch();
         });
 
-        radioButtonContainsSearch.setSelected(true);
+        if (Settings.getUseBinarySearch())
+            radioButtonBinarySearch.setSelected(true);
+        else
+            radioButtonContainsSearch.setSelected(true);
 
         ToggleGroup searchToggleGroup = new ToggleGroup();
         radioButtonBinarySearch.setToggleGroup(searchToggleGroup);
@@ -57,7 +60,10 @@ public class SettingsControl {
         barButton.setToggleGroup(interfaceGroup);
         bigButtons.setToggleGroup(interfaceGroup);
 
-        bigButtons.setSelected(true);
+        if (Settings.getUseMenuBar())
+            barButton.setSelected(true);
+        else
+            bigButtons.setSelected(true);
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(interfaceSettingsText, barButton, bigButtons);
