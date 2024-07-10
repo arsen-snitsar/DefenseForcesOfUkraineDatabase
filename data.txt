@@ -64,5 +64,5 @@ Battle flows:
 2023 Ukrainian counteroffensive: 8th of June 2023 - The Washington Post reports the beginning of Ukrainian counteroffensive., 23rd of August 2023 - the 47th Mechanized Brigade captured Robotyne in Zaporizhia Oblast.,, 
 Settings:
 Use binary search - true
-Use menu bar - false
+Use menu bar - true
 End

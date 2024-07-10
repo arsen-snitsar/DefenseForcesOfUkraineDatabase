@@ -324,6 +324,14 @@ public class App extends Application {
         launch(args);
     }
 
+    public static void viewSettings() {
+        primaryStage.setScene(setMainScene(false));
+        gridPane.getChildren().clear();
+
+        gridPane.add(settingsNodes[0], 0, 0);
+        gridPane.add(settingsNodes[1], 0, 1);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;

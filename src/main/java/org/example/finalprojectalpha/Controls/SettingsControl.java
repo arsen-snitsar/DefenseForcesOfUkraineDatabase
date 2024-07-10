@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.example.finalprojectalpha.Data.Settings;
+import org.example.finalprojectalpha.App;
 
 public class SettingsControl {
 
@@ -47,6 +48,7 @@ public class SettingsControl {
         barButton.setFont(new Font(18));
         barButton.setOnAction(_ -> {
             Settings.useMenuBar();
+            App.viewSettings();
         });
 
         RadioButton bigButtons = new RadioButton("Use big buttons - modern " +
