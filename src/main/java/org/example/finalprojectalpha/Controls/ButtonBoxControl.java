@@ -48,11 +48,11 @@ public class ButtonBoxControl extends VBox {
                     App.viewSettings();
                 }
         );
-
         return button;
     }
 
     public ButtonBoxControl(){
+        this.setSpacing(10);
         this.getChildren().addAll(
                 getLoadFromFileButton(),
                 getSaveToFileButton(),
