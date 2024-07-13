@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 
 public class App extends Application {
 
@@ -117,7 +119,7 @@ public class App extends Application {
 
         ImageView coatOfArmsView = new ImageView(
                 new Image(
-                        App.class.getResource("CoatOfArms.png").toExternalForm()
+                        Objects.requireNonNull(App.class.getResource("CoatOfArms.png")).toExternalForm()
                 )
         );
         coatOfArmsView.setFitHeight(75);
@@ -178,10 +180,7 @@ public class App extends Application {
                 Input.loadFromFile();
                 event.consume();
             } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
-                primaryStage.setScene(setMainScene(false));
-                gridPane.getChildren().clear();
-                gridPane.add(settingsNodes[0], 0, 0);
-                gridPane.add(settingsNodes[1], 0, 1);
+                viewSettings();
             } else if (event.isControlDown() && event.getCode() == KeyCode.B) {
                 viewBattles();
             } else if (event.isControlDown() && event.getCode() == KeyCode.U) {
