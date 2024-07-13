@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import org.example.finalprojectalpha.Data.Settings;
 import org.example.finalprojectalpha.App;
 
+import java.sql.SQLOutput;
+
 public class SettingsControl {
 
     public static VBox getSearchControl() {
@@ -26,6 +28,7 @@ public class SettingsControl {
             Settings.useContainsSearch();
         });
 
+        System.out.println("use binary search: " + Settings.getUseBinarySearch());
         if (Settings.getUseBinarySearch())
             radioButtonBinarySearch.setSelected(true);
         else
@@ -62,6 +65,8 @@ public class SettingsControl {
         barButton.setToggleGroup(interfaceGroup);
         bigButtons.setToggleGroup(interfaceGroup);
 
+
+        System.out.println("use menu bar: " + Settings.getUseMenuBar());
         if (Settings.getUseMenuBar())
             barButton.setSelected(true);
         else

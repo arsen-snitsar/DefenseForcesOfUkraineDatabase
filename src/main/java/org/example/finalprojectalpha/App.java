@@ -26,45 +26,12 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     public static Stage primaryStage;
-    private static final GridPane gridPane = new GridPane();
+    public static final GridPane gridPane = new GridPane();
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
     private static final Node[] settingsNodes = new Node[]{SettingsControl.getSearchControl(), SettingsControl.getInterfaceControl()};
 
-    private static final int buttonWidth = 95;
-    private static final int buttonHeight = 25;
-
-    public static void setButtonGraphics(Button button) {
-        button.setFont(new Font(18));
-        button.setPrefHeight(buttonHeight);
-        button.setPrefWidth(buttonWidth);
-    }
-
-
-    private static VBox getButtonBox() {
-
-        Button loadButton = getLoadFromFileButton();
-        Button saveButton = getSaveToFileButton();
-        Button unitsViewButton = getUnitsViewButton();
-        Button battlesViewButton = getBattlesViewButton();
-        Button settingsButton = getSettingsButton();
-
-        return new VBox(
-                10,
-                loadButton, saveButton,
-                unitsViewButton, battlesViewButton,
-                settingsButton
-        );
-    }
-
-    private static Button getLoadFromFileButton() {
-        Button button = new Button("Load");
-        setButtonGraphics(button);
-        button.setOnAction(_ -> Input.loadFromFile());
-        return button;
-    }
-
-    private static void save() {
+    public static void save() {
         if (Battles.size() > 0 || Units.size() > 0) {
             Output.saveToFile();
         } else {
@@ -96,20 +63,6 @@ public class App extends Application {
         }
     }
 
-    private static Button getSaveToFileButton() {
-        Button button = new Button("Save");
-        setButtonGraphics(button);
-        button.setOnAction(_ -> save());
-        return button;
-    }
-
-    private static Button getUnitsViewButton() {
-        Button button = new Button("Units");
-        setButtonGraphics(button);
-        button.setOnAction(_ -> viewUnits());
-        return button;
-    }
-
     public static void viewBattles() {
         primaryStage.setScene(setMainScene(false));
         gridPane.getChildren().clear();
@@ -124,27 +77,6 @@ public class App extends Application {
             Battles.addNode(hBoxToAdd);
             App.addBattleToGridpane(hBoxToAdd);
         }
-    }
-
-    private static Button getBattlesViewButton() {
-        Button button = new Button("Battles");
-        setButtonGraphics(button);
-        button.setOnAction(_ -> viewBattles());
-        return button;
-    }
-
-    private static Button getSettingsButton() {
-        Button button = new Button("Settings");
-        setButtonGraphics(button);
-        button.setOnAction(_ -> {
-                    primaryStage.setScene(setMainScene(false));
-                    gridPane.getChildren().clear();
-                    gridPane.add(settingsNodes[0], 0, 0);
-                    gridPane.add(settingsNodes[1], 0, 1);
-                }
-        );
-
-        return button;
     }
 
     private static final Scene mainScene = setMainScene(true);
@@ -169,53 +101,11 @@ public class App extends Application {
         }
     }
 
-    public static MenuBar getMenuBar() {
-        MenuBar menuBar = new MenuBar();
-
-        Menu fileMenu = new Menu("File");
-
-        MenuItem loadItem = new MenuItem("Load | Ctrl + O");
-        loadItem.setOnAction(_ -> Input.loadFromFile());
-        fileMenu.getItems().add(loadItem);
-
-        MenuItem saveItem = new MenuItem("Save | Ctrl + S");
-        saveItem.setOnAction(_ -> save());
-        fileMenu.getItems().add(saveItem);
-
-        MenuItem quit = new MenuItem("Quit | Alt + F4");
-        quit.setOnAction(_ -> primaryStage.close());
-        fileMenu.getItems().add(quit);
-
-        Menu editMenu = new Menu("Edit");
-        MenuItem settings = new MenuItem("Settings | Ctrl + E");
-        settings.setOnAction(_ -> {
-            primaryStage.setScene(setMainScene(false));
-            gridPane.getChildren().clear();
-
-            gridPane.add(settingsNodes[0], 0, 0);
-            gridPane.add(settingsNodes[1], 0, 1);
-        });
-        editMenu.getItems().add(settings);
-
-        Menu viewMenu = new Menu("View");
-        MenuItem units = new MenuItem("Units | Ctrl + U");
-        units.setOnAction(_ -> viewUnits());
-        viewMenu.getItems().add(units);
-
-        MenuItem battles = new MenuItem("Battles | Ctrl + B");
-        battles.setOnAction(_ -> viewBattles());
-        viewMenu.getItems().add(battles);
-
-        menuBar.getMenus().addAll(fileMenu, editMenu, viewMenu);
-
-        return menuBar;
-    }
-
     public static Scene setMainScene(Boolean onLaunch) {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
         if (Settings.getUseMenuBar())
-            vBox.getChildren().add(getMenuBar());
+            vBox.getChildren().add(new BarControl());
         Scene scene = new Scene(vBox, 1920, 1080);
         gridPane.setPadding(new Insets(10));
         gridPane.setVgap(10);
@@ -247,7 +137,7 @@ public class App extends Application {
         vBox.getChildren().add(topBox);
 
         if (!Settings.getUseMenuBar())
-            lowerBox.getChildren().add(getButtonBox());
+            lowerBox.getChildren().add(new ButtonBoxControl());
 
         lowerBox.getChildren().add(gridPane);
         if (!onLaunch)
@@ -320,10 +210,6 @@ public class App extends Application {
         gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     public static void viewSettings() {
         primaryStage.setScene(setMainScene(false));
         gridPane.getChildren().clear();
@@ -340,5 +226,8 @@ public class App extends Application {
         primaryStage.setMaximized(true);
         Input.loadFromFile();
         primaryStage.show();
+    }
+    public static void main(String[] args) {
+        launch(args);
     }
 }
