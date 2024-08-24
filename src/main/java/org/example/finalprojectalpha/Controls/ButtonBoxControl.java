@@ -41,15 +41,6 @@ public class ButtonBoxControl extends VBox {
         button.setOnAction(_ -> App.viewBattles());
         return button;
     }
-    private static Button getSettingsButton() {
-        Button button = new Button("Settings");
-        setButtonGraphics(button);
-        button.setOnAction(_ -> {
-                    App.viewSettings();
-                }
-        );
-        return button;
-    }
 
     public ButtonBoxControl(){
         this.setSpacing(10);
@@ -57,8 +48,7 @@ public class ButtonBoxControl extends VBox {
                 getLoadFromFileButton(),
                 getSaveToFileButton(),
                 getUnitsViewButton(),
-                getBattlesViewButton(),
-                getSettingsButton()
+                getBattlesViewButton()
         );
     }
 }

@@ -31,7 +31,6 @@ public class App extends Application {
     public static final GridPane gridPane = new GridPane();
     private static final Node addNewUnitControlNode = new AddNewUnitControl();
     private static final Node addNewBattleControlNode = new AddNewBattleControl();
-    private static final Node[] settingsNodes = new Node[]{SettingsControl.getSearchControl(), SettingsControl.getInterfaceControl()};
 
     public static void save() {
         if (Battles.size() > 0 || Units.size() > 0) {
@@ -106,8 +105,6 @@ public class App extends Application {
     public static Scene setMainScene(Boolean onLaunch) {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
-        if (Settings.getUseMenuBar())
-            vBox.getChildren().add(new BarControl());
         Scene scene = new Scene(vBox, 1920, 1080);
         gridPane.setPadding(new Insets(10));
         gridPane.setVgap(10);
@@ -138,12 +135,10 @@ public class App extends Application {
 
         vBox.getChildren().add(topBox);
 
-        if (!Settings.getUseMenuBar())
-            lowerBox.getChildren().add(new ButtonBoxControl());
+        lowerBox.getChildren().add(new ButtonBoxControl());
 
         lowerBox.getChildren().add(gridPane);
-        if (!onLaunch)
-            vBox.getChildren().add(lowerBox);
+        vBox.getChildren().add(lowerBox);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(gridPane);
@@ -179,8 +174,6 @@ public class App extends Application {
             } else if (event.isControlDown() && event.getCode() == KeyCode.O) {
                 Input.loadFromFile();
                 event.consume();
-            } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
-                viewSettings();
             } else if (event.isControlDown() && event.getCode() == KeyCode.B) {
                 viewBattles();
             } else if (event.isControlDown() && event.getCode() == KeyCode.U) {
@@ -209,14 +202,6 @@ public class App extends Application {
         gridPane.add(addNewBattleControlNode, 0, Battles.nodesSize() + 1);
     }
 
-    public static void viewSettings() {
-        primaryStage.setScene(setMainScene(false));
-        gridPane.getChildren().clear();
-
-        gridPane.add(settingsNodes[0], 0, 0);
-        gridPane.add(settingsNodes[1], 0, 1);
-    }
-
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
@@ -226,6 +211,7 @@ public class App extends Application {
         Input.loadFromFile();
         primaryStage.show();
     }
+
     public static void main(String[] args) {
         launch(args);
     }

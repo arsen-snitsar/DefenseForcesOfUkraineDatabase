@@ -1,14 +1,10 @@
 package org.example.finalprojectalpha.Files;
 
-import org.example.finalprojectalpha.App;
-import org.example.finalprojectalpha.Controls.SettingsControl;
 import org.example.finalprojectalpha.Data.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Input {
 
@@ -71,16 +67,16 @@ public class Input {
             while ((line = reader.readLine()) != null && (!line.equals("End"))) {
                 if (line.substring(0, line.indexOf(" - ")).equals("Use binary search")) {
                     if (line.substring(line.indexOf("- ") + 2).equals("true")) {
-                        Settings.useBinarySearch();
+                        // Settings.useBinarySearch();
                     } else {
-                        Settings.useContainsSearch();
+                        // Settings.useContainsSearch();
                     }
                 }
                 if (line.substring(0, line.indexOf(" - ")).equals("Use menu bar"))
                     if (line.substring(line.indexOf("- ") + 2).equals("true")) {
-                        Settings.useMenuBar();
+                        // Settings.useMenuBar();
                     } else {
-                        Settings.useButtons();
+                        // Settings.useButtons();
                     }
             }
             reader.close();
