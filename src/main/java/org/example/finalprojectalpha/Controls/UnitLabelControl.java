@@ -51,58 +51,26 @@ public class UnitLabelControl extends UnitControl {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
         searchField.setFont(new Font(18));
-        if (Settings.getUseBinarySearch()) {
-            searchField.setOnAction(event -> {
-                gridPane.getChildren().removeAll(Units.getNodes());
-                sort(gridPane, unitsComparable);
-                for (Comparable comparable : unitsComparable) {
-                    HBox hBox = new UnitControl((Unit) comparable);
+
+        searchField.textProperty().addListener((_, _, newValue) -> {
+            gridPane.getChildren().removeAll(Units.getNodes());
+            Units.clearNodes();
+            gridPane.getChildren().remove(App.getAddNewUnitControlNode());
+            for (Comparable comparable : unitsComparable) {
+                Unit unit = (Unit) comparable;
+                if (unit.getName().toLowerCase().contains(newValue.toLowerCase())) {
+                    HBox hBox = new UnitControl(unit);
                     Units.addNode(hBox);
                     gridPane.add(hBox, 0, Units.nodesSize());
                 }
-                String key = searchField.getText();
-                searchField.clear();
-                ArrayList<Comparable> unitNames = new ArrayList<>();
-                for (Comparable comparable : unitsComparable) {
-                    unitNames.add(((Unit) comparable).getName());
-                }
-                int index = BinarySearch.search(unitNames, key);
-
-                gridPane.getChildren().removeAll(Units.getNodes());
-                Units.clearNodes();
-                gridPane.getChildren().remove(App.getAddNewUnitControlNode());
-                HBox hbox;
-                if (index != -1) {
-                    hbox = new UnitControl((Unit) unitsComparable.get(index));
-                } else {
-                    hbox = new UnitControl(new Unit("No such unit"));
-                    removeImageAndButton(hbox);
-                }
-                Units.addNode(hbox);
-                gridPane.add(hbox, 0, 1);
-                gridPane.add(App.getAddNewUnitControlNode(), 0, 2);
-            });
-        } else {
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                gridPane.getChildren().removeAll(Units.getNodes());
-                Units.clearNodes();
-                gridPane.getChildren().remove(App.getAddNewUnitControlNode());
-                for (Comparable comparable : unitsComparable) {
-                    Unit unit = (Unit) comparable;
-                    if (unit.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                        HBox hBox = new UnitControl(unit);
-                        Units.addNode(hBox);
-                        gridPane.add(hBox, 0, Units.nodesSize());
-                    }
-                }
-                gridPane.add(App.getAddNewUnitControlNode(), 0, Units.nodesSize() + 1);
-            });
-        }
+            }
+            gridPane.add(App.getAddNewUnitControlNode(), 0, Units.nodesSize() + 1);
+        });
 
         return searchField;
     }
 
-    public UnitLabelControl(GridPane gridPane){
+    public UnitLabelControl(GridPane gridPane) {
         super(new Unit("Unit Insignia | Unit name"));
         removeImageAndButton(this);
         this.setOnMouseClicked(_ -> {

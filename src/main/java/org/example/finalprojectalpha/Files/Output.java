@@ -101,21 +101,21 @@ public class Output {
             throw new RuntimeException(e);
         }
     }
-
-    private static void writeSettings(){
-        try{
-            FileWriter fileWriter = new FileWriter(data, true);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-
-            printWriter.println("Settings:");
-            printWriter.println("Use binary search - " + Settings.getUseBinarySearch());
-            printWriter.println("Use menu bar - " + Settings.getUseMenuBar());
-
-            printWriter.close();
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
-    }
+//
+//    private static void writeSettings(){
+//        try{
+//            FileWriter fileWriter = new FileWriter(data, true);
+//            PrintWriter printWriter = new PrintWriter(fileWriter);
+//
+//            // printWriter.println("Settings:");
+//            // printWriter.println("Use binary search - " + Settings.getUseBinarySearch());
+//            // printWriter.println("Use menu bar - " + Settings.getUseMenuBar());
+//
+//            printWriter.close();
+//        } catch (IOException e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     private static void writeEnd(){
         try{
@@ -134,7 +134,7 @@ public class Output {
         saveUnits();
         saveRelationships();
         saveFlows();
-        writeSettings();
+        //writeSettings();
         writeEnd();
     }
 }

@@ -55,52 +55,20 @@ public class BattleLabelControl extends BattleControl {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
         searchField.setFont(new Font(18));
-        if (Settings.getUseBinarySearch()) {
-            searchField.setOnAction(event -> {
-                gridPane.getChildren().removeAll(Battles.getNodes());
-                sort(gridPane, Battles.getComparable());
-                for (Comparable comparable : Battles.getComparable()) {
-                    HBox hBox = new BattleControl((Battle) comparable);
+        searchField.textProperty().addListener((_, _, newValue) -> {
+            gridPane.getChildren().removeAll(Battles.getNodes());
+            Battles.clearNodes();
+            gridPane.getChildren().remove(App.getAddNewBattleControlNode());
+            for (Comparable comparable : Battles.getComparable()) {
+                Battle battle = (Battle) comparable;
+                if (battle.getName().toLowerCase().contains(newValue.toLowerCase())) {
+                    HBox hBox = new BattleControl(battle);
                     Battles.addNode(hBox);
                     gridPane.add(hBox, 0, Battles.nodesSize());
                 }
-                String key = searchField.getText();
-                searchField.clear();
-                ArrayList<Comparable> battleNames = new ArrayList<>();
-                for (Comparable comparable : Battles.getComparable()) {
-                    battleNames.add(((Battle) comparable).getName());
-                }
-                int index = BinarySearch.search(battleNames, key);
-                gridPane.getChildren().removeAll(Battles.getNodes());
-                Battles.clearNodes();
-                gridPane.getChildren().remove(App.getAddNewBattleControlNode());
-                HBox hbox;
-                if (index != -1) {
-                    hbox = new BattleControl((Battle) Battles.getComparable().get(index));
-                } else {
-                    hbox = new BattleControl(new Battle("No such battle"));
-                    removeImageAndButton(hbox);
-                }
-                Battles.addNode(hbox);
-                gridPane.add(hbox, 0, 1);
-                gridPane.add(App.getAddNewBattleControlNode(), 0, 2);
-            });
-        } else {
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                gridPane.getChildren().removeAll(Battles.getNodes());
-                Battles.clearNodes();
-                gridPane.getChildren().remove(App.getAddNewBattleControlNode());
-                for (Comparable comparable : Battles.getComparable()) {
-                    Battle battle = (Battle) comparable;
-                    if (battle.getName().toLowerCase().contains(newValue.toLowerCase())) {
-                        HBox hBox = new BattleControl(battle);
-                        Battles.addNode(hBox);
-                        gridPane.add(hBox, 0, Battles.nodesSize());
-                    }
-                }
-                gridPane.add(App.getAddNewBattleControlNode(), 0, Battles.nodesSize() + 1);
-            });
-        }
+            }
+            gridPane.add(App.getAddNewBattleControlNode(), 0, Battles.nodesSize() + 1);
+        });
         return searchField;
     }
 
