@@ -1,8 +1,8 @@
 package org.example.finalprojectalpha.Controls;
 
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.example.finalprojectalpha.Data.*;
 import org.example.finalprojectalpha.App;
@@ -51,6 +51,17 @@ public class UnitLabelControl extends UnitControl {
         TextField searchField = new TextField();
         searchField.setPromptText("Search");
         searchField.setFont(new Font(18));
+        searchField.setStyle("-fx-background-color: " + Colors.getDark() + "; -fx-text-fill: " + Colors.getNeon() + ";");
+        searchField.setBorder(
+                new Border(
+                        new BorderStroke(
+                                Color.web(Colors.getNeon()),
+                                BorderStrokeStyle.SOLID,
+                                CornerRadii.EMPTY,
+                                new BorderWidths(2)
+                        )
+                )
+        );
 
         searchField.textProperty().addListener((_, _, newValue) -> {
             gridPane.getChildren().removeAll(Units.getNodes());

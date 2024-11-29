@@ -1,43 +1,41 @@
 package org.example.finalprojectalpha.Controls;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.example.finalprojectalpha.App;
+import org.example.finalprojectalpha.Data.Colors;
+import org.example.finalprojectalpha.Data.Styles;
 import org.example.finalprojectalpha.Files.Input;
 
 public class ButtonBoxControl extends VBox {
 
-    private static final int buttonWidth = 95;
-    private static final int buttonHeight = 25;
-
-    public static void setButtonGraphics(Button button) {
-        button.setFont(new Font(18));
-        button.setPrefHeight(buttonHeight);
-        button.setPrefWidth(buttonWidth);
-    }
-
     private static Button getLoadFromFileButton() {
         Button button = new Button("Load");
-        setButtonGraphics(button);
+        Styles.setButtonGraphics(button, false);
         button.setOnAction(_ -> Input.loadFromFile());
         return button;
     }
     private static Button getSaveToFileButton() {
         Button button = new Button("Save");
-        setButtonGraphics(button);
+        Styles.setButtonGraphics(button, false);
         button.setOnAction(_ -> App.save());
         return button;
     }
     private static Button getUnitsViewButton() {
         Button button = new Button("Units");
-        setButtonGraphics(button);
+        Styles.setButtonGraphics(button, false);
         button.setOnAction(_ -> App.viewUnits());
         return button;
     }
     private static Button getBattlesViewButton() {
         Button button = new Button("Battles");
-        setButtonGraphics(button);
+        Styles.setButtonGraphics(button, false);
         button.setOnAction(_ -> App.viewBattles());
         return button;
     }

@@ -5,6 +5,7 @@ import org.example.finalprojectalpha.Data.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Input {
 
@@ -24,6 +25,7 @@ public class Input {
                     }
                 }
             }
+            System.out.println("finished reading battles");
             while ((line = reader.readLine()) != null && (!line.equals("Relationships:"))) {
                 int dotIndex = line.indexOf(". ");
                 if (dotIndex != -1) {
@@ -34,6 +36,7 @@ public class Input {
                     }
                 }
             }
+            System.out.println("finished reading units");
             while ((line = reader.readLine()) != null && (!line.equals("Battle flows:"))) {
                 String unitName = line.substring(0, line.indexOf(":"));
                 Unit unit = Units.get(unitName);
@@ -53,9 +56,11 @@ public class Input {
                     }
                 }
             }
-            while ((line = reader.readLine()) != null && (!line.equals("Settings:"))) {
+            System.out.println("finished reading flows");
+            while (!Objects.equals(line = reader.readLine(), "End")) {
                 String battleName = line.substring(0, line.indexOf(":"));
-                Battle battle = Battles.getArrayList().get(Battles.findIndex(battleName));
+                Battle battle = Battles.get(Battles.findIndex(battleName));
+
                 if (battle != null) {
                     String[] events = line.substring(line.indexOf(":") + 2).split(", ");
                     for (String event : events) {
@@ -64,21 +69,7 @@ public class Input {
                     }
                 }
             }
-            while ((line = reader.readLine()) != null && (!line.equals("End"))) {
-                if (line.substring(0, line.indexOf(" - ")).equals("Use binary search")) {
-                    if (line.substring(line.indexOf("- ") + 2).equals("true")) {
-                        // Settings.useBinarySearch();
-                    } else {
-                        // Settings.useContainsSearch();
-                    }
-                }
-                if (line.substring(0, line.indexOf(" - ")).equals("Use menu bar"))
-                    if (line.substring(line.indexOf("- ") + 2).equals("true")) {
-                        // Settings.useMenuBar();
-                    } else {
-                        // Settings.useButtons();
-                    }
-            }
+            System.out.println("finished reading events");
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();

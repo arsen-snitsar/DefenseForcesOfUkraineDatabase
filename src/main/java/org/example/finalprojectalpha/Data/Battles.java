@@ -76,8 +76,8 @@ public class Battles {
         nodes.add(hBoxToAdd);
     }
 
-    public static int getIndexOf(Battle battle) {
-        return list.indexOf(battle);
+    public static Battle get(int index) {
+        return list.get(index);
     }
 
     public static void clearNodes() {

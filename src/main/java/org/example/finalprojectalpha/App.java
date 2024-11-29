@@ -3,6 +3,7 @@ package org.example.finalprojectalpha;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.example.finalprojectalpha.Controls.*;
 import org.example.finalprojectalpha.Data.*;
@@ -18,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -38,22 +38,32 @@ public class App extends Application {
         } else {
             Stage warning = new Stage();
             GridPane gridpane = new GridPane(500, 500);
+            gridpane.setBackground(
+                    new Background(
+                            new BackgroundFill(
+                                    Color.web(Colors.getDark()),
+                                    CornerRadii.EMPTY,
+                                    Insets.EMPTY
+                            )
+                    )
+            );
             gridpane.setPadding(new Insets(10));
             gridpane.setVgap(10);
             gridpane.setHgap(10);
             warning.setScene(new Scene(gridpane));
             Text text = new Text("There is no data in your app. Delete all data in the file?");
             text.setFont(new Font(18));
+            text.setFill(Color.web(Colors.getNeon()));
             gridpane.add(text, 0, 0);
 
             Button clear = new Button("Delete all data");
-            clear.setFont(new Font(18));
+            Styles.setButtonGraphics(clear, true);
             clear.setOnAction(_ -> {
                 Output.saveToFile();
                 warning.close();
             });
             Button cancel = new Button("Cancel saving");
-            cancel.setFont(new Font(18));
+            Styles.setButtonGraphics(cancel, true);
             cancel.setOnAction(_ -> warning.close());
 
             HBox box = new HBox(10);
@@ -65,7 +75,7 @@ public class App extends Application {
     }
 
     public static void viewBattles() {
-        primaryStage.setScene(setMainScene(false));
+        primaryStage.setScene(setMainScene());
         gridPane.getChildren().clear();
         Battles.clearNodes();
         Units.clearNodes();
@@ -80,14 +90,14 @@ public class App extends Application {
         }
     }
 
-    private static final Scene mainScene = setMainScene(true);
+    private static final Scene mainScene = setMainScene();
 
     public static Scene getMainScene() {
         return mainScene;
     }
 
     public static void viewUnits() {
-        primaryStage.setScene(setMainScene(false));
+        primaryStage.setScene(setMainScene());
         gridPane.getChildren().clear();
         Battles.clearNodes();
         Units.clearNodes();
@@ -102,8 +112,17 @@ public class App extends Application {
         }
     }
 
-    public static Scene setMainScene(Boolean onLaunch) {
+    public static Scene setMainScene() {
         VBox vBox = new VBox(10);
+        vBox.setBackground(
+                new Background(
+                        new BackgroundFill(
+                                Color.web(Colors.getDark()),
+                                CornerRadii.EMPTY,
+                                Insets.EMPTY
+                        )
+                )
+        );
         vBox.setPadding(new Insets(10));
         Scene scene = new Scene(vBox, 1920, 1080);
         gridPane.setPadding(new Insets(10));
@@ -111,8 +130,26 @@ public class App extends Application {
         gridPane.setHgap(10);
         HBox topBox = new HBox(10);
         topBox.setPadding(new Insets(10));
+        topBox.setBackground(
+                new Background(
+                        new BackgroundFill(
+                                Color.web(Colors.getDarkBlack()),
+                                CornerRadii.EMPTY,
+                                Insets.EMPTY
+                        )
+                )
+        );
         HBox lowerBox = new HBox(10);
         lowerBox.setPadding(new Insets(10));
+        lowerBox.setBackground(
+                new Background(
+                        new BackgroundFill(
+                                Color.web(Colors.getDark()),
+                                CornerRadii.EMPTY,
+                                Insets.EMPTY
+                        )
+                )
+        );
 
         ImageView coatOfArmsView = new ImageView(
                 new Image(
@@ -122,16 +159,15 @@ public class App extends Application {
         coatOfArmsView.setFitHeight(75);
         coatOfArmsView.setFitWidth(75);
         topBox.getChildren().add(coatOfArmsView);
-        Label defenseForcesOfUkraineLabel = new Label("Defense Forces of Ukraine");
-        defenseForcesOfUkraineLabel.setFont(new Font(18));
-        defenseForcesOfUkraineLabel.setAlignment(Pos.CENTER);
-        topBox.setBackground(
-                new Background(
-                        new BackgroundFill(Color.web("#D9D9D9"), CornerRadii.EMPTY, Insets.EMPTY)
-                ));
+        Label title = new Label("Defense Forces of Ukraine");
+        title.setFont(new Font(18));
+        title.setAlignment(Pos.CENTER);
+        title.setTextFill(Color.web(Colors.getNeon()));
+
         topBox.setAlignment(Pos.CENTER_LEFT);
 
-        topBox.getChildren().add(defenseForcesOfUkraineLabel);
+        topBox.getChildren().add(title);
+
 
         vBox.getChildren().add(topBox);
 
@@ -141,6 +177,24 @@ public class App extends Application {
         vBox.getChildren().add(lowerBox);
 
         ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setBackground(
+                new Background(
+                        new BackgroundFill(
+                                Color.web(Colors.getDark()),
+                                CornerRadii.EMPTY,
+                                Insets.EMPTY
+                        )
+                )
+        );
+        gridPane.setBackground(
+                new Background(
+                        new BackgroundFill(
+                                Color.web(Colors.getDark()),
+                                CornerRadii.EMPTY,
+                                Insets.EMPTY
+                        )
+                )
+        );
         scrollPane.setContent(gridPane);
         lowerBox.getChildren().add(scrollPane);
 
@@ -205,7 +259,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
-        primaryStage.setScene(setMainScene(true));
+        primaryStage.setScene(setMainScene());
         primaryStage.setTitle("Defense Forces of Ukraine Database");
         primaryStage.setMaximized(true);
         primaryStage.show();
